@@ -3,13 +3,14 @@ import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { buttonVariants } from "../../components/ui/button";
 import { cn } from "@/lib/utils";
+import { baseUrl } from "@/configs/site";
 
 const Header = () => {
 	return (
 		<header className="bg-background sticky top-0 flex h-14 shrink-0 items-center gap-2 z-10">
 			<div className="flex flex-1 items-center gap-8 px-3">
 				<Link
-					href="/"
+					href={`${baseUrl}/blog`}
 					className={cn(
 						buttonVariants({ variant: "ghost", size: "icon" }),
 						"rounded-full"

@@ -35,8 +35,8 @@ export function MusicPlayer({ inner = true }: { inner?: boolean }) {
 	const [isShuffled, setIsShuffled] = useState(false);
 	const [repeatMode, setRepeatMode] = useState(0); // 0: no repeat, 1: repeat all, 2: repeat one
 	const [favorites, setFavorites] = useState<string[]>([]);
-	const [showPlayer, setShowPlayer] = useState(true);
 	const isMobile = useIsMobile();
+	const [showPlayer, setShowPlayer] = useState(true);
 	const audioRef = useRef<HTMLAudioElement>(null);
 	const progressBarRef = useRef<HTMLDivElement>(null);
 
@@ -243,6 +243,12 @@ export function MusicPlayer({ inner = true }: { inner?: boolean }) {
 			};
 		}
 	}, [repeatMode]);
+
+	useEffect(() => {
+		if (isMobile && !inner) {
+			setShowPlayer(false);
+		}
+	}, [isMobile]);
 
 	return (
 		<>

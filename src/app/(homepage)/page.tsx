@@ -1,18 +1,15 @@
-"use client";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import TabsProfile from "@/layouts/profile/tabs";
+import Header from "@/layouts/profile/header";
+import Profile from "@/layouts/profile/profile";
 
-export default function Home() {
-	const router = useRouter();
-
-	useEffect(() => {
-		const hasVisited = localStorage.getItem("hasVisited");
-
-		if (!hasVisited) {
-			localStorage.setItem("hasVisited", "true"); // Đánh dấu đã truy cập
-			router.push("/profile"); // Chuyển hướng
-		}
-	}, []);
-
-	return <h1>Welcome to the homepage</h1>;
+export default function Page() {
+	return (
+		<>
+			<Header />
+			<Profile />
+			<div className="flex flex-1 flex-col gap-4">
+				<TabsProfile />
+			</div>
+		</>
+	);
 }

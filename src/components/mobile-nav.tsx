@@ -1,18 +1,21 @@
 "use client";
 
-import { Home, User, Bell, Mail } from "lucide-react";
+import { Pen, User, Bell, Mail, Sun, Moon } from "lucide-react";
+import { useTheme } from "next-themes";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
+import { baseUrl } from "@/configs/site";
 export default function MobileNav() {
 	const pathname = usePathname();
 
 	const navItems = [
-		{ icon: Home, label: "Home", href: "/" },
-		{ icon: User, label: "Profile", href: "/profile" },
+		{ icon: User, label: "Profile", href: `${baseUrl}/` },
+		{ icon: Pen, label: "Blog", href: `${baseUrl}/blog` },
 		{ icon: Bell, label: "Notification", href: "#" },
-		{ icon: Mail, label: "Contact", href: "/contact" },
+		{ icon: Mail, label: "Contact", href: `${baseUrl}/contact` },
 	];
+
+	const { theme, setTheme } = useTheme();
 
 	return (
 		<div className="fixed bottom-0 left-0 right-0 bg-background border-t border-border lg:hidden z-50">
@@ -32,6 +35,14 @@ export default function MobileNav() {
 						</Link>
 					);
 				})}
+				<div className="flex flex-col items-center justify-center py-3 flex-1">
+					{theme === "dark" ? (
+						<Sun className="w-6 h-6" onClick={() => setTheme("light")} />
+					) : (
+						<Moon className="w-6 h-6" onClick={() => setTheme("dark")} />
+					)}
+					<span className="text-xs mt-1">Theme</span>
+				</div>
 			</div>
 		</div>
 	);

@@ -15,6 +15,10 @@ import npm from "@/assets/images/techstack/npm.png";
 import postman from "@/assets/images/techstack/postman.png";
 import figma from "@/assets/images/techstack/figma.png";
 
+import { Pen, User, Inbox, MessageCircleQuestion } from "lucide-react";
+
+import { baseUrl } from "@/configs/site";
+
 export const admin = {
 	name: "Phùng Quang Anh",
 	email: "1020phug@gmail.com",
@@ -117,3 +121,123 @@ export const techStackDetails = [
 	github,
 	figma,
 ];
+
+export const data = {
+	navMain: [
+		{
+			title: "Profile",
+			url: `${baseUrl}/`,
+			icon: User,
+		},
+		{
+			title: "Blog",
+			url: `${baseUrl}/blog`,
+			icon: Pen,
+		},
+		{
+			title: "Contact",
+			url: `${baseUrl}/contact`,
+			icon: Inbox,
+			badge: "10",
+		},
+	],
+	navSecondary: [
+		{
+			title: "Help",
+			url: "#",
+			icon: MessageCircleQuestion,
+		},
+	],
+	projects: [
+		{
+			name: "Personal Blog & Self-building CMS",
+			url: "https://1020blog.vercel.app",
+			emoji: "📝",
+			image:
+				"https://user-images.githubusercontent.com/47711231/215403000-7b9c7c9d-1b9c-4f9d-a8a4-3f7c5b1d9d9c.png",
+		},
+		{
+			name: "Dating & Matching App for University Students",
+			url: "https://soulsync-fe.pages.dev",
+			emoji: "💌",
+			image:
+				"https://user-images.githubusercontent.com/47711231/215403000-7b9c7c9d-1b9c-4f9d-a8a4-3f7c5b1d9d9c.png",
+		},
+
+		{
+			name: "CodeFest 2025 Landing Page",
+			url: "https://codefest2025.jsclub.dev",
+			emoji: "🧑‍💻",
+			image:
+				"https://user-images.githubusercontent.com/47711231/215403000-7b9c7c9d-1b9c-4f9d-a8a4-3f7c5b1d9d9c.png",
+		},
+	],
+	workspaces: [
+		{
+			name: "Education",
+			emoji: "🏫",
+			pages: [
+				{
+					name: "FPT University - Hola Campus",
+					url: "#",
+					emoji: "🤖",
+				},
+				{
+					name: "大手前大学・情報学部",
+					url: "#",
+					emoji: "💻",
+				},
+				{
+					name: "エール学園日本語教育学科",
+					url: "#",
+					emoji: "🇯🇵",
+				},
+			],
+		},
+		{
+			name: "Qualifications",
+			emoji: "🎖️",
+			pages: [
+				{
+					name: "JLPT N2 (07/2019)",
+					url: "#",
+					emoji: "🎯",
+				},
+				{
+					name: "JLPT N3 (12/2018)",
+
+					url: "#",
+					emoji: "🧠",
+				},
+				{
+					name: "JLPT N5 (02/2018)",
+					url: "#",
+					emoji: "🤝",
+				},
+			],
+		},
+		{
+			name: "Work Experience",
+			emoji: "💼",
+			pages: [
+				{
+					name: "Primary Japanese Tutor",
+
+					url: "#",
+					emoji: "🧑‍💼",
+				},
+				{
+					name: "Primary Japanese Teacher",
+
+					url: "#",
+					emoji: "🧑‍🏫",
+				},
+				{
+					name: "Head Chef at 松屋",
+					url: "#",
+					emoji: "🍲",
+				},
+			],
+		},
+	],
+};

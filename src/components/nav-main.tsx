@@ -9,9 +9,9 @@ import {
 	useSidebar,
 } from "@/components/ui/sidebar";
 import { usePathname } from "next/navigation";
-import { useEffect } from "react";
 import { baseUrl } from "@/configs/site";
 import Link from "next/link";
+import Searchbar from "./ui/search-bar";
 
 export function NavMain({
 	items,
@@ -28,15 +28,11 @@ export function NavMain({
 	const isActived = (url: string) => {
 		return `${baseUrl}${path}` === url;
 	};
-	useEffect(() => {
-		console.log(path);
-	}, [path]);
+
 	return (
 		<SidebarMenu>
-			<SidebarMenuItem>
-				<SidebarMenuButton disabled className={`${open ? "block" : "hidden"}`}>
-					😎 Welcome to AnhDaiK&#39;s Blog
-				</SidebarMenuButton>
+			<SidebarMenuItem className={`${open ? "block" : "hidden"}}`}>
+				<Searchbar />
 			</SidebarMenuItem>
 			<SidebarSeparator className={`${open ? "block" : "hidden"} my-2`} />
 			{items.map((item) => (
