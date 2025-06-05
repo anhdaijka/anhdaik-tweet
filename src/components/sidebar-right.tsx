@@ -1,8 +1,5 @@
 import * as React from "react";
-import { Plus } from "lucide-react";
 
-import { Calendars } from "@/components/calendars";
-import { DatePicker } from "@/components/date-picker";
 import { NavUser } from "@/components/nav-user";
 import {
 	Sidebar,
@@ -17,23 +14,7 @@ import {
 } from "@/components/ui/sidebar";
 import { admin } from "@/lib/data";
 
-// This is sample data.
-const data = {
-	calendars: [
-		{
-			name: "My Calendars",
-			items: ["Personal", "Work", "Family"],
-		},
-		{
-			name: "Favorites",
-			items: ["Holidays", "Birthdays"],
-		},
-		{
-			name: "Other",
-			items: ["Travel", "Reminders", "Deadlines"],
-		},
-	],
-};
+import { MusicPlayer } from "./music-player";
 
 export function SidebarRight({
 	...props
@@ -41,26 +22,44 @@ export function SidebarRight({
 	return (
 		<Sidebar
 			collapsible="none"
-			className="sticky top-0 hidden h-svh border-l lg:flex"
+			className="sticky top-0 hidden h-svh border-l lg:flex overflow-hidden"
 			{...props}
+			style={
+				{
+					"--sidebar-width": "calc(16rem + 10%)",
+				} as React.CSSProperties
+			}
 		>
 			<SidebarHeader className="border-sidebar-border h-16 border-b">
 				{admin && <NavUser user={admin} />}
 			</SidebarHeader>
-			<SidebarContent>
-				<DatePicker />
-				<SidebarSeparator className="mx-0" />
-				<Calendars calendars={data.calendars} />
+			<SidebarContent className="py-4 items-center overflow-hidden">
+				<div className="w-full">
+					<h3 className="font-semibold text-card-foreground mb-2 px-4 text-2xl">
+						What I&apos;m
+					</h3>
+					{admin.interests.map((interest, index) => (
+						<div
+							key={index}
+							className="rounded cursor-pointer w-full hover:bg-card px-4 py-2"
+						>
+							<div className="text-card-foreground/60 text-sm">
+								Interested in
+							</div>
+							<div className="font-semibold text-card-foreground">
+								{interest}
+							</div>
+							<div className="text-card-foreground/60 text-sm">
+								{Math.floor(Math.random() * 1000)} posts
+							</div>
+						</div>
+					))}
+				</div>
+
+				<SidebarSeparator className="my-2" />
 			</SidebarContent>
-			<SidebarFooter>
-				<SidebarMenu>
-					<SidebarMenuItem>
-						<SidebarMenuButton>
-							<Plus />
-							<span>New Calendar</span>
-						</SidebarMenuButton>
-					</SidebarMenuItem>
-				</SidebarMenu>
+			<SidebarFooter className="overflow-hidden">
+				<MusicPlayer inner={true} />
 			</SidebarFooter>
 		</Sidebar>
 	);

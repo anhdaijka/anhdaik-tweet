@@ -65,3 +65,8 @@ export const siteConfig = {
 		facebook: "https://www.facebook.com/anhdaika",
 	},
 };
+
+export const baseUrl =
+	process.env.NODE_ENV === "production"
+		? "https://anhdaik.vercel.app"
+		: "http://localhost:3000";

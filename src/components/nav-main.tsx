@@ -1,13 +1,17 @@
 "use client";
 
 import { type LucideIcon } from "lucide-react";
-import { Search } from "lucide-react";
-import { InputWithButton } from "./ui/input-with-button";
 import {
 	SidebarMenu,
 	SidebarMenuButton,
 	SidebarMenuItem,
+	SidebarSeparator,
+	useSidebar,
 } from "@/components/ui/sidebar";
+import { usePathname } from "next/navigation";
+import { useEffect } from "react";
+import { baseUrl } from "@/configs/site";
+import Link from "next/link";
 
 export function NavMain({
 	items,
@@ -19,18 +23,29 @@ export function NavMain({
 		isActive?: boolean;
 	}[];
 }) {
+	const path = usePathname();
+	const { open } = useSidebar();
+	const isActived = (url: string) => {
+		return `${baseUrl}${path}` === url;
+	};
+	useEffect(() => {
+		console.log(path);
+	}, [path]);
 	return (
 		<SidebarMenu>
 			<SidebarMenuItem>
-				<InputWithButton type="search" placeholder="Search" icon={Search} />
+				<SidebarMenuButton disabled className={`${open ? "block" : "hidden"}`}>
+					😎 Welcome to AnhDaiK&#39;s Blog
+				</SidebarMenuButton>
 			</SidebarMenuItem>
+			<SidebarSeparator className={`${open ? "block" : "hidden"} my-2`} />
 			{items.map((item) => (
 				<SidebarMenuItem key={item.title}>
-					<SidebarMenuButton asChild isActive={item.isActive}>
-						<a href={item.url}>
+					<SidebarMenuButton asChild isActive={isActived(item.url)}>
+						<Link href={item.url}>
 							<item.icon />
 							<span>{item.title}</span>
-						</a>
+						</Link>
 					</SidebarMenuButton>
 				</SidebarMenuItem>
 			))}

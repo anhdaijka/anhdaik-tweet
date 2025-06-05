@@ -6,7 +6,7 @@ import {
 	ChevronsUpDown,
 	CreditCard,
 	LogOut,
-	Sparkles,
+	SquareDashedBottomCode,
 } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -85,9 +85,9 @@ export function NavUser({
 						</DropdownMenuLabel>
 						<DropdownMenuSeparator />
 						<DropdownMenuGroup>
-							<DropdownMenuItem>
-								<Sparkles />
-								Upgrade to Pro
+							<DropdownMenuItem disabled>
+								<SquareDashedBottomCode />
+								Dashboard
 							</DropdownMenuItem>
 						</DropdownMenuGroup>
 						<DropdownMenuSeparator />

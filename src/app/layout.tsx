@@ -3,11 +3,12 @@ import { sourceSans } from "@/configs/fonts";
 import "./globals.css";
 import { siteConfig } from "@/configs/site";
 import { ThemeProvider } from "@/components/theme-provider";
-import Header from "@/components/header";
 import { SidebarLeft } from "@/components/sidebar-left";
 import { SidebarRight } from "@/components/sidebar-right";
 
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+import MobileNav from "@/components/mobile-nav";
+import { MusicPlayer } from "@/components/music-player";
 
 export const metadata: Metadata = {
 	title: siteConfig.name,
@@ -30,12 +31,11 @@ export default function RootLayout({
 				>
 					<SidebarProvider>
 						<SidebarLeft />
-						<SidebarInset>
-							<Header />
-							{children}
-						</SidebarInset>
+						<SidebarInset>{children}</SidebarInset>
 						<SidebarRight />
 					</SidebarProvider>
+					<MobileNav />
+					<MusicPlayer inner={false} />
 				</ThemeProvider>
 			</body>
 		</html>

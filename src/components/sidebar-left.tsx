@@ -21,22 +21,23 @@ import {
 	SidebarRail,
 } from "@/components/ui/sidebar";
 
+import { baseUrl } from "@/configs/site";
+
 const data = {
 	navMain: [
 		{
 			title: "Home",
-			url: "#",
+			url: `${baseUrl}/`,
 			icon: Home,
 		},
 		{
 			title: "Profile",
-			url: "#",
+			url: `${baseUrl}/profile`,
 			icon: User,
-			isActive: true,
 		},
 		{
 			title: "Contact",
-			url: "#",
+			url: `${baseUrl}/contact`,
 			icon: Inbox,
 			badge: "10",
 		},

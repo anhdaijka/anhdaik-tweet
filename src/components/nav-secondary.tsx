@@ -5,6 +5,7 @@ import {
 	Trash2,
 	Sun,
 	Moon,
+	AppWindow,
 	type LucideIcon,
 } from "lucide-react";
 import {
@@ -16,6 +17,7 @@ import {
 	SidebarMenuItem,
 	SidebarMenuAction,
 	useSidebar,
+	SidebarTrigger,
 } from "@/components/ui/sidebar";
 
 import {
@@ -40,7 +42,7 @@ export function NavSecondary({
 		badge?: React.ReactNode;
 	}[];
 } & React.ComponentPropsWithoutRef<typeof SidebarGroup>) {
-	const { isMobile } = useSidebar();
+	const { isMobile, toggleSidebar, state } = useSidebar();
 	const { theme, setTheme } = useTheme();
 	const [showStatusBar, setShowStatusBar] = useState<Checked>(true);
 
@@ -48,6 +50,13 @@ export function NavSecondary({
 		<SidebarGroup {...props}>
 			<SidebarGroupContent>
 				<SidebarMenu>
+					{state === "collapsed" && (
+						<SidebarMenuItem>
+							<SidebarMenuButton asChild>
+								<SidebarTrigger />
+							</SidebarMenuButton>
+						</SidebarMenuItem>
+					)}
 					{items.map((item) => (
 						<SidebarMenuItem key={item.title}>
 							<SidebarMenuButton asChild>
@@ -92,6 +101,10 @@ export function NavSecondary({
 											<Moon className="text-muted-foreground" />
 										</DropdownMenuCheckboxItem>
 										<DropdownMenuSeparator />
+										<DropdownMenuItem onClick={toggleSidebar}>
+											<AppWindow className="text-muted-foreground" />
+											<span>Hide Sidebar</span>
+										</DropdownMenuItem>
 										<DropdownMenuItem disabled>
 											<Trash2 className="text-muted-foreground" />
 											<span>Clear Local Storage</span>
