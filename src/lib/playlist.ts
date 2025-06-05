@@ -4,7 +4,7 @@ const playlist = [
 		title: "Breakeven",
 		artist: "The Script",
 		album: "The Script",
-		duration: 180,
+		duration: 262,
 		cover:
 			"https://ia803400.us.archive.org/32/items/the-script-the-script-cd-japan-2008-flac/Cover.jpg?cnt=0",
 		audioSrc:
@@ -15,7 +15,7 @@ const playlist = [
 		title: "The Man Who Can't Be Moved",
 		artist: "The Script",
 		album: "The Script",
-		duration: 210,
+		duration: 241,
 		cover:
 			"https://ia803400.us.archive.org/32/items/the-script-the-script-cd-japan-2008-flac/Cover.jpg?cnt=0",
 		audioSrc:
@@ -26,7 +26,7 @@ const playlist = [
 		title: "No Good In Goodbye",
 		artist: "The Script",
 		album: "Science & Faith",
-		duration: 195,
+		duration: 239,
 		cover:
 			"https://upload.wikimedia.org/wikipedia/en/2/2b/The_Script_Science_%26_Faith.jpg",
 		audioSrc:
@@ -37,7 +37,7 @@ const playlist = [
 		title: "Man On The Wire",
 		artist: "The Script",
 		album: "Science & Faith",
-		duration: 195,
+		duration: 246,
 		cover:
 			"https://upload.wikimedia.org/wikipedia/en/2/2b/The_Script_Science_%26_Faith.jpg",
 		audioSrc:
@@ -48,7 +48,7 @@ const playlist = [
 		title: "Before The Worst",
 		artist: "The Script",
 		album: "The Script",
-		duration: 200,
+		duration: 204,
 		cover:
 			"https://ia803400.us.archive.org/32/items/the-script-the-script-cd-japan-2008-flac/Cover.jpg?cnt=0",
 		audioSrc:

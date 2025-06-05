@@ -1,13 +1,7 @@
 "use client";
 
 import * as React from "react";
-import {
-	Home,
-	User,
-	Inbox,
-	MessageCircleQuestion,
-	Settings2,
-} from "lucide-react";
+import { Home, User, Inbox, MessageCircleQuestion } from "lucide-react";
 
 import { NavProjects } from "@/components/nav-projects";
 import { NavMain } from "@/components/nav-main";
@@ -43,11 +37,6 @@ const data = {
 		},
 	],
 	navSecondary: [
-		{
-			title: "Settings",
-			url: "#",
-			icon: Settings2,
-		},
 		{
 			title: "Help",
 			url: "#",

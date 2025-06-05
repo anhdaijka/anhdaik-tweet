@@ -263,11 +263,12 @@ export function MusicPlayer({ inner = true }: { inner?: boolean }) {
 			{/* Main player container */}
 			<div
 				className={cn(
-					"bottom-0 md:bottom-0 left-0 right-0 z-50 flex flex-col bg-background text-primary transition-all shadow-2xl duration-300 ease-in-out",
+					"left-0 right-0 z-[49] flex flex-col bg-background text-primary transition-all shadow-2xl duration-300 ease-in-out",
 					expanded && "w-full h-[calc(100vh-4rem)]",
 					showPlayer ? "translate-x-0" : "translate-x-full",
-					!inner ? "fixed bottom-16" : "absolute",
-					!inner && !isMobile && "hidden"
+					!inner && isMobile ? "fixed bottom-16" : "absolute",
+					!inner && !isMobile && "hidden",
+					inner && "bottom-0"
 				)}
 			>
 				{/* Hidden audio element */}

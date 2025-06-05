@@ -24,7 +24,7 @@ export default function MobileNav() {
 							key={item.label}
 							href={item.href}
 							className={`flex flex-col items-center justify-center py-3 flex-1 ${
-								isActive ? "text-primary" : "text-primary-foreground"
+								isActive ? "text-primary" : "text-foreground"
 							}`}
 						>
 							<item.icon className="w-6 h-6" />

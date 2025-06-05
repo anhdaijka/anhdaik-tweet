@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import {
-	MoreHorizontal,
+	Settings2,
 	ToggleRight,
 	Trash2,
 	Sun,
@@ -57,6 +57,51 @@ export function NavSecondary({
 							</SidebarMenuButton>
 						</SidebarMenuItem>
 					)}
+					<SidebarMenuItem>
+						<DropdownMenu>
+							<DropdownMenuTrigger asChild>
+								<SidebarMenuButton>
+									<Settings2 /> Settings
+								</SidebarMenuButton>
+							</DropdownMenuTrigger>
+							<DropdownMenuContent
+								className="w-56 rounded-lg"
+								side={isMobile ? "bottom" : "right"}
+								align={isMobile ? "end" : "start"}
+							>
+								<DropdownMenuItem disabled>
+									<ToggleRight className="text-muted-foreground" />
+									<span>Change Theme</span>
+								</DropdownMenuItem>
+								<DropdownMenuSeparator />
+								<DropdownMenuCheckboxItem
+									checked={theme === "Light" && showStatusBar}
+									onCheckedChange={setShowStatusBar}
+									onClick={() => setTheme("Light")}
+								>
+									<span>Light</span>
+									<Sun className="text-muted-foreground" />
+								</DropdownMenuCheckboxItem>
+								<DropdownMenuCheckboxItem
+									checked={theme === "dark" && showStatusBar}
+									onCheckedChange={setShowStatusBar}
+									onClick={() => setTheme("dark")}
+								>
+									<span>Dark</span>
+									<Moon className="text-muted-foreground" />
+								</DropdownMenuCheckboxItem>
+								<DropdownMenuSeparator />
+								<DropdownMenuItem onClick={toggleSidebar}>
+									<AppWindow className="text-muted-foreground" />
+									<span>Hide Sidebar</span>
+								</DropdownMenuItem>
+								<DropdownMenuItem disabled>
+									<Trash2 className="text-muted-foreground" />
+									<span>Clear Local Storage</span>
+								</DropdownMenuItem>
+							</DropdownMenuContent>
+						</DropdownMenu>
+					</SidebarMenuItem>
 					{items.map((item) => (
 						<SidebarMenuItem key={item.title}>
 							<SidebarMenuButton asChild>
@@ -66,52 +111,6 @@ export function NavSecondary({
 								</a>
 							</SidebarMenuButton>
 							{item.badge && <SidebarMenuBadge>{item.badge}</SidebarMenuBadge>}
-							{item.title === "Settings" && (
-								<DropdownMenu>
-									<DropdownMenuTrigger asChild>
-										<SidebarMenuAction>
-											<MoreHorizontal />
-											<span className="sr-only">More</span>
-										</SidebarMenuAction>
-									</DropdownMenuTrigger>
-									<DropdownMenuContent
-										className="w-56 rounded-lg"
-										side={isMobile ? "bottom" : "right"}
-										align={isMobile ? "end" : "start"}
-									>
-										<DropdownMenuItem disabled>
-											<ToggleRight className="text-muted-foreground" />
-											<span>Change Theme</span>
-										</DropdownMenuItem>
-										<DropdownMenuSeparator />
-										<DropdownMenuCheckboxItem
-											checked={theme === "Light" && showStatusBar}
-											onCheckedChange={setShowStatusBar}
-											onClick={() => setTheme("Light")}
-										>
-											<span>Light</span>
-											<Sun className="text-muted-foreground" />
-										</DropdownMenuCheckboxItem>
-										<DropdownMenuCheckboxItem
-											checked={theme === "dark" && showStatusBar}
-											onCheckedChange={setShowStatusBar}
-											onClick={() => setTheme("dark")}
-										>
-											<span>Dark</span>
-											<Moon className="text-muted-foreground" />
-										</DropdownMenuCheckboxItem>
-										<DropdownMenuSeparator />
-										<DropdownMenuItem onClick={toggleSidebar}>
-											<AppWindow className="text-muted-foreground" />
-											<span>Hide Sidebar</span>
-										</DropdownMenuItem>
-										<DropdownMenuItem disabled>
-											<Trash2 className="text-muted-foreground" />
-											<span>Clear Local Storage</span>
-										</DropdownMenuItem>
-									</DropdownMenuContent>
-								</DropdownMenu>
-							)}
 						</SidebarMenuItem>
 					))}
 				</SidebarMenu>
