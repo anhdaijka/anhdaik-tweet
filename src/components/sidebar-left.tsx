@@ -57,7 +57,7 @@ const data = {
 	projects: [
 		{
 			name: "Personal Blog & Self-building CMS",
-			url: "https://anhdaik.vercel.app",
+			url: "https://1020blog.vercel.app",
 			emoji: "📝",
 		},
 		{
