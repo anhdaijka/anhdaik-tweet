@@ -70,3 +70,5 @@ export const baseUrl =
 	process.env.NODE_ENV === "production"
 		? "https://anhdaik.vercel.app"
 		: "http://localhost:3000";
+
+export const APIUrl = "https://better-wonder-c9d27dd40d.strapiapp.com/api";

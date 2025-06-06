@@ -26,7 +26,7 @@ export function SidebarRight({
 			{...props}
 			style={
 				{
-					"--sidebar-width": "calc(16rem + 10%)",
+					"--sidebar-width": "calc(16rem + 8%)",
 				} as React.CSSProperties
 			}
 		>
@@ -58,8 +58,8 @@ export function SidebarRight({
 
 				<SidebarSeparator className="my-2" />
 			</SidebarContent>
-			<SidebarFooter className="overflow-hidden">
-				<MusicPlayer inner={true} />
+			<SidebarFooter>
+				<MusicPlayer />
 			</SidebarFooter>
 		</Sidebar>
 	);

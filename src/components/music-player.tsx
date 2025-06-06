@@ -257,8 +257,8 @@ export function MusicPlayer({ inner = true }: { inner?: boolean }) {
 				<button
 					onClick={togglePlayerVisibility}
 					className={cn(
-						"fixed bottom-4 md:bottom-4 right-4 z-50 p-3 rounded-full bg-primary text-primary-foreground shadow-lg hover:bg-primary/90 transition-all",
-						!inner && "bottom-20"
+						"fixed right-4 bottom-4 z-50 p-3 rounded-full bg-primary text-primary-foreground shadow-lg hover:bg-primary/90 transition-all",
+						!inner && "bottom-[5rem]"
 					)}
 					aria-label="Show music player"
 				>
@@ -274,7 +274,7 @@ export function MusicPlayer({ inner = true }: { inner?: boolean }) {
 					showPlayer ? "translate-x-0" : "translate-x-full",
 					!inner && isMobile ? "fixed bottom-16" : "absolute",
 					!inner && !isMobile && "hidden",
-					inner && "bottom-0"
+					inner && "bottom-1"
 				)}
 			>
 				{/* Hidden audio element */}

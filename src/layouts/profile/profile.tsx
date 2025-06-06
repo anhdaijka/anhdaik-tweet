@@ -55,13 +55,13 @@ const Profile = () => {
 				</div>
 				<div className="flex items-center gap-4 text-md text-secondary-foreground mt-2">
 					<p className="flex items-center gap-1">
-						<span className="font-semibold">4</span>
+						<span className="font-semibold">3</span>
 						<span className="text-secondary-foreground/70">Projects</span>
 					</p>
 					<p className="flex items-center gap-1">
-						<span className="font-semibold">1</span>
+						<span className="font-semibold">9</span>
 						<span className="text-secondary-foreground/70">
-							Year Experience
+							Months Experience
 						</span>
 					</p>
 				</div>

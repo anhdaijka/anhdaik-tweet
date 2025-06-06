@@ -15,6 +15,22 @@ import npm from "@/assets/images/techstack/npm.png";
 import postman from "@/assets/images/techstack/postman.png";
 import figma from "@/assets/images/techstack/figma.png";
 
+// Project images
+import blog from "@/assets/images/blog.png";
+import chat from "@/assets/images/chat.png";
+import codefest from "@/assets/images/codefest.png";
+
+//Personal images
+import anh1 from "@/assets/images/personal/1.jpg";
+import anh2 from "@/assets/images/personal/2.jpg";
+import anh3 from "@/assets/images/personal/3.jpg";
+import anh4 from "@/assets/images/personal/4.jpg";
+import anh5 from "@/assets/images/personal/5.jpg";
+import anh6 from "@/assets/images/personal/6.jpg";
+import anh7 from "@/assets/images/personal/7.jpg";
+import anh8 from "@/assets/images/personal/8.jpg";
+import anh9 from "@/assets/images/personal/9.jpg";
+
 import { Pen, User, Inbox, MessageCircleQuestion } from "lucide-react";
 
 import { baseUrl } from "@/configs/site";
@@ -25,7 +41,7 @@ export const admin = {
 	username: "anhdaik",
 	ocupation: "Software Engineer",
 	avatar: avatar.src,
-	links: {
+	as: {
 		github: "https://github.com/anhdaik",
 		instagram: "https://www.instagram.com/anhdaik",
 		facebook: "https://www.facebook.com/anhdaika",
@@ -153,23 +169,77 @@ export const data = {
 			name: "Personal Blog & Self-building CMS",
 			url: "https://1020blog.vercel.app",
 			emoji: "📝",
-			image:
-				"https://user-images.githubusercontent.com/47711231/215403000-7b9c7c9d-1b9c-4f9d-a8a4-3f7c5b1d9d9c.png",
+			image: blog.src,
+			tech: [
+				{
+					name: "Next.js",
+					url: "https://nextjs.org/",
+				},
+				{
+					name: "TailwindCSS",
+					url: "https://tailwindcss.com/",
+				},
+				{
+					name: "MongoDB",
+					url: "https://www.mongodb.com/",
+				},
+				{
+					name: "Prisma",
+					url: "https://www.prisma.io/",
+				},
+			],
+			description: `My Personal blog and self-building CMS using Next.js, TailwindCSS, MongoDB, Prisma, and Vercel. <br/> See more at <a href="https://1020blog.vercel.app" target="_blank" rel="noopener noreferrer" class="font-medium text-primary hover:underline">Here</a>`,
 		},
 		{
 			name: "Dating & Matching App for University Students",
 			url: "https://soulsync-fe.pages.dev",
 			emoji: "💌",
-			image:
-				"https://user-images.githubusercontent.com/47711231/215403000-7b9c7c9d-1b9c-4f9d-a8a4-3f7c5b1d9d9c.png",
+			image: chat.src,
+			tech: [
+				{
+					name: "React (Vite)",
+					url: "https://vitejs.dev/",
+				},
+				{
+					name: "TailwindCSS",
+					url: "https://tailwindcss.com/",
+				},
+				{
+					name: "SocketIO",
+					url: "https://socket.io/",
+				},
+				{
+					name: "MongoDB",
+					url: "https://www.mongodb.com/",
+				},
+				{
+					name: "Express.js",
+					url: "https://expressjs.com/",
+				},
+			],
+			description: `My Dating & Matching App for University Students using React (Vite), TailwindCSS, SocketIO, MongoDB, Express.js, and Vercel. <br/> See more at <a href="https://soulsync-fe.pages.dev" target="_blank" rel="noopener noreferrer" class="font-medium text-primary hover:underline">Here</a>`,
 		},
 
 		{
 			name: "CodeFest 2025 Landing Page",
 			url: "https://codefest2025.jsclub.dev",
 			emoji: "🧑‍💻",
-			image:
-				"https://user-images.githubusercontent.com/47711231/215403000-7b9c7c9d-1b9c-4f9d-a8a4-3f7c5b1d9d9c.png",
+			image: codefest.src,
+			tech: [
+				{
+					name: "React (Vite)",
+					url: "https://vitejs.dev/",
+				},
+				{
+					name: "TailwindCSS",
+					url: "https://tailwindcss.com/",
+				},
+				{
+					name: "Framer Motion",
+					url: "https://www.framer.com/motion/",
+				},
+			],
+			description: `My CodeFest 2025 Landing Page using React (Vite), TailwindCSS, and Framer Motion. <br/> See more at <a href="https://codefest2025.jsclub.dev" target="_blank" rel="noopener noreferrer" class="font-medium text-primary hover:underline">Here</a>`,
 		},
 	],
 	workspaces: [
@@ -241,3 +311,15 @@ export const data = {
 		},
 	],
 };
+
+export const gallery = [
+	anh1.src,
+	anh2.src,
+	anh3.src,
+	anh4.src,
+	anh5.src,
+	anh6.src,
+	anh7.src,
+	anh8.src,
+	anh9.src,
+];

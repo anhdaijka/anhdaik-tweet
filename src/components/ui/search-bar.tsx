@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect, useState } from "react";
 
 import { Search, SquareArrowOutUpRight } from "lucide-react";
@@ -5,10 +6,13 @@ import { Search, SquareArrowOutUpRight } from "lucide-react";
 // data
 import { data } from "@/lib/data";
 import Link from "next/link";
+import { useSidebar } from "./sidebar";
+import { cn } from "@/lib/utils";
 const Searchbar = () => {
 	const [filteredData, setFilteredData] = useState(data.projects);
 	const [inputText, setInputText] = useState("");
-	const [inputFocus, setInputFocus] = useState(true);
+	const [inputFocus, setInputFocus] = useState(false);
+	const { state } = useSidebar();
 
 	useEffect(() => {
 		const filtered = data.projects?.filter((project) => {
@@ -53,7 +57,12 @@ const Searchbar = () => {
 	}, []);
 
 	return (
-		<div className="relative w-full product_search_input">
+		<div
+			className={cn(
+				"relative w-full product_search_input",
+				state === "collapsed" && "hidden"
+			)}
+		>
 			<input
 				className="px-4 py-2 border-border text-sm bg-transparent text-secondary-foreground placeholder:text-secondary-foreground border rounded-md w-full pl-[40px] outline-none focus:border-primary focus:text-primary"
 				placeholder="Search..."
@@ -67,7 +76,7 @@ const Searchbar = () => {
 					inputFocus
 						? "opacity-100 h-auto translate-y-0 mt-2"
 						: "translate-y-[-10px] opacity-0 h-0"
-				} product_search_bar bg-background shadow-2xs w-full transition-all duration-500 overflow-hidden flex flex-col rounded-md border border-border absolute top-full left-0 z-10`}
+				} product_search_bar bg-background shadow-2xl shadow-primary w-full transition-all duration-500 overflow-hidden flex flex-col rounded-md border border-border absolute top-full left-0 z-10`}
 			>
 				{filteredData?.map((project, index) => (
 					<div
