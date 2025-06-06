@@ -8,6 +8,7 @@ import {
 	Sun,
 	Moon,
 	AppWindow,
+	LogIn,
 	type LucideIcon,
 } from "lucide-react";
 import { NavProjects } from "@/components/nav-projects";
@@ -19,6 +20,7 @@ import {
 	SidebarContent,
 	SidebarFooter,
 	SidebarHeader,
+	SidebarMenu,
 	SidebarMenuButton,
 	SidebarMenuItem,
 	SidebarRail,
@@ -39,6 +41,10 @@ import { admin, data } from "@/lib/data";
 import { NavUser } from "./nav-user";
 import { useTheme } from "next-themes";
 import { DropdownMenuCheckboxItemProps } from "@radix-ui/react-dropdown-menu";
+import { User } from "@supabase/supabase-js";
+import { createClient } from "@/utils/supabase/client";
+import Link from "next/link";
+import { baseUrl } from "@/configs/site";
 type Checked = DropdownMenuCheckboxItemProps["checked"];
 export function SidebarLeft({
 	...props
@@ -46,6 +52,20 @@ export function SidebarLeft({
 	const { isMobile, toggleSidebar, state } = useSidebar();
 	const { theme, setTheme } = useTheme();
 	const [showStatusBar, setShowStatusBar] = React.useState<Checked>(true);
+	const [user, setUser] = React.useState<User | null>();
+
+	React.useEffect(() => {
+		const getUser = async () => {
+			const supabase = await createClient();
+			const { data: userData, error } = await supabase.auth.getUser();
+			if (!error) {
+				setUser(userData.user);
+			}
+			return null;
+		};
+		getUser();
+	}, []);
+
 	return (
 		<Sidebar className="border-r-0" {...props} collapsible="icon">
 			<SidebarHeader>
@@ -107,7 +127,16 @@ export function SidebarLeft({
 						</DropdownMenuContent>
 					</DropdownMenu>
 				</SidebarMenuButton>
-				{admin && <NavUser user={admin} />}
+				{user ? (
+					<NavUser user={user} />
+				) : (
+					<SidebarMenuButton asChild>
+						<Link href={`${baseUrl}/auth/login`}>
+							<LogIn />
+							Login
+						</Link>
+					</SidebarMenuButton>
+				)}
 			</SidebarFooter>
 			<SidebarRail />
 		</Sidebar>

@@ -274,6 +274,7 @@ export function MusicPlayer({ inner = true }: { inner?: boolean }) {
 					showPlayer ? "translate-x-0" : "translate-x-full",
 					!inner && isMobile ? "fixed bottom-16" : "absolute",
 					!inner && !isMobile && "hidden",
+					inner && isMobile && "hidden",
 					showPlayer && inner && "bottom-1"
 				)}
 			>

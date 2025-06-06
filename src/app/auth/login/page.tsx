@@ -6,8 +6,9 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/lib/utils";
 import { login, logout, signup, loginOAuth } from "./actions";
-import { GithubIcon } from "lucide-react";
+import { GithubIcon, HomeIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 interface FormProps {
 	email: string;
@@ -16,6 +17,7 @@ interface FormProps {
 }
 
 export default function LoginPage() {
+	const router = useRouter();
 	const [activeForm, setActiveForm] = useState<"signin" | "signup">("signin");
 	const [formData, setFormData] = useState<FormProps>({
 		email: "",
@@ -41,7 +43,15 @@ export default function LoginPage() {
 	};
 	return (
 		<div className="flex flex-col min-h-screen w-full items-center justify-center">
-			<div className="relative overflow-hidden rounded-xl bg-card shadow-xl min-w-sm md:min-w-md lg:min-w-xl">
+			<Button
+				className="hidden lg:flex items-center justify-center absolute top-4 left-4 cursor-pointer rounded-2xl gap-4 text-md"
+				variant="secondary"
+				onClick={() => router.push("/")}
+			>
+				<HomeIcon />
+				Home
+			</Button>
+			<div className="relative overflow-hidden rounded-xl bg-card shadow-xl min-w-sm md:min-w-md lg:min-w-xl z-[15]">
 				<div className="flex flex-col items-center justify-center p-6 sm:p-8">
 					<div className="mb-8 flex w-full justify-center">
 						<div className="relative flex rounded-full bg-background p-1">
