@@ -4,9 +4,10 @@ import { User, Session, Provider } from "@supabase/supabase-js";
 import { createContext, useContext, useEffect, useState } from "react";
 import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 interface AuthContextType {
 	user: User | null;
-	signInOAuth: ({ provider }: { provider: Provider }) => void;
+	signInOAuth: ({ provider }: { provider: Provider }) => Promise<void>;
 	signOut: () => Promise<void>;
 	signIn: ({
 		email,
@@ -41,8 +42,16 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 		};
 	}, []);
 
-	const signInOAuth = ({ provider }: { provider: Provider }) => {
-		supabase.auth.signInWithOAuth({ provider, options: { redirectTo: "/" } });
+	const signInOAuth = async ({ provider }: { provider: Provider }) => {
+		const res = await supabase.auth.signInWithOAuth({
+			provider,
+			options: { redirectTo: "/" },
+		});
+		if (res.error) {
+			console.error(res.error);
+		} else {
+			toast.success("Signed in successfully", { position: "top-center" });
+		}
 	};
 
 	const signOut = async () => {
@@ -50,6 +59,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 		if (res.error) {
 			console.error(res.error);
 		}
+		toast.success("Signed out successfully", { position: "top-center" });
 		setUser(null);
 		router.push("/auth/login");
 	};
@@ -66,6 +76,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 			console.error(res.error);
 			router.push("/auth/error");
 		}
+		toast.success("Signed in successfully", { position: "top-center" });
 		if (res.data.session) {
 			setUser(res.data?.session?.user ?? null);
 			router.push("/");

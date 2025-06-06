@@ -45,7 +45,6 @@ import { DropdownMenuCheckboxItemProps } from "@radix-ui/react-dropdown-menu";
 import Link from "next/link";
 import { baseUrl } from "@/configs/site";
 import { useAuth } from "@/hooks/use-auth";
-import { User } from "@supabase/supabase-js";
 type Checked = DropdownMenuCheckboxItemProps["checked"];
 export function SidebarLeft({
 	...props

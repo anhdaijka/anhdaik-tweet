@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { baseUrl } from "@/configs/site";
 import { MapPin, CalendarDays } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
+import badge from "@/assets/images/Verified_Badge.png";
 const Profile = () => {
 	return (
 		<section className="h-[25rem] w-full mb-[2.5rem]">
@@ -38,7 +38,12 @@ const Profile = () => {
 			</div>
 			{/* Profile Info  */}
 			<div className="flex flex-col items-start p-4 mt-4">
-				<h1 className="text-2xl font-bold">{admin.name}</h1>
+				<h1 className="text-2xl font-bold flex items-center">
+					{admin.name}
+					<span className="ml-2">
+						<Image src={badge} width={20} height={20} alt="badge" />
+					</span>
+				</h1>
 				<span className="text-secondary-foreground text-sm">
 					@{admin.username}
 				</span>
