@@ -59,7 +59,7 @@ const Searchbar = () => {
 		<div className={cn("relative w-full product_search_input")}>
 			<input
 				className="px-4 py-2 border-border text-sm bg-transparent text-secondary-foreground placeholder:text-secondary-foreground border rounded-md w-full pl-[40px] outline-none focus:border-primary focus:text-primary"
-				placeholder="Search..."
+				placeholder="Search project..."
 				onChange={(e) => setInputText(e.target.value)}
 				onClick={() => setInputFocus(true)}
 			/>

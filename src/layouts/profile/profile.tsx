@@ -23,7 +23,7 @@ const Profile = () => {
 				</div>
 				<Avatar className="absolute size-32 left-[0.8rem] bottom-[-4rem] ring-2 ring-primary/60 ring-offset-1">
 					<AvatarImage src={admin.avatar} className="object-cover" />
-					<AvatarFallback>CN</AvatarFallback>
+					<AvatarFallback>A</AvatarFallback>
 				</Avatar>
 			</div>
 			{/* Button  */}

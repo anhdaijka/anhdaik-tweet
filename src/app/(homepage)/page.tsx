@@ -2,7 +2,7 @@ import TabsProfile from "@/layouts/profile/tabs";
 import Header from "@/layouts/profile/header";
 import Profile from "@/layouts/profile/profile";
 
-export default function Page() {
+export default async function Page() {
 	return (
 		<>
 			<Header />
