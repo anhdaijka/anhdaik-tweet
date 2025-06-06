@@ -34,5 +34,9 @@ export const tweets = [
 ];
 
 export default function Posts() {
-	return <TweetCard tweet={tweets[0]} />;
+	return (
+		<div className="min-h-[150%]">
+			<TweetCard tweet={tweets[0]} />
+		</div>
+	);
 }

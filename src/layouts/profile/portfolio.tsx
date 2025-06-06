@@ -93,5 +93,11 @@ const portfolio = [
 ];
 
 export default function Portfolio() {
-	return portfolio.map((tweet) => <TweetCard key={tweet.id} tweet={tweet} />);
+	return (
+		<div className="min-h-[150%]">
+			{portfolio.map((tweet) => (
+				<TweetCard key={tweet.id} tweet={tweet} />
+			))}
+		</div>
+	);
 }

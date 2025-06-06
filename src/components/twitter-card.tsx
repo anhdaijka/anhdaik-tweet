@@ -113,14 +113,14 @@ export default function TweetCard({ tweet }: TweetCardProps) {
 											animate={{ scale: 1 }}
 											exit={{ scale: 0.8 }}
 											transition={{ duration: 0.5, ease: "easeInOut" }}
-											className="w-[70%]"
+											className="h-full flex flex-col justify-center items-center"
 										>
 											<Image
 												src={tweet.image || ""}
 												alt="Tweet image"
 												width={500}
 												height={300}
-												className="w-full h-full object-cover rounded-xl md:rounded-2xl"
+												className="object-cover rounded-xl md:rounded-2xl"
 												loading="lazy"
 												onClick={() => setFocused(false)}
 											/>

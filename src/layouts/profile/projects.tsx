@@ -13,7 +13,13 @@ const tweets = data.projects.map((project, index) => ({
 	image: project.image,
 }));
 const Projects = () => {
-	return tweets.map((tweet) => <TweetCard key={tweet.id} tweet={tweet} />);
+	return (
+		<div className="min-h-[150%]">
+			{tweets.map((tweet) => (
+				<TweetCard key={tweet.id} tweet={tweet} />
+			))}
+		</div>
+	);
 };
 
 export default Projects;
