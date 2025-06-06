@@ -37,14 +37,15 @@ import {
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-import { admin, data } from "@/lib/data";
+import { data } from "@/lib/data";
 import { NavUser } from "./nav-user";
 import { useTheme } from "next-themes";
 import { DropdownMenuCheckboxItemProps } from "@radix-ui/react-dropdown-menu";
-import { User } from "@supabase/supabase-js";
-import { createClient } from "@/utils/supabase/client";
+
 import Link from "next/link";
 import { baseUrl } from "@/configs/site";
+import { useAuth } from "@/hooks/use-auth";
+import { User } from "@supabase/supabase-js";
 type Checked = DropdownMenuCheckboxItemProps["checked"];
 export function SidebarLeft({
 	...props
@@ -52,19 +53,11 @@ export function SidebarLeft({
 	const { isMobile, toggleSidebar, state } = useSidebar();
 	const { theme, setTheme } = useTheme();
 	const [showStatusBar, setShowStatusBar] = React.useState<Checked>(true);
-	const [user, setUser] = React.useState<User | null>();
+	const { user, signOut } = useAuth();
 
 	React.useEffect(() => {
-		const getUser = async () => {
-			const supabase = await createClient();
-			const { data: userData, error } = await supabase.auth.getUser();
-			if (!error) {
-				setUser(userData.user);
-			}
-			return null;
-		};
-		getUser();
-	}, []);
+		console.log("User has changed");
+	}, [user]);
 
 	return (
 		<Sidebar className="border-r-0" {...props} collapsible="icon">
@@ -128,7 +121,7 @@ export function SidebarLeft({
 					</DropdownMenu>
 				</SidebarMenuButton>
 				{user ? (
-					<NavUser user={user} />
+					<NavUser user={user} signOut={signOut} />
 				) : (
 					<SidebarMenuButton asChild>
 						<Link href={`${baseUrl}/auth/login`}>

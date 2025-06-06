@@ -5,10 +5,12 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/lib/utils";
-import { login, logout, signup, loginOAuth } from "./actions";
+import { useAuth } from "@/hooks/use-auth";
 import { GithubIcon, HomeIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+import { Provider } from "@supabase/supabase-js";
 
 interface FormProps {
 	email: string;
@@ -17,6 +19,7 @@ interface FormProps {
 }
 
 export default function LoginPage() {
+	const { signInOAuth, signIn } = useAuth();
 	const router = useRouter();
 	const [activeForm, setActiveForm] = useState<"signin" | "signup">("signin");
 	const [formData, setFormData] = useState<FormProps>({
@@ -29,16 +32,25 @@ export default function LoginPage() {
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 	};
 
-	const handleSubmitForm = async (e: React.FormEvent<HTMLFormElement>) => {
+	const handleSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		const fd = new FormData();
-		fd.append("email", formData.email);
-		fd.append("password", formData.password);
+
 		if (activeForm === "signin") {
-			await login(fd);
+			toast.info("Signing in...", {
+				position: "top-center",
+				onAutoClose: () => {
+					toast.dismiss();
+				},
+			});
+			signIn({
+				email: formData.email,
+				password: formData.password,
+			});
 		} else {
-			fd.append("full_name", formData.full_name);
-			await signup(fd);
+			toast.warning("These functions are paused for now", {
+				position: "top-center",
+			});
+			// await signup({ ...formData });
 		}
 	};
 	return (
@@ -110,6 +122,7 @@ export default function LoginPage() {
 											handleChangeForm={handleChangeForm}
 											handleSubmitForm={handleSubmitForm}
 											onSwitchForm={() => setActiveForm("signup")}
+											signInOAuth={signInOAuth}
 										/>
 									</motion.div>
 								) : (
@@ -126,6 +139,7 @@ export default function LoginPage() {
 											handleChangeForm={handleChangeForm}
 											handleSubmitForm={handleSubmitForm}
 											onSwitchForm={() => setActiveForm("signin")}
+											signInOAuth={signInOAuth}
 										/>
 									</motion.div>
 								)}
@@ -143,6 +157,7 @@ interface AuthFormProps {
 	formData: FormProps;
 	handleChangeForm: (e: React.ChangeEvent<HTMLInputElement>) => void;
 	handleSubmitForm: (e: React.ChangeEvent<HTMLFormElement>) => void;
+	signInOAuth: ({ provider }: { provider: Provider }) => void;
 }
 
 function SignInForm({
@@ -150,6 +165,7 @@ function SignInForm({
 	formData,
 	handleChangeForm,
 	handleSubmitForm,
+	signInOAuth,
 }: AuthFormProps) {
 	return (
 		<div className="space-y-4">
@@ -210,7 +226,7 @@ function SignInForm({
 					variant="outline"
 					className="w-full"
 					onClick={() => {
-						loginOAuth("github");
+						signInOAuth({ provider: "github" });
 					}}
 				>
 					<GithubIcon className="mr-2 h-4 w-4" />
@@ -220,7 +236,7 @@ function SignInForm({
 					variant="outline"
 					className="w-full"
 					onClick={() => {
-						loginOAuth("google");
+						signInOAuth({ provider: "google" });
 					}}
 				>
 					<svg className="mr-2 h-4 w-4" viewBox="0 0 24 24">
@@ -259,6 +275,7 @@ function SignUpForm({
 	formData,
 	handleChangeForm,
 	handleSubmitForm,
+	signInOAuth,
 }: AuthFormProps) {
 	return (
 		<div className="space-y-4">
@@ -332,7 +349,7 @@ function SignUpForm({
 					variant="outline"
 					className="w-full"
 					onClick={() => {
-						loginOAuth("github");
+						signInOAuth({ provider: "github" });
 					}}
 				>
 					<GithubIcon className="mr-2 h-4 w-4" />
@@ -342,7 +359,7 @@ function SignUpForm({
 					variant="outline"
 					className="w-full"
 					onClick={() => {
-						loginOAuth("google");
+						signInOAuth({ provider: "google" });
 					}}
 				>
 					<svg className="mr-2 h-4 w-4" viewBox="0 0 24 24">

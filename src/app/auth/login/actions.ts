@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-
+import type { Provider } from "@supabase/auth-js";
 import { createClient } from "@/utils/supabase/server";
 
 export async function login(formData: FormData) {
@@ -18,7 +18,7 @@ export async function login(formData: FormData) {
 	const { error } = await supabase.auth.signInWithPassword(data);
 
 	if (error) {
-		redirect("/error");
+		redirect("/auth/error");
 	}
 
 	revalidatePath("/", "layout");
@@ -38,7 +38,7 @@ export async function signup(formData: FormData) {
 	const { error } = await supabase.auth.signUp(data);
 
 	if (error) {
-		redirect("/error");
+		redirect("/auth/error");
 	}
 
 	revalidatePath("/", "layout");
@@ -51,8 +51,6 @@ export async function logout() {
 	revalidatePath("/", "layout");
 	redirect("/auth/login");
 }
-
-import type { Provider } from "@supabase/auth-js";
 
 export async function loginOAuth(provider: Provider) {
 	const supabase = await createClient();

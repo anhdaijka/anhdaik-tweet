@@ -6,6 +6,8 @@ import { ThemeProvider } from "@/components/theme-provider";
 
 import MobileNav from "@/components/mobile-nav";
 import { MusicPlayer } from "@/components/music-player";
+import { Toaster } from "@/components/ui/sonner";
+import { AuthProvider } from "@/hooks/use-auth";
 
 export const metadata: Metadata = {
 	title: siteConfig.name,
@@ -20,17 +22,20 @@ export default function RootLayout({
 	return (
 		<html lang="en" suppressHydrationWarning>
 			<body className={`${sourceSans.className} antialiased bg-background`}>
-				<ThemeProvider
-					attribute="class"
-					defaultTheme="system"
-					enableSystem
-					disableTransitionOnChange
-				>
-					{children}
+				<AuthProvider>
+					<ThemeProvider
+						attribute="class"
+						defaultTheme="system"
+						enableSystem
+						disableTransitionOnChange
+					>
+						<Toaster />
+						{children}
 
-					<MobileNav />
-					<MusicPlayer inner={false} />
-				</ThemeProvider>
+						<MobileNav />
+						<MusicPlayer inner={false} />
+					</ThemeProvider>
+				</AuthProvider>
 			</body>
 		</html>
 	);

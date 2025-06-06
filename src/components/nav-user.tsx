@@ -26,9 +26,15 @@ import {
 	useSidebar,
 } from "@/components/ui/sidebar";
 import { User } from "@supabase/supabase-js";
-import { logout } from "@/app/auth/login/actions";
+import { toast } from "sonner";
 
-export function NavUser({ user }: { user: User }) {
+export function NavUser({
+	user,
+	signOut,
+}: {
+	user: User;
+	signOut: () => void;
+}) {
 	const { isMobile } = useSidebar();
 
 	return (
@@ -41,18 +47,18 @@ export function NavUser({ user }: { user: User }) {
 							className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
 						>
 							<Avatar className="h-8 w-8 rounded-lg">
-								{/* <AvatarImage
-									src={user || ""}
+								<AvatarImage
+									src={user?.user_metadata?.avatar_url}
 									alt={user.email}
 									className="object-cover object-center"
-								/> */}
+								/>
 								<AvatarFallback className="rounded-lg">
 									{user.email?.charAt(0)}
 								</AvatarFallback>
 							</Avatar>
 							<div className="grid flex-1 text-left text-sm leading-tight">
 								<span className="truncate font-medium">
-									{user.email?.split("@")[0]}
+									{user.user_metadata.name}
 								</span>
 								<span className="truncate text-xs">{user.email}</span>
 							</div>
@@ -68,18 +74,18 @@ export function NavUser({ user }: { user: User }) {
 						<DropdownMenuLabel className="p-0 font-normal">
 							<div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
 								<Avatar className="h-8 w-8 rounded-lg">
-									{/* <AvatarImage
-										src={user.}
+									<AvatarImage
+										src={user?.user_metadata?.avatar_url}
 										alt={user.email}
 										className="object-cover object-center"
-									/> */}
+									/>
 									<AvatarFallback className="rounded-lg">
 										{user.email?.charAt(0)}
 									</AvatarFallback>
 								</Avatar>
 								<div className="grid flex-1 text-left text-sm leading-tight">
 									<span className="truncate font-medium">
-										{user.email?.split("@")[0]}
+										{user.user_metadata.name}
 									</span>
 									<span className="truncate text-xs">{user.email}</span>
 								</div>
@@ -110,7 +116,12 @@ export function NavUser({ user }: { user: User }) {
 						<DropdownMenuSeparator />
 						<DropdownMenuItem
 							className="cursor-pointer"
-							onClick={() => logout()}
+							onClick={() => {
+								toast.info("Logging out...", {
+									position: "top-center",
+								});
+								signOut();
+							}}
 						>
 							<LogOut />
 							Log out
