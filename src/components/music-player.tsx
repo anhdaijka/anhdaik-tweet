@@ -36,7 +36,7 @@ export function MusicPlayer({ inner = true }: { inner?: boolean }) {
 	const [repeatMode, setRepeatMode] = useState(0); // 0: no repeat, 1: repeat all, 2: repeat one
 	const [favorites, setFavorites] = useState<string[]>([]);
 	const isMobile = useIsMobile();
-	const [showPlayer, setShowPlayer] = useState(true);
+	const [showPlayer, setShowPlayer] = useState(false);
 	const audioRef = useRef<HTMLAudioElement>(null);
 	const progressBarRef = useRef<HTMLDivElement>(null);
 
@@ -244,11 +244,11 @@ export function MusicPlayer({ inner = true }: { inner?: boolean }) {
 		}
 	}, [repeatMode]);
 
-	useEffect(() => {
-		if (isMobile && !inner) {
-			setShowPlayer(false);
-		}
-	}, [isMobile]);
+	// useEffect(() => {
+	// 	if (isMobile && !inner) {
+	// 		setShowPlayer(false);
+	// 	}
+	// }, [isMobile]);
 
 	return (
 		<>
@@ -258,7 +258,7 @@ export function MusicPlayer({ inner = true }: { inner?: boolean }) {
 					onClick={togglePlayerVisibility}
 					className={cn(
 						"fixed right-4 bottom-4 z-50 p-3 rounded-full bg-primary text-primary-foreground shadow-lg hover:bg-primary/90 transition-all",
-						!inner && "bottom-[5rem]"
+						!inner && isMobile && "bottom-[5rem]"
 					)}
 					aria-label="Show music player"
 				>
@@ -274,7 +274,7 @@ export function MusicPlayer({ inner = true }: { inner?: boolean }) {
 					showPlayer ? "translate-x-0" : "translate-x-full",
 					!inner && isMobile ? "fixed bottom-16" : "absolute",
 					!inner && !isMobile && "hidden",
-					inner && "bottom-1"
+					showPlayer && inner && "bottom-1"
 				)}
 			>
 				{/* Hidden audio element */}
@@ -421,7 +421,7 @@ export function MusicPlayer({ inner = true }: { inner?: boolean }) {
 					</div>
 
 					{/* Controls */}
-					<div className="flex items-center gap-1 sm:gap-2">
+					<div className="flex items-center">
 						<Button variant="ghost" size="icon" onClick={prevTrack}>
 							<SkipBack className="h-5 w-5" />
 						</Button>

@@ -10,6 +10,7 @@ import {
 	SidebarGroupLabel,
 	SidebarMenu,
 	SidebarMenuAction,
+	SidebarMenuBadge,
 	SidebarMenuButton,
 	SidebarMenuItem,
 	SidebarMenuSub,
@@ -18,9 +19,11 @@ import {
 } from "@/components/ui/sidebar";
 
 export function NavWorkspaces({
+	title,
 	workspaces,
 }: {
-	workspaces: {
+	title?: string;
+	workspaces?: {
 		name: string;
 		emoji: React.ReactNode;
 		pages: {
@@ -31,10 +34,10 @@ export function NavWorkspaces({
 }) {
 	return (
 		<SidebarGroup>
-			<SidebarGroupLabel>Workspaces</SidebarGroupLabel>
+			<SidebarGroupLabel>{title}</SidebarGroupLabel>
 			<SidebarGroupContent>
 				<SidebarMenu>
-					{workspaces.map((workspace) => (
+					{workspaces?.map((workspace) => (
 						<Collapsible key={workspace.name}>
 							<SidebarMenuItem>
 								<SidebarMenuButton asChild>
@@ -71,6 +74,7 @@ export function NavWorkspaces({
 							</SidebarMenuItem>
 						</Collapsible>
 					))}
+
 					<SidebarMenuItem>
 						<SidebarMenuButton className="text-sidebar-foreground/70">
 							<MoreHorizontal />

@@ -92,7 +92,7 @@ export default function TweetCard({ tweet }: TweetCardProps) {
 								alt="Tweet image"
 								width={500}
 								height={300}
-								className="w-full aspect-video object-cover"
+								className="w-full h-[25rem] object-cover"
 								loading="lazy"
 								onClick={() => setFocused(true)}
 							/>
@@ -107,17 +107,24 @@ export default function TweetCard({ tweet }: TweetCardProps) {
 										className="fixed top-0 left-0 right-0 bottom-0 z-[9999] flex items-center justify-center bg-black/50"
 										onClick={() => setFocused(false)}
 									>
-										<div className="w-[70%]">
+										<motion.div
+											layout
+											initial={{ scale: 0.8 }}
+											animate={{ scale: 1 }}
+											exit={{ scale: 0.8 }}
+											transition={{ duration: 0.5, ease: "easeInOut" }}
+											className="w-[70%]"
+										>
 											<Image
 												src={tweet.image || ""}
 												alt="Tweet image"
 												width={500}
 												height={300}
-												className="w-full aspect-video object-cover rounded-xl md:rounded-2xl"
+												className="w-full h-full object-cover rounded-xl md:rounded-2xl"
 												loading="lazy"
 												onClick={() => setFocused(false)}
 											/>
-										</div>
+										</motion.div>
 									</motion.div>
 								)}
 							</AnimatePresence>

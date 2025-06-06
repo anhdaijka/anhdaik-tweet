@@ -47,77 +47,65 @@ export const admin = {
 		facebook: "https://www.facebook.com/anhdaika",
 	},
 	role: "Admin",
-	interests: [
-		"#WebDevelopment",
-		"#Stoicism",
-		"#Politics",
-		"#Music",
-		"#Reading",
+	interests: ["Web Development", "Stoicism", "Politics", "Music", "Gaming"],
+	skills: [
+		{
+			name: "HTML",
+			level: 90,
+		},
+		{
+			name: "CSS",
+			level: 90,
+		},
+		{
+			name: "JavaScript",
+			level: 90,
+		},
+		{
+			name: "TypeScript",
+			level: 90,
+		},
+		{
+			name: "React",
+			level: 90,
+		},
+		{
+			name: "Next.js",
+			level: 90,
+		},
+		{
+			name: "Node.js",
+			level: 80,
+		},
+		{
+			name: "Express.js",
+			level: 75,
+		},
+		{
+			name: "MongoDB",
+			level: 90,
+		},
+		{
+			name: "MySQL",
+			level: 80,
+		},
+		{
+			name: "Git",
+			level: 90,
+		},
+		{
+			name: "GitHub",
+			level: 90,
+		},
+		{
+			name: "VSCode",
+			level: 90,
+		},
+		{
+			name: "Postman",
+			level: 80,
+		},
 	],
-	skills: {
-		frondend: [
-			{
-				name: "HTML",
-				level: 90,
-			},
-			{
-				name: "CSS",
-				level: 90,
-			},
-			{
-				name: "JavaScript",
-				level: 90,
-			},
-			{
-				name: "TypeScript",
-				level: 90,
-			},
-			{
-				name: "React",
-				level: 90,
-			},
-			{
-				name: "Next.js",
-				level: 90,
-			},
-		],
-		backend: [
-			{
-				name: "Node.js",
-				level: 80,
-			},
-			{
-				name: "Express.js",
-				level: 75,
-			},
-			{
-				name: "MongoDB",
-				level: 90,
-			},
-			{
-				name: "MySQL",
-				level: 80,
-			},
-		],
-		tools: [
-			{
-				name: "Git",
-				level: 90,
-			},
-			{
-				name: "GitHub",
-				level: 90,
-			},
-			{
-				name: "VSCode",
-				level: 90,
-			},
-			{
-				name: "Postman",
-				level: 80,
-			},
-		],
-	},
 };
 
 // Tech Stack and Tools
@@ -155,13 +143,6 @@ export const data = {
 			url: `${baseUrl}/contact`,
 			icon: Inbox,
 			badge: "10",
-		},
-	],
-	navSecondary: [
-		{
-			title: "Help",
-			url: "#",
-			icon: MessageCircleQuestion,
 		},
 	],
 	projects: [

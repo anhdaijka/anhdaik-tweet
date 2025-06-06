@@ -31,14 +31,26 @@ const Gallery = () => {
 								initial={{ opacity: 0 }}
 								animate={{ opacity: 1 }}
 								exit={{ opacity: 0 }}
-								transition={{ duration: 0.3, ease: "easeInOut", type: "tween" }}
+								transition={{ duration: 0.5, ease: "easeInOut", type: "tween" }}
 								className="fixed top-0 left-0 right-0 bottom-0 z-[9999] flex items-center justify-center bg-black/50"
 								onClick={() => {
 									setFocused(false);
 									setFocusedImage(undefined);
 								}}
 							>
-								<div className="w-[50%] flex flex-col justify-center items-center">
+								<motion.div
+									layout
+									layoutId={`image-${i}`}
+									initial={{ scale: 0.8 }}
+									animate={{ scale: 1 }}
+									exit={{ scale: 0.9 }}
+									transition={{
+										duration: 0.5,
+										ease: "easeInOut",
+										type: "tween",
+									}}
+									className="w-[50%] flex flex-col justify-center items-center"
+								>
 									<Image
 										src={focusedImage || ""}
 										alt="Tweet image"
@@ -51,7 +63,7 @@ const Gallery = () => {
 											setFocusedImage(undefined);
 										}}
 									/>
-								</div>
+								</motion.div>
 							</motion.div>
 						)}
 					</AnimatePresence>

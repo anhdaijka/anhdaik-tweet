@@ -12,7 +12,6 @@ const Searchbar = () => {
 	const [filteredData, setFilteredData] = useState(data.projects);
 	const [inputText, setInputText] = useState("");
 	const [inputFocus, setInputFocus] = useState(false);
-	const { state } = useSidebar();
 
 	useEffect(() => {
 		const filtered = data.projects?.filter((project) => {
@@ -57,12 +56,7 @@ const Searchbar = () => {
 	}, []);
 
 	return (
-		<div
-			className={cn(
-				"relative w-full product_search_input",
-				state === "collapsed" && "hidden"
-			)}
-		>
+		<div className={cn("relative w-full product_search_input")}>
 			<input
 				className="px-4 py-2 border-border text-sm bg-transparent text-secondary-foreground placeholder:text-secondary-foreground border rounded-md w-full pl-[40px] outline-none focus:border-primary focus:text-primary"
 				placeholder="Search..."
