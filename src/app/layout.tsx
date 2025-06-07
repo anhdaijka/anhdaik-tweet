@@ -3,9 +3,8 @@ import { sourceSans } from "@/configs/fonts";
 import "@/app/globals.css";
 import { siteConfig } from "@/configs/site";
 import { ThemeProvider } from "@/components/theme-provider";
-
+import { SettingsProvider } from "@/components/editor/settings";
 import MobileNav from "@/components/mobile-nav";
-import { MusicPlayer } from "@/components/music-player";
 import { Toaster } from "@/components/ui/sonner";
 import { AuthProvider } from "@/hooks/use-auth";
 
@@ -21,7 +20,10 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en" suppressHydrationWarning>
-			<body className={`${sourceSans.className} antialiased bg-background`}>
+			<body
+				className={`${sourceSans.className} antialiased bg-background`}
+				data-registry="plate"
+			>
 				<AuthProvider>
 					<ThemeProvider
 						attribute="class"
@@ -30,10 +32,10 @@ export default function RootLayout({
 						disableTransitionOnChange
 					>
 						<Toaster />
-						{children}
+
+						<SettingsProvider>{children}</SettingsProvider>
 
 						<MobileNav />
-						<MusicPlayer inner={false} />
 					</ThemeProvider>
 				</AuthProvider>
 			</body>

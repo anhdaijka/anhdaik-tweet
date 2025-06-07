@@ -11,22 +11,23 @@ const Gallery = () => {
 	);
 	const [focused, setFocused] = useState(false);
 	return (
-		<div className="min-h-[150%]">
+		<div className="min-h-[150%] max-w-[calc(100%-2rem)] mx-auto">
 			<div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-				{gallery.map((image, i) => (
-					<div key={i}>
-						<Image
-							src={image}
-							alt="image"
-							className="w-full aspect-[9/16] object-cover object-center rounded-xl"
-							width={1000}
-							height={1000}
-							onClick={() => {
-								setFocusedImage(image);
-								setFocused(true);
-							}}
-						/>
-						<AnimatePresence mode="wait">
+				<AnimatePresence mode="wait">
+					{gallery.map((image, i) => (
+						<div key={i}>
+							<Image
+								src={image}
+								alt="image"
+								className="w-full aspect-[9/16] object-cover object-center rounded-xl"
+								width={1000}
+								height={1000}
+								onClick={() => {
+									setFocusedImage(image);
+									setFocused(true);
+								}}
+							/>
+
 							{focused && (
 								<motion.div
 									initial={{ opacity: 0 }}
@@ -59,9 +60,9 @@ const Gallery = () => {
 										<Image
 											src={focusedImage || ""}
 											alt="Tweet image"
-											width={500}
-											height={500}
-											className="object-cover rounded-xl md:rounded-2xl"
+											width={1000}
+											height={1000}
+											className="object-cover rounded-xl md:rounded-2xl h-full w-full"
 											loading="lazy"
 											onClick={() => {
 												setFocused(false);
@@ -71,9 +72,9 @@ const Gallery = () => {
 									</motion.div>
 								</motion.div>
 							)}
-						</AnimatePresence>
-					</div>
-				))}
+						</div>
+					))}
+				</AnimatePresence>
 			</div>
 		</div>
 	);

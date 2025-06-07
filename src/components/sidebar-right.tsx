@@ -14,7 +14,6 @@ import {
 } from "@/components/ui/sidebar";
 import { admin, data } from "@/lib/data";
 
-import { MusicPlayer } from "./music-player";
 import Link from "next/link";
 import Searchbar from "./ui/search-bar";
 import { Calendar } from "lucide-react";
@@ -75,9 +74,7 @@ export function SidebarRight({
 				<SidebarSeparator className="my-2" />
 				<Calendars calendars={calendars} />
 			</SidebarContent>
-			<SidebarFooter>
-				<MusicPlayer />
-			</SidebarFooter>
+			<SidebarFooter></SidebarFooter>
 		</Sidebar>
 	);
 }

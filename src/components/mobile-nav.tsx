@@ -31,7 +31,7 @@ export default function MobileNav() {
 							}`}
 						>
 							<item.icon className="w-6 h-6" />
-							<span className="text-xs mt-1">{item.label}</span>
+							<span className="text-xs mt-1 sr-only">{item.label}</span>
 						</Link>
 					);
 				})}
@@ -41,7 +41,7 @@ export default function MobileNav() {
 					) : (
 						<Moon className="w-6 h-6" onClick={() => setTheme("dark")} />
 					)}
-					<span className="text-xs mt-1">Theme</span>
+					<span className="text-xs mt-1 sr-only">Theme</span>
 				</div>
 				<div className="flex flex-col items-center justify-center py-3 flex-1">
 					{user ? (
@@ -50,7 +50,7 @@ export default function MobileNav() {
 							onClick={() => signOut()}
 						>
 							<LogOut className="w-6 h-6" />
-							<span className="text-xs mt-1">Sign Out</span>
+							<span className="text-xs mt-1 sr-only">Sign Out</span>
 						</div>
 					) : (
 						<Link
@@ -58,7 +58,7 @@ export default function MobileNav() {
 							className="flex flex-col items-center justify-center py-3 flex-1 cursor-pointer"
 						>
 							<LogIn className="w-6 h-6" />
-							<span className="text-xs mt-1">Sign In</span>
+							<span className="text-xs mt-1 sr-only">Sign In</span>
 						</Link>
 					)}
 				</div>

@@ -5,7 +5,7 @@ export const tweets = [
 		id: "1",
 		content:
 			"Welcome to my Portfolio, I hope you like it! <br/> It still under development and will be updated soon. 😎 <br/> Check out my Projects at the next tab!",
-		timestamp: dayjs(new Date()).format("DD/MM/YY"),
+		timestamp: dayjs(new Date()).format("h:mm A ・ MMM D, YYYY"),
 		likes: 1,
 		retweets: 1,
 		replies: 0,
@@ -13,7 +13,7 @@ export const tweets = [
 	{
 		id: "2",
 		content: "I'm a Blue for over 15 years. Never regret that ",
-		timestamp: dayjs(new Date()).format("DD/MM/YY"),
+		timestamp: dayjs(new Date()).format("h:mm A ・ MMM D, YYYY"),
 		likes: 1,
 		retweets: 1,
 		replies: 0,
@@ -24,7 +24,7 @@ export const tweets = [
 		id: "3",
 		content:
 			"ザースクリプトの各曲はいつの間にか、 <br/> なんとなく聞こえる。 <br/> 感謝の言葉を辞めない。 <br/> 今までのことを忘れることなく、 <br/> 俺の魂を救ってくれ、有難うな",
-		timestamp: dayjs(new Date()).format("DD/MM/YY"),
+		timestamp: dayjs(new Date()).format("h:mm A ・ MMM D, YYYY"),
 		likes: 1,
 		retweets: 1,
 		replies: 0,

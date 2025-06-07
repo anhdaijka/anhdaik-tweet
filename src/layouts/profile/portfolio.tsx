@@ -1,4 +1,5 @@
 import TweetCard from "@/components/twitter-card";
+import dayjs from "dayjs";
 
 const portfolio = [
 	{
@@ -14,7 +15,7 @@ const portfolio = [
 	{
 		id: "2",
 		content: `<span class="text-xl font-bold">09/2023</span><br/>Japanese teacher at SOFL Language Center 🧑‍💼`,
-		timestamp: "09/09/2023",
+		timestamp: dayjs("09/09/2023").format("h:mm A ・ MMM D, YYYY"),
 		likes: 1,
 		retweets: 1,
 		replies: 0,
@@ -23,7 +24,7 @@ const portfolio = [
 	{
 		id: "3",
 		content: `<span class="text-xl font-bold">04/2020 - 04/2023</span><br/>Studied at Otemae University of Hyougo (IT major) 🖥️`,
-		timestamp: "11/04/2023",
+		timestamp: dayjs("11/04/2023").format("h:mm A ・ MMM D, YYYY"),
 		likes: 1,
 		retweets: 1,
 		replies: 0,
@@ -33,7 +34,7 @@ const portfolio = [
 	{
 		id: "4",
 		content: `<span class="text-xl font-bold">05/2019 - 04/2023</span><br/>Head Chef at Matsuya (Shinkaichi-ten, Nanba-Sennichimae-ten) 🖥️`,
-		timestamp: "11/04/2023",
+		timestamp: dayjs("11/04/2023").format("h:mm A ・ MMM D, YYYY"),
 		likes: 1,
 		retweets: 1,
 		replies: 0,
@@ -44,7 +45,7 @@ const portfolio = [
 	{
 		id: "5",
 		content: `<span class="text-xl font-bold">03/2020</span><br/>Graduated from the EHLE Institute Japanese Language School㊗️`,
-		timestamp: "10/03/2020",
+		timestamp: dayjs("10/03/2020").format("h:mm A ・ MMM D, YYYY"),
 		likes: 1,
 		retweets: 1,
 		replies: 0,
@@ -54,7 +55,7 @@ const portfolio = [
 	{
 		id: "6",
 		content: `<span class="text-xl font-bold">07/2019</span><br/>Qualified certificate of Japanese-Language Proficient Test (N2) 🧑‍💼`,
-		timestamp: "07/2019",
+		timestamp: dayjs("18/07/2019").format("h:mm A ・ MMM D, YYYY"),
 		likes: 1,
 		retweets: 1,
 		replies: 0,
@@ -64,7 +65,7 @@ const portfolio = [
 	{
 		id: "7",
 		content: `<span class="text-xl font-bold">12/2018</span><br/>Qualified Certificate of Japanese-Language Proficient Test (N3) 🧑‍💼`,
-		timestamp: "12/2018",
+		timestamp: dayjs("18/12/2018").format("h:mm A ・ MMM D, YYYY"),
 		likes: 1,
 		retweets: 1,
 		replies: 0,
@@ -74,7 +75,7 @@ const portfolio = [
 	{
 		id: "8",
 		content: `<span class="text-xl font-bold">05/2018</span><br/>Graduated from the Yen Lang High School 🧑‍💼`,
-		timestamp: "05/2018",
+		timestamp: dayjs("21/05/2018").format("h:mm A ・ MMM D, YYYY"),
 		likes: 1,
 		retweets: 1,
 		replies: 0,
@@ -84,7 +85,7 @@ const portfolio = [
 	{
 		id: "9",
 		content: `<span class="text-xl font-bold">02/2018</span><br/>Qualified Certificate of Japanese-Language NATTEST (N5) 🧑‍💼`,
-		timestamp: "02/2018",
+		timestamp: dayjs("28/02/2018").format("h:mm A ・ MMM D, YYYY"),
 		likes: 1,
 		retweets: 1,
 		replies: 0,
