@@ -88,7 +88,11 @@ export const DraggableAboveNodes: RenderNodeWrapper = (props) => {
 
 	if (!enabled) return;
 
-	return (props) => <Draggable {...props} />;
+	const DraggableWrapper = (props: PlateElementProps) => (
+		<Draggable {...props} />
+	);
+	DraggableWrapper.displayName = "DraggableWrapper";
+	return DraggableWrapper;
 };
 
 export function Draggable(props: PlateElementProps) {
