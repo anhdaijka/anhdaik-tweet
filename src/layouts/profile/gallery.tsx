@@ -4,6 +4,7 @@ import { gallery } from "@/lib/data";
 import Image from "next/image";
 import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
+import { parentVariants, childVariants } from "@/lib/animation";
 
 const Gallery = () => {
 	const [focusedImage, setFocusedImage] = useState<string | undefined>(
@@ -12,10 +13,16 @@ const Gallery = () => {
 	const [focused, setFocused] = useState(false);
 	return (
 		<div className="min-h-[150%] max-w-[calc(100%-2rem)] mx-auto">
-			<div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+			<motion.div
+				variants={parentVariants}
+				initial="hidden"
+				whileInView="visible"
+				layout
+				className="grid grid-cols-2 md:grid-cols-3 gap-4"
+			>
 				<AnimatePresence mode="wait">
 					{gallery.map((image, i) => (
-						<div key={i}>
+						<motion.div variants={childVariants} key={i}>
 							<Image
 								src={image}
 								alt="image"
@@ -72,10 +79,10 @@ const Gallery = () => {
 									</motion.div>
 								</motion.div>
 							)}
-						</div>
+						</motion.div>
 					))}
 				</AnimatePresence>
-			</div>
+			</motion.div>
 		</div>
 	);
 };

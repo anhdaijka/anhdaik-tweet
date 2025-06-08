@@ -1,5 +1,7 @@
 import dayjs from "dayjs";
 import TweetCard from "@/components/twitter-card";
+import { motion } from "motion/react";
+import { parentVariants } from "@/lib/animation";
 export const tweets = [
 	{
 		id: "1",
@@ -35,8 +37,13 @@ export const tweets = [
 
 export default function Posts() {
 	return (
-		<div className="min-h-[150%]">
+		<motion.div
+			variants={parentVariants}
+			initial="hidden"
+			whileInView="visible"
+			className="min-h-[150%]"
+		>
 			<TweetCard tweet={tweets[0]} />
-		</div>
+		</motion.div>
 	);
 }

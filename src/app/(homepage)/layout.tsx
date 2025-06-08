@@ -4,7 +4,7 @@ import { siteConfig } from "@/configs/site";
 import { SidebarLeft } from "@/components/sidebar-left";
 import { SidebarRight } from "@/components/sidebar-right";
 
-import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+import { SidebarInset } from "@/components/ui/sidebar";
 
 export const metadata: Metadata = {
 	title: siteConfig.name,
@@ -18,11 +18,9 @@ export default function HomeLayout({
 }>) {
 	return (
 		<>
-			<SidebarProvider>
-				<SidebarLeft />
-				<SidebarInset>{children}</SidebarInset>
-				<SidebarRight />
-			</SidebarProvider>
+			<SidebarLeft />
+			<SidebarInset>{children}</SidebarInset>
+			<SidebarRight />
 		</>
 	);
 }

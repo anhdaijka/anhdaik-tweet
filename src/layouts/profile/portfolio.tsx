@@ -1,6 +1,7 @@
 import TweetCard from "@/components/twitter-card";
 import dayjs from "dayjs";
-
+import { motion } from "motion/react";
+import { parentVariants } from "@/lib/animation";
 const portfolio = [
 	{
 		id: "1",
@@ -95,10 +96,15 @@ const portfolio = [
 
 export default function Portfolio() {
 	return (
-		<div className="min-h-[150%]">
+		<motion.div
+			variants={parentVariants}
+			initial="hidden"
+			whileInView="visible"
+			className="min-h-[150%]"
+		>
 			{portfolio.map((tweet) => (
 				<TweetCard key={tweet.id} tweet={tweet} />
 			))}
-		</div>
+		</motion.div>
 	);
 }

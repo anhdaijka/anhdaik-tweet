@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/button";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { admin } from "@/lib/data";
 import { AnimatePresence, motion } from "motion/react";
+import { childVariants } from "@/lib/animation";
 
 interface Tweet {
 	id: string;
@@ -50,7 +51,10 @@ export default function TweetCard({ tweet }: TweetCardProps) {
 
 	return (
 		<>
-			<div className="bg-card border-border p-4 rounded-xl border max-w-[calc(100%-2rem)] mx-auto mb-2">
+			<motion.div
+				variants={childVariants}
+				className="bg-card border-border p-4 rounded-xl border max-w-[calc(100%-2rem)] mx-auto mb-2"
+			>
 				<div className="flex justify-between">
 					<div className="flex items-center">
 						<Avatar className="w-10 h-10 md:w-12 md:h-12">
@@ -130,7 +134,7 @@ export default function TweetCard({ tweet }: TweetCardProps) {
 					{tweet.timestamp}
 				</p>
 				<div className="border-border border border-b-0 my-1" />
-				<div className="flex items-center gap-6 max-w-md text-foreground mt-3 mr-auto">
+				<div className="flex items-center gap-6 max-w-md text-foreground mt-3">
 					<Button
 						variant="ghost"
 						size="lg"
@@ -184,7 +188,7 @@ export default function TweetCard({ tweet }: TweetCardProps) {
 						<Share className="size-6" />
 					</Button>
 				</div>
-			</div>
+			</motion.div>
 		</>
 	);
 }

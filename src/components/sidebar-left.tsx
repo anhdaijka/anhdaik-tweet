@@ -10,6 +10,7 @@ import {
 	AppWindow,
 	LogIn,
 	type LucideIcon,
+	Music4,
 } from "lucide-react";
 import { NavProjects } from "@/components/nav-projects";
 import { NavMain } from "@/components/nav-main";
@@ -45,11 +46,12 @@ import { DropdownMenuCheckboxItemProps } from "@radix-ui/react-dropdown-menu";
 import Link from "next/link";
 import { baseUrl } from "@/configs/site";
 import { useAuth } from "@/hooks/use-auth";
+import { MusicPlayer } from "./music-player";
 type Checked = DropdownMenuCheckboxItemProps["checked"];
 export function SidebarLeft({
 	...props
 }: React.ComponentProps<typeof Sidebar>) {
-	const { isMobile, toggleSidebar, state } = useSidebar();
+	const { isMobile, toggleSidebar, state, toggleMusic } = useSidebar();
 	const { theme, setTheme } = useTheme();
 	const [showStatusBar, setShowStatusBar] = React.useState<Checked>(true);
 	const { user, signOut } = useAuth();
@@ -59,7 +61,12 @@ export function SidebarLeft({
 	}, [user]);
 
 	return (
-		<Sidebar className="border-r-0" {...props} collapsible="icon">
+		<Sidebar
+			className="border-r-0"
+			{...props}
+			collapsible="icon"
+			side={isMobile ? "right" : "left"}
+		>
 			<SidebarHeader>
 				<Logo />
 				<NavMain items={data.navMain} />
@@ -69,9 +76,13 @@ export function SidebarLeft({
 				<NavWorkspaces title="Workspaces" workspaces={data.workspaces} />
 			</SidebarContent>
 			<SidebarFooter>
+				<SidebarMenuButton onClick={toggleMusic}>
+					<Music4 className="size-5 text-primary" />
+					Toggle Music Player
+				</SidebarMenuButton>
 				{state === "collapsed" && (
 					<SidebarMenuButton onClick={toggleSidebar}>
-						<AppWindow />
+						<AppWindow /> Toggle Sidebar
 					</SidebarMenuButton>
 				)}
 				<SidebarMenuButton asChild>

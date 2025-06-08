@@ -2,7 +2,8 @@ import React from "react";
 import { data } from "@/lib/data";
 import TweetCard from "@/components/twitter-card";
 import dayjs from "dayjs";
-
+import { motion } from "motion/react";
+import { parentVariants } from "@/lib/animation";
 const tweets = data.projects.map((project, index) => ({
 	id: String(index),
 	content: project.description,
@@ -14,11 +15,16 @@ const tweets = data.projects.map((project, index) => ({
 }));
 const Projects = () => {
 	return (
-		<div className="min-h-[150%]">
+		<motion.div
+			variants={parentVariants}
+			initial="hidden"
+			whileInView="visible"
+			className="min-h-[150%]"
+		>
 			{tweets.map((tweet) => (
 				<TweetCard key={tweet.id} tweet={tweet} />
 			))}
-		</div>
+		</motion.div>
 	);
 };
 

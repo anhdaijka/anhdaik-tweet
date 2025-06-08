@@ -4,9 +4,10 @@ import "@/app/globals.css";
 import { siteConfig } from "@/configs/site";
 import { ThemeProvider } from "@/components/theme-provider";
 import { SettingsProvider } from "@/components/editor/settings";
-import MobileNav from "@/components/mobile-nav";
 import { Toaster } from "@/components/ui/sonner";
 import { AuthProvider } from "@/hooks/use-auth";
+import { SidebarProvider } from "@/components/ui/sidebar";
+import Music from "@/components/music-for-layout";
 
 export const metadata: Metadata = {
 	title: siteConfig.name,
@@ -31,11 +32,14 @@ export default function RootLayout({
 						enableSystem
 						disableTransitionOnChange
 					>
-						<Toaster />
+						<SidebarProvider>
+							<Toaster />
+							<SettingsProvider>
+								{children}
 
-						<SettingsProvider>{children}</SettingsProvider>
-
-						<MobileNav />
+								<Music />
+							</SettingsProvider>
+						</SidebarProvider>
 					</ThemeProvider>
 				</AuthProvider>
 			</body>

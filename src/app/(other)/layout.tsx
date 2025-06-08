@@ -15,10 +15,8 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 	}
 	return (
 		<>
-			<SidebarProvider>
-				<SidebarLeft />
-				<SidebarInset>{children}</SidebarInset>
-			</SidebarProvider>
+			<SidebarLeft />
+			<SidebarInset>{children}</SidebarInset>
 		</>
 	);
 };

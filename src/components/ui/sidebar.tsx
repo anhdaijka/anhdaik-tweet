@@ -40,6 +40,10 @@ type SidebarContextProps = {
 	setOpenMobile: (open: boolean) => void;
 	isMobile: boolean;
 	toggleSidebar: () => void;
+	showMusic: boolean;
+	toggleMusic: () => void;
+	musicExpanded: boolean;
+	toggleMusicExpanded: () => void;
 };
 
 const SidebarContext = React.createContext<SidebarContextProps | null>(null);
@@ -54,7 +58,7 @@ function useSidebar() {
 }
 
 function SidebarProvider({
-	defaultOpen = true,
+	defaultOpen = false,
 	open: openProp,
 	onOpenChange: setOpenProp,
 	className,
@@ -68,6 +72,8 @@ function SidebarProvider({
 }) {
 	const isMobile = useIsMobile();
 	const [openMobile, setOpenMobile] = React.useState(false);
+	const [showMusic, setShowMusic] = React.useState(false);
+	const [musicExpanded, setMusicExpanded] = React.useState(false);
 
 	// This is the internal state of the sidebar.
 	// We use openProp and setOpenProp for control from outside the component.
@@ -87,6 +93,16 @@ function SidebarProvider({
 		},
 		[setOpenProp, open]
 	);
+
+	// Toggle Music Player
+	const toggleMusic = React.useCallback(() => {
+		setShowMusic((prev) => !prev);
+	}, []);
+
+	// Toggle Expanded Music Player
+	const toggleMusicExpanded = React.useCallback(() => {
+		setMusicExpanded((prev) => !prev);
+	}, []);
 
 	// Helper to toggle the sidebar.
 	const toggleSidebar = React.useCallback(() => {
@@ -122,8 +138,24 @@ function SidebarProvider({
 			openMobile,
 			setOpenMobile,
 			toggleSidebar,
+			showMusic,
+			toggleMusic,
+			musicExpanded,
+			toggleMusicExpanded,
 		}),
-		[state, open, setOpen, isMobile, openMobile, setOpenMobile, toggleSidebar]
+		[
+			state,
+			open,
+			setOpen,
+			isMobile,
+			openMobile,
+			setOpenMobile,
+			toggleSidebar,
+			showMusic,
+			toggleMusic,
+			musicExpanded,
+			toggleMusicExpanded,
+		]
 	);
 
 	return (

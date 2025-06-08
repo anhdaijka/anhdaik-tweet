@@ -1,9 +1,13 @@
 "use client";
 
-import { Pen, User, Mail, Sun, Moon, LogIn, LogOut } from "lucide-react";
-import { useTheme } from "next-themes";
+import { Pen, User, Mail, LogIn, LogOut, Music4 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import {
+	Tooltip,
+	TooltipContent,
+	TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { baseUrl } from "@/configs/site";
 import { useAuth } from "@/hooks/use-auth";
 export default function MobileNav() {
@@ -15,50 +19,73 @@ export default function MobileNav() {
 		{ icon: Mail, label: "Contact", href: `${baseUrl}/contact` },
 	];
 
-	const { theme, setTheme } = useTheme();
-
 	return (
-		<div className="fixed bottom-0 left-0 right-0 bg-background border-t border-border lg:hidden z-50">
-			<div className="flex justify-around items-center">
+		<div className="fixed bottom-0 left-0 top-0 bg-background border-t border-border lg:hidden z-50">
+			<div className="flex flex-col justify-around items-center w-16">
 				{navItems.map((item) => {
 					const isActive = pathname === item.href;
 					return (
 						<Link
 							key={item.label}
 							href={item.href}
-							className={`flex flex-col items-center justify-center py-3 flex-1 ${
+							className={`flex flex-col items-center justify-center p-4 ${
 								isActive ? "text-primary" : "text-foreground"
 							}`}
 						>
-							<item.icon className="w-6 h-6" />
-							<span className="text-xs mt-1 sr-only">{item.label}</span>
+							<Tooltip>
+								<TooltipTrigger>
+									{" "}
+									<item.icon className="w-6 h-6" />
+									<span className="text-xs mt-1 sr-only">{item.label}</span>
+								</TooltipTrigger>
+								<TooltipContent>
+									<p>{item.label}</p>
+								</TooltipContent>
+							</Tooltip>
 						</Link>
 					);
 				})}
-				<div className="flex flex-col items-center justify-center py-3 flex-1 cursor-pointer">
-					{theme === "dark" ? (
-						<Sun className="w-6 h-6" onClick={() => setTheme("light")} />
-					) : (
-						<Moon className="w-6 h-6" onClick={() => setTheme("dark")} />
-					)}
-					<span className="text-xs mt-1 sr-only">Theme</span>
+				<div className="flex flex-col items-center justify-center p-4">
+					<Tooltip>
+						<TooltipTrigger>
+							<Music4 className="w-6 h-6" />
+							<span className="text-xs mt-1 sr-only">Music</span>
+						</TooltipTrigger>
+						<TooltipContent>
+							<p>Music Player</p>
+						</TooltipContent>
+					</Tooltip>
 				</div>
-				<div className="flex flex-col items-center justify-center py-3 flex-1">
+				<div className="flex flex-col items-center justify-center p-4">
 					{user ? (
 						<div
-							className="flex flex-col items-center justify-center py-3 flex-1 cursor-pointer"
+							className="flex flex-col items-center justify-center"
 							onClick={() => signOut()}
 						>
-							<LogOut className="w-6 h-6" />
-							<span className="text-xs mt-1 sr-only">Sign Out</span>
+							<Tooltip>
+								<TooltipTrigger>
+									<LogOut className="w-6 h-6" />
+									<span className="text-xs mt-1 sr-only">Sign Out</span>
+								</TooltipTrigger>
+								<TooltipContent>
+									<p>Sign Out</p>
+								</TooltipContent>
+							</Tooltip>
 						</div>
 					) : (
 						<Link
 							href={`${baseUrl}/auth/login`}
-							className="flex flex-col items-center justify-center py-3 flex-1 cursor-pointer"
+							className="flex flex-col items-center justify-center p-4"
 						>
-							<LogIn className="w-6 h-6" />
-							<span className="text-xs mt-1 sr-only">Sign In</span>
+							<Tooltip>
+								<TooltipTrigger>
+									<LogIn className="w-6 h-6" />
+									<span className="text-xs mt-1 sr-only">Sign In</span>
+								</TooltipTrigger>
+								<TooltipContent>
+									<p>Sign In</p>
+								</TooltipContent>
+							</Tooltip>
 						</Link>
 					)}
 				</div>
