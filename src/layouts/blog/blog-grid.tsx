@@ -1,3 +1,5 @@
+"use client";
+
 import EmptyState from "@/components/blog/empty-state";
 import LoadingSkeleton from "@/components/blog/loading-skeleton";
 import PostCard from "@/components/blog/post-card";
