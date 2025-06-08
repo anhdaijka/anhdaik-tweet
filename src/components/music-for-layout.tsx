@@ -6,6 +6,7 @@ import { MusicPlayer } from "@/components/music-player";
 import { Button } from "@/components/ui/button";
 import { Disc3 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { slideLeft, slideRight } from "@/lib/animation";
 
 export default function Music() {
 	const { showMusic, musicExpanded, toggleMusicExpanded } = useSidebar();
@@ -14,14 +15,13 @@ export default function Music() {
 		showMusic && (
 			<>
 				<motion.div
-					initial={{ opacity: 0 }}
-					animate={{ opacity: 1 }}
-					exit={{ opacity: 0 }}
+					variants={slideRight}
+					initial="hidden"
+					animate={musicExpanded ? "hidden" : "visible"}
+					exit="hidden"
 					transition={{ duration: 0.3, ease: "easeInOut" }}
-					className={cn(
-						"fixed right-4 bottom-4 z-10",
-						!musicExpanded ? "hidden" : "block"
-					)}
+					className={cn("fixed right-4 bottom-4 z-10")}
+					style={{ translateX: musicExpanded ? "100%" : "0" }}
 				>
 					<Button
 						size={"icon"}
@@ -32,14 +32,13 @@ export default function Music() {
 					</Button>
 				</motion.div>
 				<motion.div
-					initial={{ opacity: 0, x: 100 }}
-					whileInView={{ opacity: 1, x: 0 }}
-					exit={{ opacity: 0, x: 100 }}
+					variants={slideLeft}
+					initial="hidden"
+					animate={musicExpanded ? "visible" : "hidden"}
+					exit="hidden"
 					transition={{ duration: 0.3, ease: "easeInOut" }}
-					className={cn(
-						"fixed bottom-0 right-0 z-10",
-						musicExpanded ? "hidden" : "block"
-					)}
+					className={cn("fixed bottom-0 right-0 z-10")}
+					style={{ translateX: musicExpanded ? "0" : "100%" }}
 				>
 					<MusicPlayer
 						musicExpanded={musicExpanded}

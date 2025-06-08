@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -9,11 +11,19 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import React from "react";
+import { motion } from "motion/react";
+import { fromBottom } from "@/lib/animation";
 
 const ContactPage = () => {
 	return (
 		<div className="p-4 h-[150vh] md:h-screen w-full flex flex-col items-center justify-center">
-			<div className="grid lg:grid-cols-2 items-start gap-8 p-8 mx-auto max-w-4xl max-lg:max-w-2xl bg-card shadow-2xs shadow-primary rounded-md">
+			<motion.div
+				variants={fromBottom}
+				initial="hidden"
+				whileInView={"visible"}
+				transition={{ duration: 0.5, ease: "easeInOut" }}
+				className="grid lg:grid-cols-2 items-start gap-8 p-8 mx-auto max-w-4xl max-lg:max-w-2xl bg-card shadow-2xs shadow-primary rounded-md"
+			>
 				<div>
 					<h2 className="text-primary text-3xl font-bold">Let&#39;s Talk</h2>
 					<p className="text-md text-card-foreground mt-4 leading-relaxed">
@@ -83,7 +93,7 @@ const ContactPage = () => {
 						Send message
 					</Button>
 				</form>
-			</div>
+			</motion.div>
 		</div>
 	);
 };

@@ -28,7 +28,7 @@ import {
 	SidebarTrigger,
 	useSidebar,
 } from "@/components/ui/sidebar";
-
+import { motion } from "motion/react";
 import {
 	DropdownMenu,
 	DropdownMenuCheckboxItem,
@@ -46,7 +46,8 @@ import { DropdownMenuCheckboxItemProps } from "@radix-ui/react-dropdown-menu";
 import Link from "next/link";
 import { baseUrl } from "@/configs/site";
 import { useAuth } from "@/hooks/use-auth";
-import { MusicPlayer } from "./music-player";
+import { usePathname } from "next/navigation";
+import { slideLeft } from "@/lib/animation";
 type Checked = DropdownMenuCheckboxItemProps["checked"];
 export function SidebarLeft({
 	...props
@@ -55,7 +56,9 @@ export function SidebarLeft({
 	const { theme, setTheme } = useTheme();
 	const [showStatusBar, setShowStatusBar] = React.useState<Checked>(true);
 	const { user, signOut } = useAuth();
-
+	const path = usePathname();
+	const isNeeded =
+		path.startsWith("/blog") || path.startsWith("/auth") || path === "/contact";
 	React.useEffect(() => {
 		console.log("User has changed");
 	}, [user]);
@@ -72,8 +75,17 @@ export function SidebarLeft({
 				<NavMain items={data.navMain} />
 			</SidebarHeader>
 			<SidebarContent>
-				<NavProjects projects={data.projects} />
-				<NavWorkspaces title="Workspaces" workspaces={data.workspaces} />
+				{!isNeeded && (
+					<motion.div
+						variants={slideLeft}
+						initial="hidden"
+						animate="visible"
+						transition={{ duration: 0.3, ease: "easeInOut" }}
+					>
+						<NavProjects projects={data.projects} />
+						<NavWorkspaces title="Workspaces" workspaces={data.workspaces} />
+					</motion.div>
+				)}
 			</SidebarContent>
 			<SidebarFooter>
 				<SidebarMenuButton onClick={toggleMusic}>
@@ -141,7 +153,7 @@ export function SidebarLeft({
 					</SidebarMenuButton>
 				)}
 			</SidebarFooter>
-			<SidebarRail />
+			{/* <SidebarRail /> */}
 		</Sidebar>
 	);
 }
