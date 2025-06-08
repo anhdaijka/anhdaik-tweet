@@ -5,12 +5,14 @@ import Image from "next/image";
 import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { parentVariants, childVariants } from "@/lib/animation";
+import { cn } from "@/lib/utils";
 
 const Gallery = () => {
 	const [focusedImage, setFocusedImage] = useState<string | undefined>(
 		undefined
 	);
 	const [focused, setFocused] = useState(false);
+	const [hovered, setHovered] = useState<number | null>(null);
 	return (
 		<div className="min-h-[150%] max-w-[calc(100%-2rem)] mx-auto">
 			<motion.div
@@ -22,13 +24,24 @@ const Gallery = () => {
 			>
 				<AnimatePresence mode="wait">
 					{gallery.map((image, i) => (
-						<motion.div variants={childVariants} key={i}>
+						<motion.div
+							variants={childVariants}
+							key={i}
+							className={cn(
+								"group overflow-hidden rounded-xl",
+								hovered !== null && hovered !== i && "blur-[2px]"
+							)}
+							layout
+							onHoverStart={() => setHovered(i)}
+							onHoverEnd={() => setHovered(null)}
+						>
 							<Image
 								src={image}
 								alt="image"
-								className="w-full aspect-[9/16] object-cover object-center rounded-xl"
+								className="w-full aspect-[9/16] object-cover object-center rounded-xl group-hover:scale-125 transition-all duration-500 ease-in-out"
 								width={1000}
 								height={1000}
+								loading="lazy"
 								onClick={() => {
 									setFocusedImage(image);
 									setFocused(true);
