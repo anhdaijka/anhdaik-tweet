@@ -5,7 +5,13 @@ import { admin } from "@/lib/data";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { baseUrl } from "@/configs/site";
-import { MapPin, CalendarDays } from "lucide-react";
+import {
+	MapPin,
+	CalendarDays,
+	GithubIcon,
+	LinkedinIcon,
+	InstagramIcon,
+} from "lucide-react";
 import { motion } from "motion/react";
 import badge from "@/assets/images/Verified_Badge.png";
 import { fallBounce } from "@/lib/animation";
@@ -76,6 +82,35 @@ const Profile = () => {
 						<span className="text-foreground/70">Months Experience</span>
 					</p>
 				</div>
+				<ul className="flex space-x-2 absolute translate-y-12 right-4">
+					<Button
+						variant={"ghost"}
+						size={"icon"}
+						className="rounded-full size-12 cursor-pointer text-primary"
+					>
+						<Link target="_blank" href="https://github.com/1020phug">
+							<GithubIcon />
+						</Link>
+					</Button>
+					<Button
+						variant={"ghost"}
+						size={"icon"}
+						className="rounded-full size-12 cursor-pointer text-primary"
+					>
+						<Link target="_blank" href="https://www.linkedin.com/in/1020phug">
+							<LinkedinIcon />
+						</Link>
+					</Button>
+					<Button
+						variant={"ghost"}
+						size={"icon"}
+						className="rounded-full size-12 cursor-pointer text-primary"
+					>
+						<Link target="_blank" href="https://instagram.com/anhdaik">
+							<InstagramIcon />
+						</Link>
+					</Button>
+				</ul>
 			</div>
 		</section>
 	);

@@ -36,6 +36,7 @@ export function MusicPlayer({
 	musicExpanded?: boolean;
 	toggleMusicExpanded?: () => void;
 }) {
+	const [newPlaylist, setNewPlaylist] = React.useState(playlist);
 	const [currentTrackIndex, setCurrentTrackIndex] = React.useState(0);
 	const [isPlaying, setIsPlaying] = React.useState(false);
 	const [isLoading, setIsLoading] = React.useState(false);
@@ -71,7 +72,7 @@ export function MusicPlayer({
 
 	const onLoadAndPlayTrack = React.useCallback(
 		async (index: number, shouldPlay = true) => {
-			const trackToPlay = playlist[index];
+			const trackToPlay = newPlaylist[index];
 			if (!trackToPlay) {
 				toast.error("Track not found");
 				return;
@@ -113,20 +114,26 @@ export function MusicPlayer({
 	};
 
 	const onNextTrack = React.useCallback(() => {
-		const nextIndex = (currentTrackIndex + 1) % playlist.length;
+		const nextIndex = (currentTrackIndex + 1) % newPlaylist.length;
 		onPlayTrack(nextIndex);
 	}, [currentTrackIndex, onPlayTrack]);
 
 	const onPreviousTrack = React.useCallback(() => {
 		const prevIndex =
-			(currentTrackIndex - 1 + playlist.length) % playlist.length;
+			(currentTrackIndex - 1 + newPlaylist.length) % newPlaylist.length;
 		onPlayTrack(prevIndex);
 	}, [currentTrackIndex, onPlayTrack]);
 
 	const currentTrack = React.useMemo(
-		() => playlist[currentTrackIndex],
+		() => newPlaylist[currentTrackIndex],
 		[currentTrackIndex]
 	);
+
+	React.useEffect(() => {
+		//Shuffle playlist
+		const shuffledPlaylist = playlist.sort(() => Math.random() - 0.5);
+		setNewPlaylist(shuffledPlaylist);
+	}, []);
 
 	React.useEffect(() => {
 		const audioElement = audioRef.current;
@@ -224,9 +231,9 @@ export function MusicPlayer({
 				>
 					<div className="absolute right-4 top-4 z-[12]">
 						<Button
-							variant={"ghost"}
+							variant={"secondary"}
 							size={"icon"}
-							className="cursor-pointer ring-0 focus-visible:ring-0 border-0 bg-transparent"
+							className="cursor-pointer rounded-[8px]"
 							onClick={toggleMusicExpanded}
 						>
 							<Minimize2 className="size-5" />
@@ -265,10 +272,10 @@ export function MusicPlayer({
 						</div>
 						<span className="text-muted-foreground text-sm">{`${
 							currentTrackIndex + 1
-						} / ${playlist.length}`}</span>
+						} / ${newPlaylist.length}`}</span>
 					</div>
 					<ScrollArea className="h-72">
-						{playlist.map((track, index) => (
+						{newPlaylist.map((track, index) => (
 							<Button
 								key={track.id}
 								variant="ghost"

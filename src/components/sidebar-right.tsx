@@ -66,7 +66,7 @@ export function SidebarRight({
 						{admin.interests.map((interest, index) => (
 							<div
 								key={index}
-								className="rounded cursor-pointer w-full hover:bg-card px-4 py-2"
+								className="rounded cursor-pointer w-full hover:bg-accent px-4 py-2"
 							>
 								<Link
 									href={`https://www.youtube.com/results?search_query=${interest}`}

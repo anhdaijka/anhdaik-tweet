@@ -69,12 +69,12 @@ const Searchbar = () => {
 					inputFocus
 						? "opacity-100 h-auto translate-y-0 mt-2"
 						: "translate-y-[-10px] opacity-0 h-0"
-				} product_search_bar bg-background shadow-2xl shadow-primary w-full transition-all duration-500 overflow-hidden flex flex-col rounded-md border border-border absolute top-full left-0 z-10 first:rounded-t-md last:rounded-b-md`}
+				} product_search_bar bg-background shadow-2xl shadow-primary w-full border-2 border-border transition-all duration-500 overflow-hidden flex flex-col rounded-md absolute top-full left-0 z-10 first:rounded-t-md last:rounded-b-md`}
 			>
 				{filteredData?.map((project, index) => (
 					<div
 						key={index}
-						className="group transition-all flex items-center justify-between w-full px-4 py-2 h-18 bg-card hover:text-card text-foreground hover:bg-card-foreground cursor-pointer"
+						className="group transition-all flex items-center justify-between w-full px-4 py-2 h-18 bg-card hover:text-accent-foreground text-foreground border border-border hover:bg-accent cursor-pointer"
 					>
 						<Link
 							href={project?.url}
@@ -86,7 +86,7 @@ const Searchbar = () => {
 								{truncate(project?.name, 60)}
 							</h1>
 						</Link>
-						<SquareArrowOutUpRight className="size-4 absolute right-4 group-hover:opacity-100 group-hover:text-accent opacity-0" />
+						<SquareArrowOutUpRight className="size-4 absolute right-4 group-hover:opacity-100 group-hover:text-primary opacity-0" />
 					</div>
 				))}
 
