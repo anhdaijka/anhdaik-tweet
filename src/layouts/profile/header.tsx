@@ -31,7 +31,7 @@ const Header = () => {
 				</Link>
 				<div className="flex flex-col item">
 					<h1 className="text-2xl font-semibold">Phùng Quang Anh</h1>
-					<span className="text-secondary-foreground text-sm">0 posts</span>
+					<span className="text-foreground/90 text-sm">12 posts</span>
 				</div>
 				{isMobile && (
 					<div className="ml-auto">
