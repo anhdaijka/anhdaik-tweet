@@ -129,7 +129,7 @@ export const techStackDetails = [
 export const data = {
 	navMain: [
 		{
-			title: "Profile",
+			title: "Anh's Portfolio",
 			url: `${baseUrl}/`,
 			icon: User,
 		},

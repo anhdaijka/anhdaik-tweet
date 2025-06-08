@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import {
 	GithubIcon,
+	HomeIcon,
 	InstagramIcon,
 	LinkedinIcon,
 	MailIcon,
@@ -13,10 +14,20 @@ import Link from "next/link";
 import React from "react";
 import { motion } from "motion/react";
 import { fromBottom } from "@/lib/animation";
+import { useRouter } from "next/navigation";
 
 const ContactPage = () => {
+	const router = useRouter();
 	return (
 		<div className="p-4 h-[150vh] md:h-screen w-full flex flex-col items-center justify-center">
+			<Button
+				className="flex items-center justify-center fixed sm:absolute top-4 left-4 cursor-pointer rounded-2xl gap-4 text-md"
+				variant="secondary"
+				onClick={() => router.push("/")}
+			>
+				<HomeIcon />
+				Home
+			</Button>
 			<motion.div
 				variants={fromBottom}
 				initial="hidden"
@@ -81,12 +92,24 @@ const ContactPage = () => {
 					</div>
 				</div>
 				<form className="space-y-4 h-full flex flex-col items-center justify-center">
-					<Input type="text" placeholder="Name" />
-					<Input type="email" placeholder="Email" />
-					<Input type="text" placeholder="Subject" />
+					<Input
+						type="text"
+						className="border-border border-2"
+						placeholder="Name"
+					/>
+					<Input
+						type="email"
+						className="border-border border-2"
+						placeholder="Email"
+					/>
+					<Input
+						type="text"
+						className="border-border border-2"
+						placeholder="Subject"
+					/>
 					<Textarea
 						placeholder="Message"
-						className="flex-1"
+						className="flex-1 border-border border-2"
 						defaultValue={""}
 					/>
 					<Button type="button" className="w-full mt-2">

@@ -1,3 +1,4 @@
+"use client";
 import { CodeBlockProps } from "@/types";
 import { useState } from "react";
 import { Button } from "../ui/button";
