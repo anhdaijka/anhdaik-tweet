@@ -27,6 +27,7 @@ import { toast } from "sonner";
 import playlist from "@/lib/playlist";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { motion } from "motion/react";
+import { useTheme } from "next-themes";
 
 export function MusicPlayer({
 	musicExpanded,
@@ -41,6 +42,7 @@ export function MusicPlayer({
 	const audioRef = React.useRef<HTMLAudioElement | null>(null);
 	const shouldPlayAfterLoad = React.useRef(false);
 	const isMobile = useIsMobile();
+	const { theme } = useTheme();
 	const onPlay = React.useCallback(() => {
 		setIsPlaying(true);
 	}, []);
@@ -200,6 +202,7 @@ export function MusicPlayer({
 			onPause={onPause}
 			onEnded={onEnded}
 			onKeyDown={onKeyDown}
+			data-theme={theme}
 			className={cn(
 				"w-full sm:max-w-sm md:max-w-md overflow-hidden rounded-lg border bg-background shadow-lg"
 			)}
@@ -251,12 +254,14 @@ export function MusicPlayer({
 					animate={{ opacity: 1, y: 0 }}
 					exit={{ opacity: 0, y: -100 }}
 					transition={{ duration: 0.5, ease: "easeInOut" }}
-					className=" w-full"
+					className="w-full"
 				>
 					<div className="flex items-center border-border border-b px-4 pb-4">
 						<div className="flex flex-1 items-center gap-2">
-							<h3 className="font-medium text-lg tracking-tight">Playlist</h3>
-							<ListMusicIcon className="size-4" />
+							<h3 className="font-medium text-lg text-foreground tracking-tight">
+								Playlist
+							</h3>
+							<ListMusicIcon className="size-4 text-muted-foreground" />
 						</div>
 						<span className="text-muted-foreground text-sm">{`${
 							currentTrackIndex + 1
@@ -269,7 +274,7 @@ export function MusicPlayer({
 								variant="ghost"
 								className={cn(
 									"h-auto w-full rounded-none px-4 py-3 text-left",
-									index === currentTrackIndex && "bg-accent"
+									index === currentTrackIndex && "bg-card"
 								)}
 								onClick={() => onTogglePlayPauseTrack(index)}
 								disabled={isLoading}
@@ -277,13 +282,16 @@ export function MusicPlayer({
 								<img
 									src={track.cover}
 									alt={track.title}
-									className="aspect-square size-9 rounded object-cover"
+									className={cn(
+										"aspect-square size-9 rounded object-cover",
+										index === currentTrackIndex && "size-12"
+									)}
 								/>
 								<div className="flex flex-1 flex-col">
 									<span
 										className={cn(
-											"font-medium leading-tight",
-											index === currentTrackIndex && "text-primary"
+											"font-medium leading-tight text-card-foreground",
+											index === currentTrackIndex && "text-primary text-lg"
 										)}
 									>
 										{track.title}

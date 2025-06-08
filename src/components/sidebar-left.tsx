@@ -37,7 +37,6 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-
 import { data } from "@/lib/data";
 import { NavUser } from "./nav-user";
 import { useTheme } from "next-themes";
@@ -115,9 +114,9 @@ export function SidebarLeft({
 							</DropdownMenuItem>
 							<DropdownMenuSeparator />
 							<DropdownMenuCheckboxItem
-								checked={theme === "Light" && showStatusBar}
+								checked={theme === "light" && showStatusBar}
 								onCheckedChange={setShowStatusBar}
-								onClick={() => setTheme("Light")}
+								onClick={() => setTheme("light")}
 							>
 								<span>Light</span>
 								<Sun className="text-muted-foreground" />

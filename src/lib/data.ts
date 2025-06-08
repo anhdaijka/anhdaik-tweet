@@ -304,3 +304,38 @@ export const gallery = [
 	anh8.src,
 	anh9.src,
 ];
+
+export const mockPosts = [
+	{
+		title: "Hello World",
+		description: "This is a sample post.",
+		image:
+			"https://resources.premierleague.pulselive.com/photo-resources/2024/08/31/7ec7d402-ae8c-44eb-add7-2841f3f74e8d/CheDM2425.jpg?width=1000&height=480",
+		badge: { text: "Lifestyle", variant: "orange" },
+		href: "#",
+	},
+	{
+		title: "Another Post",
+		description: "This is another sample post.",
+		image:
+			"https://hoanghamobile.com/tin-tuc/wp-content/uploads/2024/04/tai-cs-go.jpg",
+		badge: { text: "Tech", variant: "pink" },
+		href: "#",
+	},
+	{
+		title: "Another Post",
+		description: "This is another sample post.",
+		image:
+			"https://thehowler.org/wp-content/uploads/2018/01/roll-safe-meme-1.jpg",
+		badge: { text: "Shitpost", variant: "green" },
+		href: "#",
+	},
+	{
+		title: "Another Post",
+		description: "This is another sample post.",
+		image:
+			"https://pbs.twimg.com/card_img/1930681947182993408/uVyllfnZ?format=jpg&name=medium",
+		badge: { text: "Philosophy", variant: "indigo" },
+		href: "#",
+	},
+];

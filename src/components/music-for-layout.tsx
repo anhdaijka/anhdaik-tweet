@@ -28,7 +28,7 @@ export default function Music() {
 						className="rounded-full"
 						onClick={toggleMusicExpanded}
 					>
-						<Disc3 className="size-5" />
+						<Disc3 className="size-6 animate-spin" />
 					</Button>
 				</motion.div>
 				<motion.div
@@ -37,7 +37,7 @@ export default function Music() {
 					animate={musicExpanded ? "visible" : "hidden"}
 					exit="hidden"
 					transition={{ duration: 0.3, ease: "easeInOut" }}
-					className={cn("fixed bottom-0 right-0 z-10")}
+					className={cn("fixed bottom-0 right-0 z-20")}
 					style={{ translateX: musicExpanded ? "0" : "100%" }}
 				>
 					<MusicPlayer

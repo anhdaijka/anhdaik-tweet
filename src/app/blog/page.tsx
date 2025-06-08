@@ -1,7 +1,11 @@
+import Category from "@/layouts/blog/category";
+import Hero from "@/layouts/blog/hero";
+
 export default function Blog() {
 	return (
 		<>
-			<h1>Blog</h1>
+			<Hero />
+			<Category />
 		</>
 	);
 }
