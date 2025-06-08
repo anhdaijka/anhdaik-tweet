@@ -86,7 +86,7 @@ const Searchbar = () => {
 								{truncate(project?.name, 60)}
 							</h1>
 						</Link>
-						<SquareArrowOutUpRight className="size-4 absolute right-4" />
+						<SquareArrowOutUpRight className="size-4 absolute right-4 group-hover:opacity-100 group-hover:text-accent opacity-0" />
 					</div>
 				))}
 

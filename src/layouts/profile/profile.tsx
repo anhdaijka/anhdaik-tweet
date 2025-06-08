@@ -54,30 +54,26 @@ const Profile = () => {
 						<Image src={badge} width={20} height={20} alt="badge" />
 					</span>
 				</h1>
-				<span className="text-secondary-foreground text-sm">
-					@{admin.username}
-				</span>
+				<span className="text-foreground/80 text-sm">@{admin.username}</span>
 				<p className="mt-2">{admin.ocupation}</p>
-				<div className="flex items-center gap-4 text-secondary-foreground text-sm mt-2">
+				<div className="flex items-center gap-4 text-foreground text-sm mt-2">
 					<div className="flex items-center gap-1">
 						<MapPin className="size-4" />
-						<span className="text-secondary-foreground/70">Hanoi, Vietnam</span>
+						<span className="text-foreground/70">Hanoi, Vietnam</span>
 					</div>
 					<div className="flex items-center gap-1">
 						<CalendarDays className="size-4" />
-						<span className="text-secondary-foreground/70">01/10/2000</span>
+						<span className="text-foreground/70">01/10/2000</span>
 					</div>
 				</div>
-				<div className="flex items-center gap-4 text-md text-secondary-foreground mt-2">
+				<div className="flex items-center gap-4 text-md text-foreground mt-2">
 					<p className="flex items-center gap-1">
 						<span className="font-semibold">3</span>
-						<span className="text-secondary-foreground/70">Projects</span>
+						<span className="text-foreground/70">Projects</span>
 					</p>
 					<p className="flex items-center gap-1">
 						<span className="font-semibold">9</span>
-						<span className="text-secondary-foreground/70">
-							Months Experience
-						</span>
+						<span className="text-foreground/70">Months Experience</span>
 					</p>
 				</div>
 			</div>
