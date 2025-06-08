@@ -41,8 +41,9 @@ export default function BlogCard({
 						src={image}
 						alt={title}
 						fill
-						sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-						className="object-cover"
+						sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw 
+						"
+						className="object-cover group-hover:scale-110 transition-all duration-500 ease-in-out "
 					/>
 				</div>
 
@@ -53,11 +54,11 @@ export default function BlogCard({
 					)}
 				/>
 
-				<div className="absolute top-3 right-3">
+				<div className="absolute top-3 right-3 group/badge transition-all">
 					<Badge
 						variant="secondary"
 						className={cn(
-							"border border-accent shadow-xs backdrop-blur-md px-2.5 py-1 text-xs font-medium",
+							"shadow-xs backdrop-blur-md px-2.5 py-1 text-xs font-medium overflow-hidden whitespace-nowrap text-ellipsis",
 							badge.variant === "orange" && "bg-orange-600 text-orange-50",
 							badge.variant === "pink" && "bg-pink-600 text-pink-50",
 							badge.variant === "indigo" && "bg-indigo-600 text-indigo-50",
@@ -65,17 +66,19 @@ export default function BlogCard({
 							badge.variant === "blue" && "bg-blue-600 text-blue-50"
 						)}
 					>
-						{badge.text}
+						<span className="group-hover/badge:scale-105 transition-all">
+							{badge.text}
+						</span>
 					</Badge>
 				</div>
 
 				<div className="absolute bottom-0 left-0 right-0 p-5">
 					<div className="flex items-center justify-between gap-3">
 						<div className="space-y-1.5">
-							<h3 className="text-lg font-semibold text-white dark:text-zinc-100 leading-snug tracking-tighter">
+							<h3 className="text-lg group-hover:translate-y-7 transition-all duration-500 ease-in-out font-semibold text-white dark:text-zinc-100 leading-snug tracking-tighter">
 								{title}
 							</h3>
-							<p className="text-sm text-zinc-200 dark:text-zinc-300 line-clamp-2 tracking-tight">
+							<p className="text-sm group-hover:-translate-y-7 transition-all duration-500 ease-in-out text-zinc-200 dark:text-zinc-300 line-clamp-2 tracking-tight">
 								{description}
 							</p>
 						</div>
@@ -85,7 +88,7 @@ export default function BlogCard({
 								"bg-white/10 dark:bg-zinc-800/50",
 								"backdrop-blur-md",
 								"group-hover:bg-white/20 dark:group-hover:bg-zinc-700/50",
-								"transition-colors duration-300 group"
+								"transition-colors duration-300 group group-hover:scale-110"
 							)}
 						>
 							<ArrowUpRight className="w-4 h-4 text-white group-hover:-rotate-12 transition-transform duration-300" />

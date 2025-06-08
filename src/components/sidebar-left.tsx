@@ -56,7 +56,7 @@ export function SidebarLeft({
 	const [showStatusBar, setShowStatusBar] = React.useState<Checked>(true);
 	const { user, signOut } = useAuth();
 	const path = usePathname();
-	const isNeeded =
+	const isNeed =
 		path.startsWith("/blog") || path.startsWith("/auth") || path === "/contact";
 	React.useEffect(() => {
 		console.log("User has changed");
@@ -74,17 +74,20 @@ export function SidebarLeft({
 				<NavMain items={data.navMain} />
 			</SidebarHeader>
 			<SidebarContent>
-				{!isNeeded && (
-					<motion.div
-						variants={slideLeft}
-						initial="hidden"
-						animate="visible"
-						transition={{ duration: 0.3, ease: "easeInOut" }}
-					>
-						<NavProjects projects={data.projects} />
-						<NavWorkspaces title="Workspaces" workspaces={data.workspaces} />
-					</motion.div>
-				)}
+				<motion.div
+					variants={slideLeft}
+					initial="hidden"
+					animate="visible"
+					exit="hidden"
+					transition={{ duration: 0.3, ease: "easeInOut" }}
+				>
+					{!isNeed && (
+						<>
+							<NavProjects projects={data.projects} />
+							<NavWorkspaces title="Workspaces" workspaces={data.workspaces} />
+						</>
+					)}
+				</motion.div>
 			</SidebarContent>
 			<SidebarFooter>
 				<SidebarMenuButton onClick={toggleMusic}>

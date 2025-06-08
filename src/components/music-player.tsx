@@ -226,10 +226,10 @@ export function MusicPlayer({
 						<Button
 							variant={"ghost"}
 							size={"icon"}
-							className="cursor-pointer"
+							className="cursor-pointer ring-0 focus-visible:ring-0 border-0 bg-transparent"
 							onClick={toggleMusicExpanded}
 						>
-							<Minimize2 className="size-4" />
+							<Minimize2 className="size-5" />
 						</Button>
 					</div>
 

@@ -32,66 +32,65 @@ export function SidebarRight({
 	...props
 }: React.ComponentProps<typeof Sidebar>) {
 	const path = usePathname();
-	const isNeeded =
+	const isNotNeeded =
 		path.startsWith("/blog") || path.startsWith("/auth") || path === "/contact";
 	return (
-		!isNeeded && (
-			<motion.div
-				variants={slideRight}
-				initial="hidden"
-				whileInView="visible"
-				transition={{ duration: 0.3, ease: "easeInOut" }}
-				style={
-					{
-						"--sidebar-width": "16rem",
-					} as React.CSSProperties
-				}
+		<motion.div
+			variants={slideRight}
+			initial="hidden"
+			whileInView={!isNotNeeded ? "visible" : "hidden"}
+			exit="hidden"
+			transition={{ duration: 0.3, ease: "easeInOut" }}
+			style={
+				{
+					"--sidebar-width": "16rem",
+				} as React.CSSProperties
+			}
+		>
+			<Sidebar
+				collapsible="none"
+				className={cn(
+					"sticky top-0 hidden h-svh border-l overflow-hidden",
+					!isNotNeeded && "lg:flex"
+				)}
+				{...props}
 			>
-				<Sidebar
-					collapsible="none"
-					className={cn(
-						"sticky top-0 hidden h-svh border-l lg:flex overflow-hidden",
-						!isNeeded ? "hidden" : "block"
-					)}
-					{...props}
-				>
-					<SidebarHeader className="border-sidebar-border border-b">
-						<Searchbar />
-					</SidebarHeader>
-					<SidebarContent className="py-8 items-center overflow-hidden">
-						<div className="w-full">
-							<h3 className="font-semibold text-card-foreground mb-2 px-4 text-2xl">
-								What I&apos;m
-							</h3>
-							{admin.interests.map((interest, index) => (
-								<div
-									key={index}
-									className="rounded cursor-pointer w-full hover:bg-card px-4 py-2"
+				<SidebarHeader className="border-sidebar-border border-b">
+					<Searchbar />
+				</SidebarHeader>
+				<SidebarContent className="py-8 items-center overflow-hidden">
+					<div className="w-full">
+						<h3 className="font-semibold text-card-foreground mb-2 px-4 text-2xl">
+							What I&apos;m
+						</h3>
+						{admin.interests.map((interest, index) => (
+							<div
+								key={index}
+								className="rounded cursor-pointer w-full hover:bg-card px-4 py-2"
+							>
+								<Link
+									href={`https://www.youtube.com/results?search_query=${interest}`}
+									target="_blank"
 								>
-									<Link
-										href={`https://www.youtube.com/results?search_query=${interest}`}
-										target="_blank"
-									>
-										<div className="text-card-foreground/60 text-sm">
-											Interested in
-										</div>
-										<div className="font-semibold text-card-foreground">
-											{interest}
-										</div>
-										<div className="text-card-foreground/60 text-sm">
-											{Math.floor(Math.random() * 1000)} posts
-										</div>
-									</Link>
-								</div>
-							))}
-						</div>
+									<div className="text-card-foreground/60 text-sm">
+										Interested in
+									</div>
+									<div className="font-semibold text-card-foreground">
+										{interest}
+									</div>
+									<div className="text-card-foreground/60 text-sm">
+										{Math.floor(Math.random() * 1000)} posts
+									</div>
+								</Link>
+							</div>
+						))}
+					</div>
 
-						<SidebarSeparator className="my-2" />
-						<Calendars calendars={calendars} />
-					</SidebarContent>
-					<SidebarFooter></SidebarFooter>
-				</Sidebar>
-			</motion.div>
-		)
+					<SidebarSeparator className="my-2" />
+					<Calendars calendars={calendars} />
+				</SidebarContent>
+				<SidebarFooter></SidebarFooter>
+			</Sidebar>
+		</motion.div>
 	);
 }

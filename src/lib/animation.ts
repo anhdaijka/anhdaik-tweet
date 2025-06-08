@@ -1,3 +1,5 @@
+import css from "styled-jsx/css";
+
 export const parentVariants = {
 	hidden: {
 		opacity: 0,
