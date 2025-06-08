@@ -6,7 +6,9 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { baseUrl } from "@/configs/site";
 import { MapPin, CalendarDays } from "lucide-react";
+import { motion } from "motion/react";
 import badge from "@/assets/images/Verified_Badge.png";
+import { fallBounce } from "@/lib/animation";
 const Profile = () => {
 	return (
 		<section className="h-[25rem] w-full mb-[2.5rem]">
@@ -21,10 +23,18 @@ const Profile = () => {
 						className="w-full h-full object-cover object-bottom"
 					/>
 				</div>
-				<Avatar className="absolute size-32 left-[0.8rem] bottom-[-4rem] ring-2 ring-primary/60 ring-offset-1">
-					<AvatarImage src={admin.avatar} className="object-cover" />
-					<AvatarFallback>A</AvatarFallback>
-				</Avatar>
+				<motion.div
+					variants={fallBounce}
+					initial="hidden"
+					whileInView={"visible"}
+					transition={{ timestamp: 0.5, duration: 1, ease: "easeInOut" }}
+					className="absolute size-32 left-[0.8rem] bottom-[-4rem]"
+				>
+					<Avatar className="w-full h-full ring-2 ring-primary/60 ring-offset-1">
+						<AvatarImage src={admin.avatar} className="object-cover" />
+						<AvatarFallback>A</AvatarFallback>
+					</Avatar>
+				</motion.div>
 			</div>
 			{/* Button  */}
 			<div className="text-end mt-[0.5rem]">

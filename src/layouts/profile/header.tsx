@@ -6,11 +6,19 @@ import { buttonVariants } from "../../components/ui/button";
 import { cn } from "@/lib/utils";
 import { baseUrl } from "@/configs/site";
 import { SidebarTrigger, useSidebar } from "@/components/ui/sidebar";
+import { motion } from "motion/react";
+import { fromTop } from "@/lib/animation";
 
 const Header = () => {
 	const { isMobile } = useSidebar();
 	return (
-		<header className="bg-background sticky top-0 flex h-14 shrink-0 items-center gap-2 z-10">
+		<motion.header
+			variants={fromTop}
+			initial="hidden"
+			animate="visible"
+			transition={{ duration: 0.5, delay: 0.2, ease: "easeInOut" }}
+			className="bg-background sticky top-0 flex h-14 shrink-0 items-center gap-2 z-10"
+		>
 			<div className="flex flex-1 items-center gap-8 px-3">
 				<Link
 					href={`${baseUrl}/blog`}
@@ -31,7 +39,7 @@ const Header = () => {
 					</div>
 				)}
 			</div>
-		</header>
+		</motion.header>
 	);
 };
 

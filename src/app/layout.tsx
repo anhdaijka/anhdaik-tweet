@@ -8,7 +8,9 @@ import { Toaster } from "@/components/ui/sonner";
 import { AuthProvider } from "@/hooks/use-auth";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import Music from "@/components/music-for-layout";
-
+import { SidebarLeft } from "@/components/sidebar-left";
+import { SidebarRight } from "@/components/sidebar-right";
+import { SidebarInset } from "@/components/ui/sidebar";
 export const metadata: Metadata = {
 	title: siteConfig.name,
 	description: siteConfig.description,
@@ -35,8 +37,9 @@ export default function RootLayout({
 						<SidebarProvider>
 							<Toaster />
 							<SettingsProvider>
-								{children}
-
+								<SidebarLeft />
+								<SidebarInset>{children}</SidebarInset>
+								<SidebarRight />
 								<Music />
 							</SettingsProvider>
 						</SidebarProvider>

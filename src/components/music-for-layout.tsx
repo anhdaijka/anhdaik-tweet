@@ -4,7 +4,7 @@ import { motion } from "motion/react";
 import { useSidebar } from "@/components/ui/sidebar";
 import { MusicPlayer } from "@/components/music-player";
 import { Button } from "@/components/ui/button";
-import { Music4 } from "lucide-react";
+import { Disc3 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export default function Music() {
@@ -28,7 +28,7 @@ export default function Music() {
 						className="rounded-full"
 						onClick={toggleMusicExpanded}
 					>
-						<Music4 className="size-5" />
+						<Disc3 className="size-5" />
 					</Button>
 				</motion.div>
 				<motion.div

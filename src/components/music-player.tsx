@@ -14,7 +14,7 @@ import {
 	MediaPlayerVolume,
 } from "@/components/ui/media-player";
 import {
-	ExpandIcon,
+	Minimize2,
 	ListMusicIcon,
 	Loader2Icon,
 	PauseCircleIcon,
@@ -26,7 +26,7 @@ import * as React from "react";
 import { toast } from "sonner";
 import playlist from "@/lib/playlist";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { AnimatePresence, motion } from "motion/react";
+import { motion } from "motion/react";
 
 export function MusicPlayer({
 	musicExpanded,
@@ -226,7 +226,7 @@ export function MusicPlayer({
 							className="cursor-pointer"
 							onClick={toggleMusicExpanded}
 						>
-							<ExpandIcon className="size-4" />
+							<Minimize2 className="size-4" />
 						</Button>
 					</div>
 
