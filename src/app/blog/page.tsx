@@ -9,8 +9,8 @@ import { BlogPost } from "@/types";
 import HeroSection from "../../layouts/blog/hero";
 import TrendingSection from "../../layouts/blog/trending";
 import BlogGrid from "../../layouts/blog/blog-grid";
-import CategoryPage from "@/app/blog/category/page";
-import SinglePost from "@/app/blog/post/page";
+import CategoryPage from "@/layouts/blog/category-page";
+import SinglePost from "@/layouts/blog/single-post";
 import Navigation from "@/components/blog/navtigation";
 
 const BlogLandingPage: React.FC = () => {
