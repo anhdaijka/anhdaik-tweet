@@ -56,7 +56,7 @@ export default function LoginPage() {
 	return (
 		<div className="flex flex-col min-h-[calc(100vh+5rem)] min-[380px]:min-h-screen w-full items-center justify-center">
 			<Button
-				className="hidden lg:flex items-center justify-center fixed sm:absolute top-4 left-4 cursor-pointer rounded-2xl gap-4 text-md"
+				className="flex items-center justify-center fixed sm:absolute top-4 left-4 cursor-pointer rounded-2xl gap-4 text-md"
 				variant="secondary"
 				onClick={() => router.push("/")}
 			>
