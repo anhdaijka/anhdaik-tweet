@@ -7,13 +7,20 @@ import React, { useEffect } from "react";
 
 const BlogLayout = ({ children }: { children: React.ReactNode }) => {
 	const { user } = useAuth();
-
 	useEffect(() => {
 		if (!user) {
 			toast.warning("You need to sign in to access this page", {
 				position: "top-center",
 			});
 			redirect("/auth/login");
+		}
+		if (user && user.email !== "tenzovn@gmail.com") {
+			toast.warning(
+				"At the moment, only Admin can access. This will be updated soon",
+				{
+					position: "top-center",
+				}
+			);
 		}
 	}, [user]);
 
