@@ -5,13 +5,13 @@ import type { PlateElementProps } from "@udecode/plate/react";
 
 import { PlateElement, useReadOnly } from "@udecode/plate/react";
 
-// import { Calendars } from "@/components/calendars";
 import {
 	Popover,
 	PopoverContent,
 	PopoverTrigger,
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
+import { Calendar } from "../ui/calendar";
 
 export function DateElement(props: PlateElementProps<TDateElement>) {
 	const { editor, element } = props;
@@ -74,7 +74,7 @@ export function DateElement(props: PlateElementProps<TDateElement>) {
 			<Popover>
 				<PopoverTrigger asChild>{trigger}</PopoverTrigger>
 				<PopoverContent className="w-auto p-0">
-					{/* <Calendars
+					<Calendar
 						selected={new Date(element.date as string)}
 						onSelect={(date) => {
 							if (!date) return;
@@ -86,7 +86,7 @@ export function DateElement(props: PlateElementProps<TDateElement>) {
 						}}
 						mode="single"
 						initialFocus
-					/> */}
+					/>
 				</PopoverContent>
 			</Popover>
 			{props.children}
