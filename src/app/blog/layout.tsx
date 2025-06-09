@@ -14,7 +14,7 @@ const BlogLayout = ({ children }: { children: React.ReactNode }) => {
 			});
 			redirect("/auth/login");
 		}
-		if (user.user_metadata?.email !== "tenzovn@gmail.com") {
+		if (user.email !== "tenzovn@gmail.com") {
 			toast.warning(
 				"At the moment, only Admin can access. This will be updated soon",
 				{
