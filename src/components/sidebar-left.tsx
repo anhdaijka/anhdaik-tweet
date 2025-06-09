@@ -1,5 +1,5 @@
 "use client";
-
+import { useModeAnimation } from "react-theme-switch-animation";
 import * as React from "react";
 import {
 	Settings2,
@@ -56,6 +56,8 @@ export function SidebarLeft({
 	const [showStatusBar, setShowStatusBar] = React.useState<Checked>(true);
 	const { user, signOut } = useAuth();
 	const path = usePathname();
+	const { ref, toggleSwitchTheme, isDarkMode } = useModeAnimation();
+
 	const isNeed =
 		path.startsWith("/blog") || path.startsWith("/auth") || path === "/contact";
 	React.useEffect(() => {
@@ -111,13 +113,19 @@ export function SidebarLeft({
 							side={isMobile ? "bottom" : "right"}
 							align={isMobile ? "end" : "start"}
 						>
-							<DropdownMenuItem disabled>
+							<DropdownMenuItem
+								onClick={() => {
+									setShowStatusBar(!showStatusBar);
+									toggleSwitchTheme();
+								}}
+							>
 								<ToggleRight className="text-muted-foreground" />
-								<span>Change Theme</span>
+								<span ref={ref}>Change Theme</span>
 							</DropdownMenuItem>
 							<DropdownMenuSeparator />
 							<DropdownMenuCheckboxItem
-								checked={theme === "light" && showStatusBar}
+								disabled
+								checked={!isDarkMode}
 								onCheckedChange={setShowStatusBar}
 								onClick={() => setTheme("light")}
 							>
@@ -125,7 +133,8 @@ export function SidebarLeft({
 								<Sun className="text-muted-foreground" />
 							</DropdownMenuCheckboxItem>
 							<DropdownMenuCheckboxItem
-								checked={theme === "dark" && showStatusBar}
+								disabled
+								checked={isDarkMode}
 								onCheckedChange={setShowStatusBar}
 								onClick={() => setTheme("dark")}
 							>

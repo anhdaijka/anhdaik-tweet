@@ -53,7 +53,7 @@ const Profile = () => {
 				</Button>
 			</div>
 			{/* Profile Info  */}
-			<div className="flex flex-col items-start p-4 mt-4">
+			<div className="flex flex-col items-start p-4 mt-4 relative">
 				<h1 className="text-2xl font-bold flex items-center">
 					{admin.name}
 					<span className="ml-2">

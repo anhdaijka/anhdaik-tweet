@@ -28,6 +28,7 @@ import playlist from "@/lib/playlist";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { motion } from "motion/react";
 import { useTheme } from "next-themes";
+import { set } from "date-fns";
 
 export function MusicPlayer({
 	musicExpanded,
@@ -116,17 +117,17 @@ export function MusicPlayer({
 	const onNextTrack = React.useCallback(() => {
 		const nextIndex = (currentTrackIndex + 1) % newPlaylist.length;
 		onPlayTrack(nextIndex);
-	}, [currentTrackIndex, onPlayTrack]);
+	}, [currentTrackIndex, onPlayTrack, newPlaylist]);
 
 	const onPreviousTrack = React.useCallback(() => {
 		const prevIndex =
 			(currentTrackIndex - 1 + newPlaylist.length) % newPlaylist.length;
 		onPlayTrack(prevIndex);
-	}, [currentTrackIndex, onPlayTrack]);
+	}, [currentTrackIndex, onPlayTrack, newPlaylist]);
 
 	const currentTrack = React.useMemo(
 		() => newPlaylist[currentTrackIndex],
-		[currentTrackIndex]
+		[currentTrackIndex, newPlaylist]
 	);
 
 	React.useEffect(() => {
@@ -166,7 +167,7 @@ export function MusicPlayer({
 			audioElement.removeEventListener("loadstart", onLoadStart);
 			audioElement.removeEventListener("error", onError);
 		};
-	}, [onAudioPlay]);
+	}, [onAudioPlay, newPlaylist]);
 
 	React.useEffect(() => {
 		if (
@@ -176,7 +177,7 @@ export function MusicPlayer({
 		) {
 			onLoadAndPlayTrack(currentTrackIndex, false);
 		}
-	}, [currentTrack, currentTrackIndex, onLoadAndPlayTrack]);
+	}, [currentTrack, currentTrackIndex, onLoadAndPlayTrack, newPlaylist]);
 
 	const onKeyDown = React.useCallback(
 		(event: React.KeyboardEvent<HTMLDivElement>) => {

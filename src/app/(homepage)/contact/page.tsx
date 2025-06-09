@@ -21,7 +21,7 @@ const ContactPage = () => {
 	return (
 		<div className="p-4 h-[150vh] md:h-screen w-full flex flex-col items-center justify-center">
 			<Button
-				className="flex items-center justify-center fixed sm:absolute top-4 left-4 cursor-pointer rounded-2xl gap-4 text-md"
+				className="flex sm:hidden items-center justify-center fixed sm:absolute bottom-4 left-4 cursor-pointer rounded-2xl gap-4 text-md z-[16]"
 				variant="secondary"
 				onClick={() => router.push("/")}
 			>

@@ -9,9 +9,11 @@ export default function Page() {
 		<AnimatePresence mode="wait">
 			<div className="overflow-hidden">
 				<Header />
-				<Profile />
-				<div className="flex flex-1 flex-col gap-4">
-					<TabsProfile />
+				<div className="max-w-5xl mx-auto border-x border-border">
+					<Profile />
+					<div className="flex flex-1 flex-col gap-4">
+						<TabsProfile />
+					</div>
 				</div>
 			</div>
 		</AnimatePresence>

@@ -43,7 +43,7 @@ export function SidebarRight({
 			transition={{ duration: 0.3, ease: "easeInOut" }}
 			style={
 				{
-					"--sidebar-width": "16rem",
+					"--sidebar-width": "18rem",
 				} as React.CSSProperties
 			}
 		>

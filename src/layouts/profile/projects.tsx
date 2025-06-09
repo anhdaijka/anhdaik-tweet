@@ -7,7 +7,7 @@ import { parentVariants } from "@/lib/animation";
 const tweets = data.projects.map((project, index) => ({
 	id: String(index),
 	content: project.description,
-	timestamp: dayjs(new Date()).format("DD/MM/YY"),
+	timestamp: dayjs(new Date()).format("h:mm A ・ MMM D, YYYY"),
 	likes: Math.floor(Math.random() * 1000),
 	retweets: Math.floor(Math.random() * 1000),
 	replies: Math.floor(Math.random() * 1000),
