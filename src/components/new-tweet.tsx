@@ -17,7 +17,10 @@ const NewTweet = () => {
 	const { user: sessionUser } = useAuth();
 	const [isPosting, setIsPosting] = useState(false);
 	const handlePostTweet = async () => {
-		const res = await postTweet({ content, author_id: user?.id ?? "" });
+		const res = await postTweet({
+			author_id: user?.id ?? null,
+			content: content || null,
+		});
 		if (res?.error) {
 			console.log(res);
 		} else {

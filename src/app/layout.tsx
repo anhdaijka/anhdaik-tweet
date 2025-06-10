@@ -3,7 +3,6 @@ import { sourceSans } from "@/configs/fonts";
 import "@/app/globals.css";
 import { siteConfig } from "@/configs/site";
 import { ThemeProvider } from "@/components/theme-provider";
-import { SettingsProvider } from "@/components/editor/settings";
 import { Toaster } from "@/components/ui/sonner";
 import { AuthProvider } from "@/hooks/use-auth";
 import { SidebarProvider } from "@/components/ui/sidebar";
@@ -36,12 +35,10 @@ export default function RootLayout({
 					>
 						<SidebarProvider>
 							<Toaster />
-							<SettingsProvider>
-								<SidebarLeft />
-								<SidebarInset>{children}</SidebarInset>
-								<SidebarRight />
-								<Music />
-							</SettingsProvider>
+							<SidebarLeft />
+							<SidebarInset>{children}</SidebarInset>
+							<SidebarRight />
+							<Music />
 						</SidebarProvider>
 					</ThemeProvider>
 				</AuthProvider>

@@ -1,15 +1,12 @@
-import { Tweets } from "@/types";
 import { createClient } from "@/utils/supabase/client";
-import { Tables } from "../../database.types";
+import { Database, Tables } from "../../database.types";
 
 const supabase = createClient();
 //Tweets Functions
-export async function postTweet(data: Tweets) {
-	const user = await supabase.auth.getUser();
-	const { error } = await supabase.from("tweets").insert({
-		...data,
-		author_id: user.data.user?.id,
-	});
+export async function postTweet(
+	data: Database["public"]["Tables"]["tweets"]["Insert"]
+) {
+	const { error } = await supabase.from("tweets").insert(data);
 	if (error) {
 		return { error: error.message };
 	} else {
@@ -38,7 +35,10 @@ export async function deleteTweet(id: Tables<"tweets">["id"]) {
 	}
 }
 
-export async function updateTweet(id: Tables<"tweets">["id"], data: Tweets) {
+export async function updateTweet(
+	id: Tables<"tweets">["id"],
+	data: Tables<"tweets">
+) {
 	const { error } = await supabase.from("tweets").update(data).eq("id", id);
 	if (error) {
 		return { error: error.message };
