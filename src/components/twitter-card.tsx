@@ -16,26 +16,22 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import { admin } from "@/lib/data";
 import { AnimatePresence, motion } from "motion/react";
 import { childVariants } from "@/lib/animation";
+import { Tables } from "../../database.types";
+import dayjs from "dayjs";
 
-interface Tweet {
-	id: string;
-	content: string;
-	timestamp: string;
-	likes: number;
-	retweets: number;
-	replies: number;
-	image?: string;
-}
-
-interface TweetCardProps {
-	tweet: Tweet;
-}
-
-export default function TweetCard({ tweet }: TweetCardProps) {
+export default function TweetCard(
+	tweet: Tables<"tweets"> & {
+		author: Tables<"users">;
+		likes?: number;
+		comments?: number;
+	}
+) {
 	const [liked, setLiked] = useState(false);
 	const [retweeted, setRetweeted] = useState(false);
-	const [likesCount, setLikesCount] = useState(tweet.likes);
-	const [retweetsCount, setRetweetsCount] = useState(tweet.retweets);
+	const [likesCount, setLikesCount] = useState(tweet.likes || 0);
+	const [retweetsCount, setRetweetsCount] = useState(
+		Math.floor(Math.random() * 1000)
+	);
 	const [focused, setFocused] = useState(false);
 	const isMobile = useIsMobile();
 
@@ -86,12 +82,12 @@ export default function TweetCard({ tweet }: TweetCardProps) {
 				</div>
 				<div
 					className="text-card-foreground block text-xl leading-snug mt-3"
-					dangerouslySetInnerHTML={{ __html: tweet.content }}
+					dangerouslySetInnerHTML={{ __html: tweet.content ?? "" }}
 				></div>
 				{tweet.image && (
 					<Image
 						className="mt-2 rounded-2xl border border-border aspect-video object-cover"
-						src={tweet.image || ""}
+						src={tweet.image?.[0] || ""}
 						alt="image"
 						width={1000}
 						height={1000}
@@ -118,7 +114,7 @@ export default function TweetCard({ tweet }: TweetCardProps) {
 								className="h-full w-full flex flex-col justify-center items-center"
 							>
 								<Image
-									src={tweet.image || ""}
+									src={tweet.image?.[0] || ""}
 									alt="Tweet image"
 									width={1000}
 									height={1000}
@@ -131,7 +127,7 @@ export default function TweetCard({ tweet }: TweetCardProps) {
 					)}
 				</AnimatePresence>
 				<p className="text-card-foreground/70 text-base py-1 my-1">
-					{tweet.timestamp}
+					{tweet.created_at}
 				</p>
 				<div className="border-border border border-b-0 my-1" />
 				<div className="flex items-center gap-6 max-w-md text-foreground mt-3">
@@ -156,9 +152,9 @@ export default function TweetCard({ tweet }: TweetCardProps) {
 						className="text-foreground hover:text-primary hover:bg-primary/10 rounded-full"
 					>
 						<MessageCircle className="size-6" />
-						{!isMobile && (
+						{!isMobile && tweet.comments && tweet.comments > 0 && (
 							<span className="text-xs md:text-sm">
-								{tweet.replies} people {tweet.replies === 1 ? "is" : "are"}{" "}
+								{tweet.comments} people {tweet.comments === 1 ? "is" : "are"}{" "}
 								Tweeting about this
 							</span>
 						)}

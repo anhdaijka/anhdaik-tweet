@@ -135,7 +135,7 @@ export const data = {
 		},
 		{
 			title: "Anh's Portfolio",
-			url: `${baseUrl}/porfolio`,
+			url: `${baseUrl}/portfolio`,
 			icon: User,
 		},
 		{

@@ -13,7 +13,7 @@ export type Database = {
         Row: {
           author_id: string
           censored: boolean | null
-          content: Json
+          content: string
           created_at: string
           id: string
           post_id: string
@@ -22,7 +22,7 @@ export type Database = {
         Insert: {
           author_id: string
           censored?: boolean | null
-          content: Json
+          content: string
           created_at?: string
           id?: string
           post_id: string
@@ -31,7 +31,7 @@ export type Database = {
         Update: {
           author_id?: string
           censored?: boolean | null
-          content?: Json
+          content?: string
           created_at?: string
           id?: string
           post_id?: string
@@ -152,7 +152,7 @@ export type Database = {
         Row: {
           author_id: string
           censored: boolean | null
-          content: Json
+          content: string
           created_at: string
           id: string
           tweet_id: string
@@ -161,7 +161,7 @@ export type Database = {
         Insert: {
           author_id: string
           censored?: boolean | null
-          content: Json
+          content: string
           created_at?: string
           id?: string
           tweet_id: string
@@ -170,7 +170,7 @@ export type Database = {
         Update: {
           author_id?: string
           censored?: boolean | null
-          content?: Json
+          content?: string
           created_at?: string
           id?: string
           tweet_id?: string
@@ -249,21 +249,27 @@ export type Database = {
       tweets: {
         Row: {
           author_id: string | null
-          content: Json | null
+          content: string | null
+          created_at: string | null
           id: string
           image: string[] | null
+          updated_at: string | null
         }
         Insert: {
           author_id?: string | null
-          content?: Json | null
+          content?: string | null
+          created_at?: string | null
           id?: string
           image?: string[] | null
+          updated_at?: string | null
         }
         Update: {
           author_id?: string | null
-          content?: Json | null
+          content?: string | null
+          created_at?: string | null
           id?: string
           image?: string[] | null
+          updated_at?: string | null
         }
         Relationships: [
           {

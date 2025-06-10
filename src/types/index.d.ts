@@ -1,5 +1,5 @@
 import { Tables } from "../../database.types";
-
+import { User as SupabaseUser } from "@supabase/supabase-js";
 export interface Track {
 	id: string;
 	title: string;
@@ -42,16 +42,25 @@ export interface CodeBlockProps {
 	language?: string;
 }
 
-export type Post = Tables["posts"];
+export interface Post extends Tables["posts"] {
+	likes?: number;
+	comments?: number;
+	author?: SupabaseUser;
+}
 
 export type PostComment = Tables["post_comments"];
 
 export type PostLike = Tables["post_likes"];
 
-export type Tweets = Tables["tweets"];
+export type User = Tables["users"];
+
+export type SupabaseUser = SupabaseUser & User;
+
+export interface Tweets extends Tables["tweets"] {
+	likes?: number;
+	comments?: number;
+}
 
 export type TweetComment = Tables["tweet_comments"];
 
 export type TweetLike = Tables["tweet_likes"];
-
-export type User = Tables["users"];
