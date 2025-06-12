@@ -6,7 +6,7 @@ import { getTweets } from "@/services/tweetQuery";
 import dayjs from "dayjs";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 
-const ForYou = () => {
+const Following = () => {
 	const queryClient = useQueryClient();
 	const {
 		data: tweets,
@@ -25,7 +25,7 @@ const ForYou = () => {
 		<>
 			{Array.isArray(tweets) &&
 				tweets
-					.filter((tweet) => tweet.tag === false)
+					.filter((tweet) => tweet.tag === true)
 					.map((tweet) => (
 						<TweetCard
 							key={tweet.id}
@@ -39,4 +39,4 @@ const ForYou = () => {
 	);
 };
 
-export default ForYou;
+export default Following;

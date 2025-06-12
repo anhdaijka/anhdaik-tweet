@@ -1,5 +1,3 @@
-import css from "styled-jsx/css";
-
 export const parentVariants = {
 	hidden: {
 		opacity: 0,
@@ -77,5 +75,14 @@ export const fallBounce = {
 	visible: {
 		opacity: 1,
 		y: [-50, 80, -20, 10, -10, 5, 0],
+	},
+};
+
+export const appear = {
+	hidden: {
+		opacity: 0,
+	},
+	visible: {
+		opacity: 1,
 	},
 };

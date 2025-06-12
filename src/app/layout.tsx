@@ -10,6 +10,7 @@ import Music from "@/components/music-for-layout";
 import { SidebarLeft } from "@/components/sidebar-left";
 import { SidebarRight } from "@/components/sidebar-right";
 import { SidebarInset } from "@/components/ui/sidebar";
+import QueryProvider from "@/components/query-client";
 export const metadata: Metadata = {
 	title: siteConfig.name,
 	description: siteConfig.description,
@@ -27,20 +28,22 @@ export default function RootLayout({
 				data-registry="plate"
 			>
 				<AuthProvider>
-					<ThemeProvider
-						attribute="class"
-						defaultTheme="system"
-						enableSystem
-						disableTransitionOnChange
-					>
-						<SidebarProvider>
-							<Toaster />
-							<SidebarLeft />
-							<SidebarInset>{children}</SidebarInset>
-							<SidebarRight />
-							<Music />
-						</SidebarProvider>
-					</ThemeProvider>
+					<QueryProvider>
+						<ThemeProvider
+							attribute="class"
+							defaultTheme="system"
+							enableSystem
+							disableTransitionOnChange
+						>
+							<SidebarProvider>
+								<Toaster />
+								<SidebarLeft />
+								<SidebarInset>{children}</SidebarInset>
+								<SidebarRight />
+								<Music />
+							</SidebarProvider>
+						</ThemeProvider>
+					</QueryProvider>
 				</AuthProvider>
 			</body>
 		</html>

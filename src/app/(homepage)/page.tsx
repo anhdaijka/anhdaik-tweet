@@ -1,7 +1,8 @@
-import NewTweet from "@/components/new-tweet";
+import NewTweet from "@/layouts/homepage/new-tweet";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ForYou from "@/layouts/homepage/for-you";
+import Following from "@/layouts/homepage/following";
 
 const HomePage = () => {
 	return (
@@ -16,7 +17,9 @@ const HomePage = () => {
 				<TabsContent value="for-you">
 					<ForYou />
 				</TabsContent>
-				<TabsContent value="following">Following</TabsContent>
+				<TabsContent value="following">
+					<Following />
+				</TabsContent>
 			</Tabs>
 		</div>
 	);

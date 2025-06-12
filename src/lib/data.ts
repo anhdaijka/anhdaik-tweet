@@ -31,7 +31,7 @@ import anh7 from "@/assets/images/personal/7.jpg";
 import anh8 from "@/assets/images/personal/8.jpg";
 import anh9 from "@/assets/images/personal/9.jpg";
 
-import { Pen, User, Inbox, MessageCircleQuestion, Home } from "lucide-react";
+import { User, Inbox, Home } from "lucide-react";
 
 import { baseUrl } from "@/configs/site";
 
@@ -138,11 +138,7 @@ export const data = {
 			url: `${baseUrl}/portfolio`,
 			icon: User,
 		},
-		{
-			title: "Blog",
-			url: `${baseUrl}/blog`,
-			icon: Pen,
-		},
+
 		{
 			title: "Contact",
 			url: `${baseUrl}/contact`,
@@ -155,7 +151,7 @@ export const data = {
 			name: "Personal Blog & Self-building CMS",
 			url: "https://1020blog.vercel.app",
 			emoji: "📝",
-			image: blog.src,
+			images: [blog.src],
 			tech: [
 				{
 					name: "Next.js",
@@ -180,7 +176,7 @@ export const data = {
 			name: "Dating & Matching App for University Students",
 			url: "https://soulsync-fe.pages.dev",
 			emoji: "💌",
-			image: chat.src,
+			images: [chat.src],
 			tech: [
 				{
 					name: "React (Vite)",
@@ -210,7 +206,7 @@ export const data = {
 			name: "CodeFest 2025 Landing Page",
 			url: "https://codefest2025.jsclub.dev",
 			emoji: "🧑‍💻",
-			image: codefest.src,
+			images: [codefest.src],
 			tech: [
 				{
 					name: "React (Vite)",

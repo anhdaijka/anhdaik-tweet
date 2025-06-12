@@ -8,8 +8,7 @@ const tweets = data.projects.map((project, index) => ({
 	id: String(index),
 	content: project.description,
 	created_at: dayjs(new Date()).format("h:mm A ・ MMM D, YYYY"),
-	likes: Math.floor(Math.random() * 1000),
-	image: project.image,
+	images: project.images,
 }));
 const Projects = () => {
 	return (
@@ -25,16 +24,9 @@ const Projects = () => {
 					id={tweet.id}
 					content={tweet.content}
 					created_at={tweet.created_at}
-					likes={tweet.likes}
-					image={tweet.image ? [tweet.image] : null}
-					author_id={null}
+					images={tweet.images ?? null}
 					updated_at={null}
-					author={{
-						id: "1",
-						full_name: admin.name,
-						avatar_url: admin.avatar,
-						email: admin.email,
-					}}
+					tag={false}
 				/>
 			))}
 		</motion.div>

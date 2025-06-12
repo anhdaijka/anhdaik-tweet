@@ -11,8 +11,8 @@ export default function Likes() {
 			whileInView="visible"
 			className="min-h-[150%]"
 		>
-			<TweetCard tweet={tweets[1]} />
-			<TweetCard tweet={tweets[2]} />
+			<TweetCard {...tweets[1]} />
+			<TweetCard {...tweets[2]} />
 		</motion.div>
 	);
 }
