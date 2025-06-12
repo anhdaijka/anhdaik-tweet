@@ -19,7 +19,7 @@ interface FormProps {
 }
 
 export default function LoginPage() {
-	const { signInOAuth, signIn } = useAuth();
+	const { signInOAuth, signIn, user } = useAuth();
 	const router = useRouter();
 	const [activeForm, setActiveForm] = useState<"signin" | "signup">("signin");
 	const [formData, setFormData] = useState<FormProps>({
@@ -27,6 +27,8 @@ export default function LoginPage() {
 		password: "",
 		full_name: "",
 	});
+
+	if (user) router.push("/");
 
 	const handleChangeForm = (e: React.ChangeEvent<HTMLInputElement>): void => {
 		setFormData({ ...formData, [e.target.name]: e.target.value });
