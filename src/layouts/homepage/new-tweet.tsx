@@ -27,6 +27,7 @@ const NewTweet = () => {
 	const [isMedia, setIsMedia] = useState(false);
 	const { user } = useAuth();
 	const router = useRouter();
+	const isAdmin = user?.email === "tenzovn@gmail.com";
 
 	const handleFollowing = () => {
 		setIsFollowing((prev) => !prev);
@@ -105,10 +106,10 @@ const NewTweet = () => {
 				transition={{ duration: 0.5, ease: "easeInOut" }}
 				className="border border-border p-4 rounded-2xl relative mt-4"
 				style={{
-					backdropFilter: !user ? "blur(50px)" : "blur(0px)",
+					backdropFilter: !isAdmin ? "blur(50px)" : "blur(0px)",
 				}}
 			>
-				{!user && (
+				{!isAdmin && (
 					<div className="absolute left-1/2 -translate-x-1/2 top-[30%] translate-y-1/2 z-50 tracking-wide">
 						<Link href="/auth/login" className="text-primary underline">
 							Signing in
@@ -117,7 +118,7 @@ const NewTweet = () => {
 					</div>
 				)}
 				<div className="flex space-x-4">
-					{user ? (
+					{isAdmin ? (
 						<Avatar className="w-10 h-10 md:w-12 md:h-12">
 							<AvatarImage src={user?.user_metadata?.avatar_url} />
 							<AvatarFallback>{user?.email?.charAt(0)}</AvatarFallback>
@@ -140,7 +141,7 @@ const NewTweet = () => {
 								<div className="flex space-x-2 md:space-x-4">
 									<Button
 										onClick={handleMedia}
-										disabled={user ? false : true}
+										disabled={isAdmin ? false : true}
 										variant="ghost"
 										size="sm"
 										className="text-primary hover:bg-accent/10 p-1 md:p-2"
@@ -149,7 +150,7 @@ const NewTweet = () => {
 									</Button>
 									<Button
 										variant="ghost"
-										disabled={user ? false : true}
+										disabled={isAdmin ? false : true}
 										size="sm"
 										className="text-primary hover:bg-accent/10 p-1 md:p-2"
 									>
@@ -157,7 +158,7 @@ const NewTweet = () => {
 									</Button>
 									<Button
 										variant="ghost"
-										disabled={user ? false : true}
+										disabled={isAdmin ? false : true}
 										onClick={handleFollowing}
 										size="sm"
 										className={cn(
@@ -169,7 +170,7 @@ const NewTweet = () => {
 									</Button>
 									<Button
 										variant="ghost"
-										disabled={user ? false : true}
+										disabled={isAdmin ? false : true}
 										size="sm"
 										className="text-primary hover:bg-accent/10 p-1 md:p-2"
 									>
@@ -178,7 +179,7 @@ const NewTweet = () => {
 								</div>
 								<Button
 									size="lg"
-									disabled={user ? false : true}
+									disabled={isAdmin ? false : true}
 									onClick={handlePostTweet}
 									className="bg-accent hover:bg-primary px-4 md:px-6 py-1 md:py-2 rounded-full font-semibold text-sm md:text-base"
 								>
