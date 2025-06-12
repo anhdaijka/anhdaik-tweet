@@ -31,7 +31,7 @@ import anh7 from "@/assets/images/personal/7.jpg";
 import anh8 from "@/assets/images/personal/8.jpg";
 import anh9 from "@/assets/images/personal/9.jpg";
 
-import { User, Inbox, Home } from "lucide-react";
+import { User, Inbox, TwitterIcon } from "lucide-react";
 
 import { baseUrl } from "@/configs/site";
 
@@ -129,14 +129,14 @@ export const techStackDetails = [
 export const data = {
 	navMain: [
 		{
-			title: "Home",
+			title: "Anh's Portfolio",
 			url: `${baseUrl}/`,
-			icon: Home,
+			icon: User,
 		},
 		{
-			title: "Anh's Portfolio",
-			url: `${baseUrl}/portfolio`,
-			icon: User,
+			title: "Tweets",
+			url: `${baseUrl}/tweets`,
+			icon: TwitterIcon,
 		},
 
 		{

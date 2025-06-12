@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Textarea } from "@/components/ui/textarea";
-import { AnimatePresence, motion } from "motion/react";
+import { motion } from "motion/react";
 import { useAuth } from "@/hooks/use-auth";
 import { Button } from "@/components/ui/button";
 import { appear, fromBottom, fromTop } from "@/lib/animation";
@@ -15,9 +15,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { cn } from "@/lib/utils";
 import { FileUploadComponent } from "@/components/file-upload";
 import { useRouter } from "next/navigation";
-import { postMedia } from "@/services/mediaQuery";
-import { data } from "@/lib/data";
-import { TweetsQuery } from "@/types";
+import Link from "next/link";
+
 const NewTweet = () => {
 	const queryClient = useQueryClient();
 	const [content, setContent] = useState("");
@@ -104,7 +103,18 @@ const NewTweet = () => {
 				viewport={{ once: true }}
 				transition={{ duration: 0.5, ease: "easeInOut" }}
 				className="border border-border p-4 rounded-2xl relative mt-4"
+				style={{
+					backdropFilter: !user ? "blur(50px)" : "blur(0px)",
+				}}
 			>
+				{!user && (
+					<div className="absolute left-1/2 -translate-x-1/2 top-[30%] translate-y-1/2 z-50">
+						You need to be{" "}
+						<Link href="/auth/login" className="text-primary underline">
+							signed in
+						</Link>
+					</div>
+				)}
 				<div className="flex space-x-4">
 					{user ? (
 						<Avatar className="w-10 h-10 md:w-12 md:h-12">

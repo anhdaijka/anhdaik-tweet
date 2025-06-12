@@ -21,6 +21,12 @@ const ForYou = () => {
 			<TweetCardSkeleton key={i} />
 		));
 	if (error) return <div>{error.message}</div>;
+	if (Array.isArray(tweets) && tweets.length === 0)
+		return (
+			<div className="text-center w-full max-w-screen-sm mx-auto">
+				No tweets found 😥
+			</div>
+		);
 	return (
 		<>
 			{Array.isArray(tweets) &&
