@@ -59,10 +59,9 @@ export function SidebarLeft({
 	const { ref, toggleSwitchTheme, isDarkMode } = useModeAnimation();
 
 	const isNeed =
-		path.startsWith("/blog") ||
+		path.startsWith("/tweets") ||
 		path.startsWith("/auth") ||
-		path === "/contact" ||
-		path === "/";
+		path === "/contact";
 	React.useEffect(() => {
 		console.log("User has changed");
 	}, [user]);
