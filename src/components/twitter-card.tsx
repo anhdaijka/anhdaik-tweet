@@ -19,6 +19,8 @@ import { childVariants } from "@/lib/animation";
 import { Tables } from "../../database.types";
 import { Skeleton } from "./ui/skeleton";
 import ImagesCarousel from "./images-carousel";
+import Link from "next/link";
+import { baseUrl } from "@/configs/site";
 
 export default function TweetCard(tweet: Tables<"tweets">) {
 	const [liked, setLiked] = useState(false);
@@ -56,9 +58,12 @@ export default function TweetCard(tweet: Tables<"tweets">) {
 						</Avatar>
 						<div className="ml-1.5 text-sm leading-tight">
 							<div className="flex items-center gap-2">
-								<span className="font-semibold text-foreground hover:underline text-sm md:text-base truncate max-w-[100px] md:max-w-none">
+								<Link
+									href={`${baseUrl}/`}
+									className="font-semibold text-foreground hover:underline text-sm md:text-base truncate max-w-[100px] md:max-w-none"
+								>
 									{admin.name}
-								</span>
+								</Link>
 
 								<Image src={badge} alt="Verified" width={16} height={16} />
 							</div>

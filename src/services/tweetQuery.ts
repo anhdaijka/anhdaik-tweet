@@ -30,16 +30,15 @@ export async function postTweet({
 			})
 		);
 	} else {
-		const media = await postMedia(images[0]);
-		data.images = [media.data?.path];
-		data.images = await Promise.all(
-			data.images.map(async (image: string): Promise<string> => {
-				const { data: imagePath } = supabase.storage
-					.from("media")
-					.getPublicUrl(image);
-				return imagePath.publicUrl;
-			})
-		);
+		const { data: image } = await postMedia(images[0]);
+		if (image && image.path) {
+			const { data: imagePath } = supabase.storage
+				.from("media")
+				.getPublicUrl(image.path);
+			data.images = [imagePath.publicUrl];
+		} else {
+			data.images = [];
+		}
 	}
 
 	const { error } = await supabase.from("tweets").insert({
