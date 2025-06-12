@@ -29,16 +29,15 @@ export async function postTweet({
 				return imagePath.publicUrl;
 			})
 		);
+	} else if (images.length === 1) {
+		const media = await postMedia(images[0]);
+		data.images = [media.data?.path];
+		data.images = await supabase.storage
+			.from("media")
+			.getPublicUrl(data.images[0] as string);
+		data.images = [data.images.publicUrl];
 	} else {
-		const { data: image } = await postMedia(images[0]);
-		if (image && image.path) {
-			const { data: imagePath } = supabase.storage
-				.from("media")
-				.getPublicUrl(image.path);
-			data.images = [imagePath.publicUrl];
-		} else {
-			data.images = [];
-		}
+		data.images = [];
 	}
 
 	const { error } = await supabase.from("tweets").insert({
