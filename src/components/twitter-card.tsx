@@ -1,5 +1,5 @@
 "use client";
-
+import confetti from "canvas-confetti";
 import {
 	Heart,
 	MessageCircle,
@@ -132,21 +132,12 @@ export default function TweetCard(tweet: Tables<"tweets">) {
 				</p>
 				<div className="border-border border border-b-0 my-1" />
 				<div className="flex items-center gap-6 max-w-md text-foreground mt-3">
-					<Button
-						variant="ghost"
-						size="lg"
-						onClick={handleLike}
-						className={`rounded-full ${
-							liked
-								? "text-destructive hover:text-destructive hover:bg-destructive/10"
-								: "text-foreground hover:text-destructive hover:bg-destructive/10"
-						}`}
-					>
-						<Heart className={`size-6 ${liked ? "fill-current" : ""}`} />
-						{!isMobile && (
-							<span className="text-xs md:text-sm">{likesCount}</span>
-						)}
-					</Button>
+					<LikeButton
+						liked={liked}
+						handleLike={handleLike}
+						isMobile={isMobile}
+						likesCount={likesCount}
+					/>
 					<Button
 						variant="ghost"
 						size="lg"
@@ -269,5 +260,69 @@ export function TweetCardSkeleton() {
 				</Button>
 			</div>
 		</motion.div>
+	);
+}
+
+function LikeButton({
+	liked,
+	handleLike,
+	isMobile,
+	likesCount,
+}: {
+	liked: boolean;
+	handleLike: () => void;
+	isMobile: boolean;
+	likesCount: number;
+}) {
+	const handleClick = () => {
+		const defaults = {
+			spread: 360,
+			ticks: 50,
+			gravity: 0,
+			decay: 0.94,
+			startVelocity: 30,
+			colors: ["#FFE400", "#FFBD00", "#E89400", "#FFCA6C", "#FDFFB8"],
+		};
+
+		const shoot = () => {
+			confetti({
+				...defaults,
+				particleCount: 40,
+				scalar: 1.2,
+				shapes: ["star"],
+			});
+
+			confetti({
+				...defaults,
+				particleCount: 10,
+				scalar: 0.75,
+				shapes: ["circle"],
+			});
+		};
+
+		setTimeout(shoot, 0);
+		setTimeout(shoot, 100);
+		setTimeout(shoot, 200);
+	};
+
+	return (
+		<Button
+			onClick={() => {
+				handleLike();
+				if (!liked) {
+					handleClick();
+				}
+			}}
+			variant="ghost"
+			size="lg"
+			className={`rounded-full ${
+				liked
+					? "text-destructive hover:text-destructive hover:bg-destructive/10"
+					: "text-foreground hover:text-destructive hover:bg-destructive/10"
+			}`}
+		>
+			<Heart className={`size-6 ${liked ? "fill-current" : ""}`} />
+			{!isMobile && <span className="text-xs md:text-sm">{likesCount}</span>}
+		</Button>
 	);
 }

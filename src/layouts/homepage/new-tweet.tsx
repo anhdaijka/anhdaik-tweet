@@ -16,6 +16,7 @@ import { cn } from "@/lib/utils";
 import { FileUploadComponent } from "@/components/file-upload";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { Badge } from "@/components/ui/badge";
 
 const NewTweet = () => {
 	const queryClient = useQueryClient();
@@ -108,11 +109,11 @@ const NewTweet = () => {
 				}}
 			>
 				{!user && (
-					<div className="absolute left-1/2 -translate-x-1/2 top-[30%] translate-y-1/2 z-50">
-						You need to be{" "}
+					<div className="absolute left-1/2 -translate-x-1/2 top-[30%] translate-y-1/2 z-50 tracking-wide">
 						<Link href="/auth/login" className="text-primary underline">
-							signed in
-						</Link>
+							Signing in
+						</Link>{" "}
+						as an <Badge variant="default">admin</Badge> to be able to tweet
 					</div>
 				)}
 				<div className="flex space-x-4">
