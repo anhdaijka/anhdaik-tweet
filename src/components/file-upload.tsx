@@ -26,9 +26,6 @@ import {
 	FileUploadList,
 	FileUploadTrigger,
 } from "@/components/ui/file-upload";
-import { toast } from "sonner";
-import { postMedia } from "@/services/mediaQuery";
-import { set } from "date-fns";
 
 const formSchema = z.object({
 	files: z
@@ -59,11 +56,14 @@ export function FileUploadComponent({
 		},
 	});
 
-	const onSubmit = (data: FormValues) => {
-		data.files.forEach((file) => {
-			setImages((prev) => [...prev, file]);
-		});
-	};
+	const onSubmit = React.useCallback(
+		(data: FormValues) => {
+			data.files.forEach((file) => {
+				setImages((prev) => [...prev, file]);
+			});
+		},
+		[setImages]
+	);
 
 	return (
 		<Form {...form}>

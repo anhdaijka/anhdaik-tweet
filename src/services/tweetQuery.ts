@@ -15,25 +15,29 @@ export async function postTweet({
 	images: File[];
 }) {
 	const data: Tweets = { content, tag, images };
-	if (data.images.length > 0) {
-		const media = await Promise.all(images.map((image) => postMedia(image)));
-		data.images = media
-			.map((image) => image.data?.path)
-			.filter((path): path is string => typeof path === "string");
-		data.images = await Promise.all(
-			data.images.map(async (image: string): Promise<string> => {
-				const { data: imagePath } = supabase.storage
-					.from("media")
-					.getPublicUrl(image);
-				return imagePath.publicUrl;
-			})
+
+	const media = await Promise.all(images.map((image) => postMedia(image)));
+	data.images = media
+		.map(
+			(image: { data?: { path?: string } | null; error?: Error | null }) =>
+				image.data?.path
+		)
+		.filter(
+			(path: string | undefined): path is string => typeof path === "string"
 		);
-	}
+	data.images = await Promise.all(
+		data.images.map(async (image: string): Promise<string> => {
+			const { data: imagePath } = supabase.storage
+				.from("media")
+				.getPublicUrl(image);
+			return imagePath.publicUrl;
+		})
+	);
 
 	const { error } = await supabase.from("tweets").insert({
 		content: data.content,
 		tag: data.tag,
-		images: data.images.length > 0 ? data.images : [],
+		images: data.images,
 	});
 	if (error) {
 		return { error: error.message };

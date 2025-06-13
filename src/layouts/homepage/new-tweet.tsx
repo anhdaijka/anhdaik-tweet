@@ -45,11 +45,16 @@ const NewTweet = () => {
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ["tweets"] });
 			toast.success("Tweet posted successfully", { position: "top-center" });
-			router.refresh();
+			setContent("");
+			setImages([]);
+			setIsMedia(false);
+			setIsPosting(false);
 		},
 		onError: (error) => {
 			toast.error(error.message, { position: "top-center" });
 			setContent("");
+			setImages([]);
+			setIsMedia(false);
 			setIsPosting(false);
 		},
 		mutationKey: ["postTweet"],
@@ -74,28 +79,26 @@ const NewTweet = () => {
 				className="fixed inset-0 w-screen h-screen bg-black/50 flex items-center justify-center"
 				style={{ zIndex: isMedia ? 100 : -1 }}
 			>
-				{isMedia && (
-					<motion.div
-						variants={fromBottom}
-						initial="hidden"
-						animate={isMedia ? "visible" : "hidden"}
-						viewport={{ once: true }}
-						transition={{ duration: 0.5, ease: "easeInOut" }}
-						className="border border-border p-4 rounded-2xl relative mt-4 bg-card"
+				<motion.div
+					variants={fromBottom}
+					initial="hidden"
+					animate={isMedia ? "visible" : "hidden"}
+					viewport={{ once: true }}
+					transition={{ duration: 0.5, ease: "easeInOut" }}
+					className="border border-border p-4 rounded-2xl relative mt-4 bg-card"
+				>
+					<Button
+						onClick={handleMedia}
+						className="absolute top-0 right-0 flex items-center justify-center cursor-pointer"
 					>
-						<Button
-							onClick={handleMedia}
-							className="absolute top-0 right-0 flex items-center justify-center cursor-pointer"
-						>
-							<X className="w-4 h-4" />
-						</Button>
-						<FileUploadComponent
-							images={images}
-							setImages={setImages}
-							handleMedia={handleMedia}
-						/>
-					</motion.div>
-				)}
+						<X className="w-4 h-4" />
+					</Button>
+					<FileUploadComponent
+						images={images}
+						setImages={setImages}
+						handleMedia={handleMedia}
+					/>
+				</motion.div>
 			</motion.div>
 
 			<motion.div

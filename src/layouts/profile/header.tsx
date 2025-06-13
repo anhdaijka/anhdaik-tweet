@@ -21,7 +21,7 @@ const Header = () => {
 		>
 			<div className="flex flex-1 items-center gap-8 px-3">
 				<Link
-					href={`${baseUrl}/blog`}
+					href={`${baseUrl}/tweets`}
 					className={cn(
 						buttonVariants({ variant: "ghost", size: "icon" }),
 						"rounded-full"
