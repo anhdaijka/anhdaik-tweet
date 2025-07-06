@@ -15,7 +15,11 @@ export async function postTweet({
 	images: File[];
 }) {
 	const data: Tweets = { content, tag, images };
-
+	const { data: user } = await supabase.auth.getUser();
+	const isAdmin = user?.user?.email === "tenzovn@gmail.com";
+	if (!isAdmin) {
+		return { error: "You are not allowed to post tweets" };
+	}
 	const media = await Promise.all(images.map((image) => postMedia(image)));
 	data.images = media
 		.map(
@@ -59,6 +63,11 @@ export async function getTweets() {
 }
 
 export async function deleteTweet(id: Tables<"tweets">["id"]) {
+	const { data: user } = await supabase.auth.getUser();
+	const isAdmin = user?.user?.email === "tenzovn@gmail.com";
+	if (!isAdmin) {
+		return { error: "You are not allowed to delete tweets" };
+	}
 	const { error } = await supabase.from("tweets").delete().eq("id", id);
 	if (error) {
 		return { error: error.message };
@@ -71,6 +80,11 @@ export async function updateTweet(
 	id: Tables<"tweets">["id"],
 	data: Tables<"tweets">
 ) {
+	const { data: user } = await supabase.auth.getUser();
+	const isAdmin = user?.user?.email === "tenzovn@gmail.com";
+	if (!isAdmin) {
+		return { error: "You are not allowed to update tweets" };
+	}
 	const { error } = await supabase.from("tweets").update(data).eq("id", id);
 	if (error) {
 		return { error: error.message };

@@ -62,6 +62,12 @@ const NewTweet = () => {
 
 	const handlePostTweet = (e: React.MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();
+		if (!isAdmin) {
+			toast.error("You are not allowed to post tweets", {
+				position: "top-center",
+			});
+			return;
+		}
 		mutation.mutate({ content: content, tag: isFollowing, images: images });
 	};
 
@@ -107,19 +113,11 @@ const NewTweet = () => {
 				animate="visible"
 				viewport={{ once: true }}
 				transition={{ duration: 0.5, ease: "easeInOut" }}
-				className="border border-border p-4 rounded-2xl relative mt-4"
+				className="border border-border p-4 rounded-2xl relative mt-4 max-w-[calc(100%-2rem)] mx-auto"
 				style={{
 					backdropFilter: !isAdmin ? "blur(50px)" : "blur(0px)",
 				}}
 			>
-				{!isAdmin && (
-					<div className="absolute left-1/2 -translate-x-1/2 top-[30%] translate-y-1/2 z-50 tracking-wide">
-						<Link href="/auth/login" className="text-primary underline">
-							Signing in
-						</Link>{" "}
-						as an <Badge variant="default">admin</Badge> to be able to tweet
-					</div>
-				)}
 				<div className="flex space-x-4">
 					{isAdmin ? (
 						<Avatar className="w-10 h-10 md:w-12 md:h-12">
@@ -131,7 +129,9 @@ const NewTweet = () => {
 					)}
 					<div className="flex-1 flex flex-col items-center">
 						<Textarea
-							placeholder={user ? "What's happening?" : "Sign in to tweet"}
+							placeholder={
+								user ? "What's happening?" : "Sign in as admin to tweet"
+							}
 							disabled={user ? false : true}
 							value={content}
 							onChange={(e) => {
