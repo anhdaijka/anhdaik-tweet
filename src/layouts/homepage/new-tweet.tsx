@@ -62,12 +62,6 @@ const NewTweet = () => {
 
 	const handlePostTweet = (e: React.MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();
-		if (!isAdmin) {
-			toast.error("You are not allowed to post tweets", {
-				position: "top-center",
-			});
-			return;
-		}
 		mutation.mutate({ content: content, tag: isFollowing, images: images });
 	};
 

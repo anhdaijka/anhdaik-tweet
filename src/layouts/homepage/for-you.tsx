@@ -2,7 +2,7 @@
 
 import TweetCard, { TweetCardSkeleton } from "@/components/twitter-card";
 import { getTweets } from "@/services/tweetQuery";
-
+import { motion } from "motion/react";
 import dayjs from "dayjs";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 
@@ -28,7 +28,19 @@ const ForYou = () => {
 			</div>
 		);
 	return (
-		<>
+		<motion.div
+			initial={{ opacity: 0, x: 20 }}
+			animate={{ opacity: 1, x: 0 }}
+			exit={{ opacity: 0, x: -20 }}
+			transition={{
+				duration: 0.3,
+				ease: [0.4, 0, 0.2, 1],
+				stiffness: 100,
+				damping: 20,
+				type: "spring",
+				mass: 0.5,
+			}}
+		>
 			{Array.isArray(tweets) &&
 				tweets
 					.filter((tweet) => tweet.tag === false)
@@ -41,7 +53,7 @@ const ForYou = () => {
 							)}
 						/>
 					))}
-		</>
+		</motion.div>
 	);
 };
 
