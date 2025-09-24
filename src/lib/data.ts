@@ -31,7 +31,7 @@ import anh7 from "@/assets/images/personal/7.jpg";
 import anh8 from "@/assets/images/personal/8.jpg";
 import anh9 from "@/assets/images/personal/9.jpg";
 
-import { User, Inbox, TwitterIcon } from "lucide-react";
+import { User, Inbox, TwitterIcon, Newspaper } from "lucide-react";
 
 import { baseUrl } from "@/configs/site";
 
@@ -132,6 +132,11 @@ export const data = {
 			title: "Anh's Portfolio",
 			url: `${baseUrl}/`,
 			icon: User,
+		},
+		{
+			title: "Blog",
+			url: `${baseUrl}/blog`,
+			icon: Newspaper,
 		},
 		{
 			title: "Tweets",
