@@ -5,8 +5,8 @@ export const metadata = {
 	description: "Blog categories",
 };
 
-const CategoryPage = () => {
-	return <div></div>;
+const CategoryPage = async ({ params }: { params: { slug: string } }) => {
+	return <div>{params.slug}</div>;
 };
 
 export default CategoryPage;

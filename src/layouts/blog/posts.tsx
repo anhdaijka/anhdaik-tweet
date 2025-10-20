@@ -12,38 +12,22 @@ import {
 	Pen,
 	FolderCode,
 	ShieldCheck,
+	BookOpenText,
 	Accessibility,
 	Code,
 	Ellipsis,
 } from "lucide-react";
 
-export default function Categories() {
+export default function Posts() {
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
-				<Button variant="link">
-					{/* <FolderCode className="size-5" /> */}
-					Categories
+				<Button variant="outline">
+					<BookOpenText className="size-5" />
+					Posts
 				</Button>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent className="w-56">
-				<DropdownMenuItem>
-					<Accessibility className="mr-2 size-4" />
-					<span>Thoughts</span>
-				</DropdownMenuItem>
-				<DropdownMenuItem>
-					<Activity className="mr-2 size-4" />
-					<span>Fitness</span>
-				</DropdownMenuItem>
-				<DropdownMenuItem>
-					<Code className="mr-2 size-4" />
-					<span>Development</span>
-				</DropdownMenuItem>
-				<DropdownMenuItem>
-					<Ellipsis className="mr-2 size-4" />
-					<span>Others</span>
-				</DropdownMenuItem>
-				<DropdownMenuSeparator />
 				<DropdownMenuItem>
 					<Pen className="mr-2 size-4" />
 					<span>Write</span>

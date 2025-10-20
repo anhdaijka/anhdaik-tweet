@@ -8,7 +8,7 @@ const Logo = () => {
 			<Image
 				src={logo.src}
 				alt="logo"
-				className="size-10 border border-transparent rounded-full"
+				className="size-8 border border-transparent rounded-full"
 				width={24}
 				height={24}
 			/>
