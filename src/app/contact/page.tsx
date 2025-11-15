@@ -1,3 +1,5 @@
+// pages.tsx
+
 "use client";
 
 import { Button } from "@/components/ui/button";
@@ -11,13 +13,66 @@ import {
 	MailIcon,
 } from "lucide-react";
 import Link from "next/link";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "motion/react";
 import { fromBottom } from "@/lib/animation";
 import { useRouter } from "next/navigation";
+import { CheckCircle2, Send } from "lucide-react"; // Thêm icons
+import { admin } from "@/lib/data";
+
+const FORMSPREE_ENDPOINT = `https://formspree.io/f/${process.env.NEXT_PUBLIC_FORMSPREE_ID}`;
+
 
 const ContactPage = () => {
 	const router = useRouter();
+
+	const [formData, setFormData] = useState({
+		name: "",
+		email: "",
+		subject: "",
+		message: "",
+	});
+	const [status, setStatus] = useState<
+		"idle" | "loading" | "success" | "error"
+	>("idle");
+
+	const handleChange = (
+		e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+	) => {
+		setFormData({ ...formData, [e.target.name]: e.target.value });
+	};
+
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		setStatus("loading");
+
+		try {
+			const response = await fetch(FORMSPREE_ENDPOINT, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(formData),
+			});
+
+			if (response.ok) {
+				setStatus("success");
+				// Xóa form sau khi gửi thành công
+				setFormData({ name: "", email: "", subject: "", message: "" });
+				// Tự động chuyển về idle sau 3 giây để người dùng có thể gửi lại
+				setTimeout(() => setStatus("idle"), 3000);
+			} else {
+				// Xử lý lỗi từ Formspree (ví dụ: lỗi validation)
+				const data = await response.json();
+				console.error("Formspree Error:", data);
+				setStatus("error");
+			}
+		} catch (error) {
+			console.error("Network or Fetch Error:", error);
+			setStatus("error");
+		}
+	};
+
 	return (
 		<div className="p-4 h-[150vh] md:h-screen w-full flex flex-col items-center justify-center">
 			<Button
@@ -50,10 +105,10 @@ const ContactPage = () => {
 								<Button variant={"outline"} size={"icon"}>
 									<MailIcon />
 								</Button>
-								<a href="mailto:1020phug@gmail.com" className="text-sm ml-4">
+								<a href={`mailto:${admin.email}`} className="text-sm ml-4">
 									<small className="block text-card-foreground">Mail</small>
 									<span className="text-primary font-medium">
-										1020phug@gmail.com
+										{admin.email}
 									</span>
 								</a>
 							</li>
@@ -68,7 +123,7 @@ const ContactPage = () => {
 								variant={"ghost"}
 								className="rounded-full size-12 cursor-pointer"
 							>
-								<Link href="https://github.com/1020phug">
+								<Link href={admin.as.github} target="_blank">
 									<GithubIcon />
 								</Link>
 							</Button>
@@ -76,7 +131,7 @@ const ContactPage = () => {
 								variant={"ghost"}
 								className="rounded-full size-12 cursor-pointer"
 							>
-								<Link href="https://www.linkedin.com/in/1020phug">
+								<Link href={admin.as.linkedin} target="_blank">
 									<LinkedinIcon />
 								</Link>
 							</Button>
@@ -84,37 +139,84 @@ const ContactPage = () => {
 								variant={"ghost"}
 								className="rounded-full size-12 cursor-pointer"
 							>
-								<Link href="https://instagram.com/anhdaik">
+								<Link href={admin.as.instagram} target="_blank">
 									<InstagramIcon />
 								</Link>
 							</Button>
 						</ul>
 					</div>
 				</div>
-				<form className="space-y-4 h-full flex flex-col items-center justify-center">
+
+				<form
+					className="space-y-4 h-full flex flex-col items-center justify-center"
+					onSubmit={handleSubmit} 
+				>
 					<Input
 						type="text"
+						name="name" 
 						className="border-border border-2"
 						placeholder="Name"
+						value={formData.name} 
+						onChange={handleChange} 
+						disabled={status === "loading" || status === "success"} 
+						required
 					/>
 					<Input
 						type="email"
+						name="_replyto" // Formspree dùng _replyto để set Reply-To header
 						className="border-border border-2"
 						placeholder="Email"
+						value={formData.email}
+						onChange={handleChange}
+						disabled={status === "loading" || status === "success"}
+						required
 					/>
 					<Input
 						type="text"
+						name="subject"
 						className="border-border border-2"
 						placeholder="Subject"
+						value={formData.subject}
+						onChange={handleChange}
+						disabled={status === "loading" || status === "success"}
+						required
 					/>
 					<Textarea
 						placeholder="Message"
+						name="message"
 						className="flex-1 border-border border-2"
-						defaultValue={""}
+						value={formData.message}
+						onChange={handleChange}
+						disabled={status === "loading" || status === "success"}
+						required
 					/>
-					<Button type="button" className="w-full mt-2">
-						Send message
+
+					{/* 5. SỬA LẠI BUTTON */}
+					<Button
+						type="submit"
+						className="w-full mt-2"
+						disabled={status === "loading" || status === "success"} 
+					>
+						{status === "loading" ? (
+							<>
+								<Send className="mr-2 h-4 w-4 animate-pulse" />
+								Sending...
+							</>
+						) : status === "success" ? (
+							<>
+								<CheckCircle2 className="mr-2 h-4 w-4" />
+								Sent!
+							</>
+						) : (
+							"Send message"
+						)}
 					</Button>
+
+					{status === "error" && (
+						<p className="text-red-500 text-sm">
+							Failed to send. Please check your network or try again later.
+						</p>
+					)}
 				</form>
 			</motion.div>
 		</div>

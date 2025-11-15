@@ -4,29 +4,40 @@ import TweetCard, { TweetCardSkeleton } from "@/components/twitter-card";
 import { getTweets } from "@/services/tweetQuery";
 import { motion } from "motion/react";
 import dayjs from "dayjs";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import InfiniteScroll from "react-infinite-scroll-component";
+import { useMemo } from "react";
 
 const ForYou = () => {
-	const queryClient = useQueryClient();
-	const {
-		data: tweets,
-		isLoading,
-		error,
-	} = useQuery({
-		queryKey: ["tweets"],
-		queryFn: () => getTweets(),
-	});
+	const { data, error, fetchNextPage, hasNextPage, isLoading } =
+		useInfiniteQuery({
+			// *** THAY ĐỔI DUY NHẤT LÀ Ở ĐÂY ***
+			queryKey: ["tweets", { tag: false }] as const, // Lọc các tweet có tag: false
+			// **********************************
+			queryFn: getTweets,
+			initialPageParam: 0,
+			getNextPageParam: (lastPage) => lastPage.nextPage,
+		});
+
+	const tweets = useMemo(
+		() => data?.pages.flatMap((page) => page.data) ?? [],
+		[data]
+	);
+
 	if (isLoading)
 		return Array.from({ length: 5 }, (_, i) => i).map((i) => (
 			<TweetCardSkeleton key={i} />
 		));
+
 	if (error) return <div>{error.message}</div>;
-	if (Array.isArray(tweets) && tweets.length === 0)
+
+	if (tweets.length === 0)
 		return (
 			<div className="text-center w-full max-w-screen-sm mx-auto">
 				No tweets found 😥
 			</div>
 		);
+
 	return (
 		<motion.div
 			initial={{ opacity: 0, x: 20 }}
@@ -34,25 +45,33 @@ const ForYou = () => {
 			exit={{ opacity: 0, x: -20 }}
 			transition={{
 				duration: 0.3,
-				ease: [0.4, 0, 0.2, 1],
+				ease: [0.4, 0.2, 1],
 				stiffness: 100,
 				damping: 20,
 				type: "spring",
 				mass: 0.5,
 			}}
 		>
-			{Array.isArray(tweets) &&
-				tweets
-					.filter((tweet) => tweet.tag === false)
-					.map((tweet) => (
-						<TweetCard
-							key={tweet.id}
-							{...tweet}
-							created_at={dayjs(tweet.created_at).format(
-								"h:mm A ・ MMM D, YYYY"
-							)}
-						/>
-					))}
+			<InfiniteScroll
+				dataLength={tweets.length}
+				next={fetchNextPage}
+				hasMore={hasNextPage}
+				loader={<TweetCardSkeleton />}
+				endMessage={
+					<div className="text-center w-full max-w-screen-sm mx-auto">
+						You have reached the end 😥
+					</div>
+				}
+			>
+				{/* Xóa .filter() ở đây */}
+				{tweets.map((tweet) => (
+					<TweetCard
+						key={tweet.id}
+						{...tweet}
+						created_at={dayjs(tweet.created_at).format("h:mm A ・ MMM D, YYYY")}
+					/>
+				))}
+			</InfiniteScroll>
 		</motion.div>
 	);
 };

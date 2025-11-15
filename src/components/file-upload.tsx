@@ -67,7 +67,7 @@ export function FileUploadComponent({
 
 	return (
 		<Form {...form}>
-			<form onSubmit={form.handleSubmit(onSubmit)} className="w-full max-w-md">
+			<form onSubmit={form.handleSubmit(onSubmit)} className="w-full ">
 				<FormField
 					control={form.control}
 					name="files"

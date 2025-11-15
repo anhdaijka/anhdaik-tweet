@@ -37,14 +37,15 @@ import { baseUrl } from "@/configs/site";
 
 export const admin = {
 	name: "Phùng Quang Anh",
-	email: "1020phug@gmail.com",
-	username: "anhdaik",
+	email: "anhdaijka@gmail.com",
+	username: "anhdaijka",
 	ocupation: "Software Engineer",
 	avatar: avatar.src,
 	as: {
-		github: "https://github.com/anhdaik",
-		instagram: "https://www.instagram.com/anhdaik",
-		facebook: "https://www.facebook.com/anhdaika",
+		github: "https://github.com/anhdaijka",
+		instagram: "https://www.instagram.com/anhdaijka",
+		linkedin: "https://www.linkedin.com/in/1020phug",
+		facebook: "https://www.facebook.com/anhdaijka",
 	},
 	role: "Admin",
 	interests: ["Web Development", "Stoicism", "Politics", "Music", "Gaming"],
@@ -133,11 +134,11 @@ export const data = {
 			url: `${baseUrl}/`,
 			icon: User,
 		},
-		{
-			title: "Blog",
-			url: `${baseUrl}/blog`,
-			icon: Newspaper,
-		},
+		// {
+		// 	title: "Blog",
+		// 	url: `${baseUrl}/blog`,
+		// 	icon: Newspaper,
+		// },
 		{
 			title: "Tweets",
 			url: `${baseUrl}/tweets`,

@@ -4,29 +4,52 @@ import TweetCard, { TweetCardSkeleton } from "@/components/twitter-card";
 import { getTweets } from "@/services/tweetQuery";
 import { motion } from "motion/react";
 import dayjs from "dayjs";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+// 1. Import thêm useInfiniteQuery và các hook/component cần thiết
+import { useInfiniteQuery } from "@tanstack/react-query";
+import InfiniteScroll from "react-infinite-scroll-component";
+import { useMemo } from "react"; // Dùng để "làm phẳng" (flatten) dữ liệu
 
 const Following = () => {
-	const queryClient = useQueryClient();
+	// 2. Đổi sang dùng useInfiniteQuery
 	const {
-		data: tweets,
-		isLoading,
+		data,
 		error,
-	} = useQuery({
-		queryKey: ["tweets"],
-		queryFn: () => getTweets(),
+		fetchNextPage, // Hàm để tải trang tiếp theo
+		hasNextPage, // Biến boolean báo còn trang hay không
+		isLoading, // Trạng thái tải lần đầu
+		isFetchingNextPage, // Trạng thái tải các trang sau
+	} = useInfiniteQuery({
+		// 3. queryKey cần chứa cả điều kiện lọc
+		queryKey: ["tweets", { tag: true }] as const, // Lọc các tweet có tag: true
+		queryFn: getTweets, // Hàm getTweets đã cập nhật ở Bước 2
+		initialPageParam: 0, // Bắt đầu từ trang 0
+		getNextPageParam: (lastPage) => lastPage.nextPage, // Lấy trang tiếp theo
 	});
+
+	// 4. "Làm phẳng" mảng data từ useInfiniteQuery
+	// data.pages là một mảng các trang, mỗi trang chứa 1 mảng data
+	// [ {data: [...]}, {data: [...]}, ... ]
+	const tweets = useMemo(
+		() => data?.pages.flatMap((page) => page.data) ?? [],
+		[data]
+	);
+
+	// 5. Giữ nguyên phần xử lý loading ban đầu
 	if (isLoading)
 		return Array.from({ length: 5 }, (_, i) => i).map((i) => (
 			<TweetCardSkeleton key={i} />
 		));
+
 	if (error) return <div>{error.message}</div>;
-	if (Array.isArray(tweets) && tweets.length === 0)
+
+	if (tweets.length === 0)
 		return (
 			<div className="text-center w-full max-w-screen-sm mx-auto">
 				No tweets found 😥
 			</div>
 		);
+
+	// 6. Bọc danh sách tweet bằng InfiniteScroll
 	return (
 		<motion.div
 			initial={{ opacity: 0, x: 20 }}
@@ -34,25 +57,33 @@ const Following = () => {
 			exit={{ opacity: 0, x: -20 }}
 			transition={{
 				duration: 0.3,
-				ease: [0.4, 0, 0.2, 1],
+				ease: [0.4, 0.2, 1],
 				stiffness: 100,
 				damping: 20,
 				type: "spring",
 				mass: 0.5,
 			}}
 		>
-			{Array.isArray(tweets) &&
-				tweets
-					.filter((tweet) => tweet.tag === true)
-					.map((tweet) => (
-						<TweetCard
-							key={tweet.id}
-							{...tweet}
-							created_at={dayjs(tweet.created_at).format(
-								"h:mm A ・ MMM D, YYYY"
-							)}
-						/>
-					))}
+			<InfiniteScroll
+				dataLength={tweets.length} // Số lượng tweet đang hiển thị
+				next={fetchNextPage} // Hàm gọi khi cuộn xuống
+				hasMore={hasNextPage} // Báo cho component biết còn dữ liệu hay không
+				loader={<TweetCardSkeleton />} // Hiển thị khi đang tải thêm
+				endMessage={
+					<div className="text-center w-full max-w-screen-sm mx-auto">
+						You have reached the end 😥
+					</div>
+				}
+			>
+				{/* 7. Xóa phần .filter() vì Supabase đã lọc giúp chúng ta */}
+				{tweets.map((tweet) => (
+					<TweetCard
+						key={tweet.id}
+						{...tweet}
+						created_at={dayjs(tweet.created_at).format("h:mm A ・ MMM D, YYYY")}
+					/>
+				))}
+			</InfiniteScroll>
 		</motion.div>
 	);
 };

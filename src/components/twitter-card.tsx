@@ -8,7 +8,7 @@ import {
 	MoreHorizontal,
 } from "lucide-react";
 import Image from "next/image";
-import { FC, useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import badge from "@/assets/images/Verified_Badge.png";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -21,6 +21,8 @@ import { Skeleton } from "./ui/skeleton";
 import ImagesCarousel from "./images-carousel";
 import Link from "next/link";
 import { baseUrl } from "@/configs/site";
+
+const height = 100; // Chiều cao giới hạn cho 5 dòng nội dung
 
 export default function TweetCard(tweet: Tables<"tweets">) {
 	const [liked, setLiked] = useState(false);
@@ -35,6 +37,10 @@ export default function TweetCard(tweet: Tables<"tweets">) {
 	const [focused, setFocused] = useState(false);
 	const isMobile = useIsMobile();
 
+	const [isExpanded, setIsExpanded] = useState(false); // 1. State để biết nội dung đang mở hay đóng
+	const [needsTruncation, setNeedsTruncation] = useState(false); // 2. State để biết nội dung có BỊ tràn hay không
+	const contentRef = useRef<HTMLDivElement>(null); // 3. Ref để tham chiếu đến div nội dung
+
 	const handleLike = () => {
 		setLiked(!liked);
 		setLikesCount(liked ? likesCount - 1 : likesCount + 1);
@@ -43,6 +49,15 @@ export default function TweetCard(tweet: Tables<"tweets">) {
 		setRetweeted(!retweeted);
 		setRetweetsCount(retweeted ? retweetsCount - 1 : retweetsCount + 1);
 	};
+
+	useEffect(() => {
+		// Chỉ kiểm tra khi chưa mở rộng
+		if (contentRef.current && !isExpanded) {
+			// So sánh chiều cao thực (scrollHeight) với chiều cao hiển thị (clientHeight)
+			const isOverflowing = contentRef.current.clientHeight > height; // Giới hạn 5 dòng (khoảng 100px mỗi dòng)
+			setNeedsTruncation(isOverflowing);
+		}
+	}, [isExpanded, tweet.content]);
 
 	return (
 		<>
@@ -73,19 +88,33 @@ export default function TweetCard(tweet: Tables<"tweets">) {
 							</span>
 						</div>
 					</div>
-					<svg
-						className="text-primary h-6 w-auto inline-block fill-current"
-						viewBox="0 0 24 24"
-					>
-						<g>
-							<path d="M23.643 4.937c-.835.37-1.732.62-2.675.733.962-.576 1.7-1.49 2.048-2.578-.9.534-1.897.922-2.958 1.13-.85-.904-2.06-1.47-3.4-1.47-2.572 0-4.658 2.086-4.658 4.66 0 .364.042.718.12 1.06-3.873-.195-7.304-2.05-9.602-4.868-.4.69-.63 1.49-.63 2.342 0 1.616.823 3.043 2.072 3.878-.764-.025-1.482-.234-2.11-.583v.06c0 2.257 1.605 4.14 3.737 4.568-.392.106-.803.162-1.227.162-.3 0-.593-.028-.877-.082.593 1.85 2.313 3.198 4.352 3.234-1.595 1.25-3.604 1.995-5.786 1.995-.376 0-.747-.022-1.112-.065 2.062 1.323 4.51 2.093 7.14 2.093 8.57 0 13.255-7.098 13.255-13.254 0-.2-.005-.402-.014-.602.91-.658 1.7-1.477 2.323-2.41z" />
-						</g>
-					</svg>
+					<MoreHorizontal className="size-6" />
 				</div>
 				<div
-					className="text-card-foreground block text-xl leading-snug mt-3"
+					ref={contentRef}
+					className={`text-card-foreground block text-xl leading-snug mt-3 ${
+						!isExpanded ? "line-clamp-5 max-h-28" : "max-h-fit"
+					}`}
 					dangerouslySetInnerHTML={{ __html: tweet.content ?? "" }}
 				></div>
+				{needsTruncation && !isExpanded && (
+					<button
+						onClick={() => setIsExpanded(true)}
+						className="text-primary font-medium hover:underline text-lg mt-1"
+					>
+						... Đọc thêm
+					</button>
+				)}
+
+				{isExpanded && (
+					<button
+						onClick={() => setIsExpanded(false)}
+						className="text-primary font-medium hover:underline text-lg mt-1"
+					>
+						Rút gọn
+					</button>
+				)}
+
 				{tweet.images && tweet.images.length === 1 && (
 					<Image
 						className="mt-2 rounded-2xl border border-border aspect-video object-cover"

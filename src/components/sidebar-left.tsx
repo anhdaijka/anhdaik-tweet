@@ -98,11 +98,11 @@ export function SidebarLeft({
 					<Music4 className="size-5 text-primary" />
 					Toggle Music Player
 				</SidebarMenuButton>
-				{state === "collapsed" && (
-					<SidebarMenuButton onClick={toggleSidebar}>
-						<AppWindow /> Toggle Sidebar
-					</SidebarMenuButton>
-				)}
+
+				<SidebarMenuButton onClick={toggleSidebar}>
+					<AppWindow /> Toggle Sidebar
+				</SidebarMenuButton>
+
 				<SidebarMenuButton asChild>
 					<DropdownMenu>
 						<DropdownMenuTrigger asChild>
@@ -144,10 +144,6 @@ export function SidebarLeft({
 								<Moon className="text-muted-foreground" />
 							</DropdownMenuCheckboxItem>
 							<DropdownMenuSeparator />
-							<DropdownMenuItem onClick={toggleSidebar}>
-								<AppWindow className="text-muted-foreground" />
-								<span>Toggle Sidebar</span>
-							</DropdownMenuItem>
 							<DropdownMenuItem disabled>
 								<Trash2 className="text-muted-foreground" />
 								<span>Clear Local Storage</span>

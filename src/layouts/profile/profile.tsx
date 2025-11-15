@@ -88,7 +88,7 @@ const Profile = () => {
 						size={"icon"}
 						className="rounded-full size-12 cursor-pointer text-primary"
 					>
-						<Link target="_blank" href="https://github.com/1020phug">
+						<Link target="_blank" href={admin.as.github}>
 							<GithubIcon />
 						</Link>
 					</Button>
@@ -97,7 +97,7 @@ const Profile = () => {
 						size={"icon"}
 						className="rounded-full size-12 cursor-pointer text-primary"
 					>
-						<Link target="_blank" href="https://www.linkedin.com/in/1020phug">
+						<Link target="_blank" href={admin.as.linkedin}>
 							<LinkedinIcon />
 						</Link>
 					</Button>
@@ -106,7 +106,7 @@ const Profile = () => {
 						size={"icon"}
 						className="rounded-full size-12 cursor-pointer text-primary"
 					>
-						<Link target="_blank" href="https://instagram.com/anhdaik">
+						<Link target="_blank" href={admin.as.instagram}>
 							<InstagramIcon />
 						</Link>
 					</Button>

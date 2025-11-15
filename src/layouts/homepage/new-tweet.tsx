@@ -79,20 +79,15 @@ const NewTweet = () => {
 				className="fixed inset-0 w-screen h-screen bg-black/50 flex items-center justify-center"
 				style={{ zIndex: isMedia ? 100 : -1 }}
 			>
+				<div onClick={handleMedia} className="absolute inset-0"></div>
 				<motion.div
 					variants={fromBottom}
 					initial="hidden"
 					animate={isMedia ? "visible" : "hidden"}
 					viewport={{ once: true }}
 					transition={{ duration: 0.5, ease: "easeInOut" }}
-					className="border border-border p-4 rounded-2xl relative mt-4 bg-card"
+					className="border border-border p-4 rounded-2xl relative mt-4 bg-card z-50"
 				>
-					<Button
-						onClick={handleMedia}
-						className="absolute top-0 right-0 flex items-center justify-center cursor-pointer"
-					>
-						<X className="w-4 h-4" />
-					</Button>
 					<FileUploadComponent
 						images={images}
 						setImages={setImages}
