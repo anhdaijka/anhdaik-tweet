@@ -3,6 +3,7 @@ import { Database, Tables } from "../../database.types";
 import { Tweets, TweetsQuery } from "@/types";
 import { postMedia } from "./mediaQuery";
 import { QueryFunctionContext } from "@tanstack/react-query";
+import { de } from "zod/v4/locales";
 type TweetsQueryKey = readonly [string, { tag: boolean }];
 type TweetsQueryContext = QueryFunctionContext<TweetsQueryKey, number>;
 const supabase = createClient();
@@ -47,6 +48,7 @@ export async function postTweet({
 		content: data.content,
 		tag: data.tag,
 		images: data.images,
+		author_id: user?.user?.id,
 	});
 	if (error) {
 		return { error: error.message };
@@ -91,11 +93,7 @@ export const getTweets = async ({
 };
 
 export async function deleteTweet(id: Tables<"tweets">["id"]) {
-	const { data: user } = await supabase.auth.getUser();
-	const isAdmin = user?.user?.email === "tenzovn@gmail.com";
-	if (!isAdmin) {
-		return { error: "You are not allowed to delete tweets" };
-	}
+
 	const { error } = await supabase.from("tweets").delete().eq("id", id);
 	if (error) {
 		return { error: error.message };
@@ -108,12 +106,8 @@ export async function updateTweet(
 	id: Tables<"tweets">["id"],
 	data: Tables<"tweets">
 ) {
-	const { data: user } = await supabase.auth.getUser();
-	const isAdmin = user?.user?.email === "tenzovn@gmail.com";
-	if (!isAdmin) {
-		return { error: "You are not allowed to update tweets" };
-	}
-	const { error } = await supabase.from("tweets").update(data).eq("id", id);
+	const { created_at, ...updateData } = data; // Xóa trường created_at khỏi dữ liệu cập nhật
+	const { error } = await supabase.from("tweets").update(updateData).eq("id", id);
 	if (error) {
 		return { error: error.message };
 	} else {

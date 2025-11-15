@@ -6,6 +6,7 @@ import {
 	Repeat2,
 	Share,
 	MoreHorizontal,
+	MoreHorizontalIcon,
 } from "lucide-react";
 import Image from "next/image";
 import { useState, useRef, useEffect } from "react";
@@ -21,7 +22,38 @@ import { Skeleton } from "./ui/skeleton";
 import ImagesCarousel from "./images-carousel";
 import Link from "next/link";
 import { baseUrl } from "@/configs/site";
+import {
+	Dialog,
+	DialogClose,
+	DialogContent,
+	DialogDescription,
+	DialogFooter,
+	DialogHeader,
+	DialogTitle,
+} from "@/components/ui/dialog";
 
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuGroup,
+	DropdownMenuItem,
+	DropdownMenuLabel,
+	DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
+	Field,
+	FieldDescription,
+	FieldGroup,
+	FieldLabel,
+	FieldSet,
+} from "@/components/ui/field";
+import { Input } from "@/components/ui/input";
+import { deleteTweet, updateTweet } from "@/services/tweetQuery";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+import { Textarea } from "./ui/textarea";
+import { Checkbox } from "./ui/checkbox";
+import { Label } from "./ui/label";
 const height = 100; // Chiều cao giới hạn cho 5 dòng nội dung
 
 export default function TweetCard(tweet: Tables<"tweets">) {
@@ -35,11 +67,59 @@ export default function TweetCard(tweet: Tables<"tweets">) {
 		Math.floor(Math.random() * 1000)
 	);
 	const [focused, setFocused] = useState(false);
+
+	const [data, setData] = useState<Tables<"tweets">>(tweet);
+
+	const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+		setData({ ...data, content: e.target.value});
+	}
+
+	const handleCheckboxChange = (checked: boolean) => {
+		setData({ ...data, tag: checked });
+	}
+
+	const [edit, setEdit] = useState(false);
+	const [deleted, setDeleted] = useState(false);
+
 	const isMobile = useIsMobile();
 
 	const [isExpanded, setIsExpanded] = useState(false); // 1. State để biết nội dung đang mở hay đóng
 	const [needsTruncation, setNeedsTruncation] = useState(false); // 2. State để biết nội dung có BỊ tràn hay không
 	const contentRef = useRef<HTMLDivElement>(null); // 3. Ref để tham chiếu đến div nội dung
+
+	const handleDelete = async (id: string) => {
+		// Xử lý xóa tweet ở đây
+		const res = await deleteTweet(id);
+		setDeleted(false); // Đóng dialog sau khi xóa
+
+		if (res.error) {
+			toast.error("Error deleting tweet: " + res.error, {
+				position: "top-center",
+			});
+			return;
+		} else {
+			toast.success("Tweet deleted successfully", {
+				position: "top-center",
+			});
+		}
+	};
+
+	const handleUpdate = async (id: string) => {
+		const res = await updateTweet(id, {...data,
+			updated_at: new Date().toISOString(),
+		});
+		setEdit(false); // Đóng dialog sau khi cập nhật
+		if (res.error) {
+			toast.error("Error updating tweet: " + res.error, {
+				position: "top-center",
+			});
+			return;
+		} else {
+			toast.success("Tweet updated successfully", {
+				position: "top-center",
+			});
+		}
+	}
 
 	const handleLike = () => {
 		setLiked(!liked);
@@ -57,7 +137,7 @@ export default function TweetCard(tweet: Tables<"tweets">) {
 			const isOverflowing = contentRef.current.clientHeight > height; // Giới hạn 5 dòng (khoảng 100px mỗi dòng)
 			setNeedsTruncation(isOverflowing);
 		}
-	}, [isExpanded, tweet.content]);
+	}, [isExpanded, data.content]);
 
 	return (
 		<>
@@ -88,7 +168,86 @@ export default function TweetCard(tweet: Tables<"tweets">) {
 							</span>
 						</div>
 					</div>
-					<MoreHorizontal className="size-6" />
+					<>
+						<DropdownMenu modal={false}>
+							<DropdownMenuTrigger asChild>
+								<Button variant="ghost" aria-label="Open menu" size="icon-lg">
+									<MoreHorizontalIcon />
+								</Button>
+							</DropdownMenuTrigger>
+							<DropdownMenuContent className="w-40" align="end">
+								<DropdownMenuLabel>Actions</DropdownMenuLabel>
+								<DropdownMenuGroup>
+									<DropdownMenuItem onSelect={() => setEdit(true)}>
+										Edit
+									</DropdownMenuItem>
+									<DropdownMenuItem onSelect={() => setDeleted(true)}>
+										Delete
+									</DropdownMenuItem>
+									<DropdownMenuItem disabled>Download</DropdownMenuItem>
+								</DropdownMenuGroup>
+							</DropdownMenuContent>
+						</DropdownMenu>
+						<Dialog open={edit} onOpenChange={setEdit}>
+							<DialogContent className="w-md sm:w-xl">
+								<DialogHeader>
+									<DialogTitle>Edit Tweet</DialogTitle>
+									<DialogDescription>
+										Make changes to your tweet content below.
+									</DialogDescription>
+								</DialogHeader>
+								<FieldSet>
+									<FieldGroup>
+										<Field>
+											<FieldLabel htmlFor="content">Content</FieldLabel>
+											<Textarea
+												id="content"
+												placeholder="Write your tweet content here."
+												rows={4}
+												className="resize-none max-h-80 overflow-y-auto"
+												value={data.content || ""}
+												onChange={handleChange}
+											/>
+											<div className="flex items-center gap-3">
+												<Checkbox id="tag" checked={Boolean(data.tag)} onCheckedChange={handleCheckboxChange} />
+												<Label htmlFor="tag">
+													This tweet contains sensitive content
+												</Label>
+											</div>
+										</Field>
+									</FieldGroup>
+								</FieldSet>
+								<DialogFooter>
+									<DialogClose asChild>
+										<Button variant="outline">Cancel</Button>
+									</DialogClose>
+									<Button variant="secondary" onClick={() => handleUpdate(tweet.id)}>Update</Button>
+								</DialogFooter>
+							</DialogContent>
+						</Dialog>
+						<Dialog open={deleted} onOpenChange={setDeleted}>
+							<DialogContent className="sm:max-w-[425px]">
+								<DialogHeader>
+									<DialogTitle>Delete Tweet</DialogTitle>
+									<DialogDescription>
+										Are you sure you want to delete this tweet? This action
+										cannot be undone.
+									</DialogDescription>
+								</DialogHeader>
+								<DialogFooter>
+									<DialogClose asChild>
+										<Button variant="outline">Cancel</Button>
+									</DialogClose>
+									<Button
+										variant="destructive"
+										onClick={() => handleDelete(tweet.id)}
+									>
+										Delete
+									</Button>
+								</DialogFooter>
+							</DialogContent>
+						</Dialog>
+					</>
 				</div>
 				<div
 					ref={contentRef}
@@ -115,10 +274,10 @@ export default function TweetCard(tweet: Tables<"tweets">) {
 					</button>
 				)}
 
-				{tweet.images && tweet.images.length === 1 && (
+				{data.images && data.images.length === 1 && (
 					<Image
 						className="mt-2 rounded-2xl border border-border aspect-video object-cover"
-						src={tweet.images?.[0] || ""}
+						src={data.images?.[0] || ""}
 						alt="image"
 						width={1000}
 						height={1000}
@@ -126,11 +285,11 @@ export default function TweetCard(tweet: Tables<"tweets">) {
 					/>
 				)}
 
-				{tweet.images && tweet.images.length > 1 && (
-					<ImagesCarousel images={tweet.images} />
+				{data.images && data.images.length > 1 && (
+					<ImagesCarousel images={data.images} />
 				)}
 
-				{tweet.images && tweet.images.length === 1 && focused && (
+				{data.images && data.images.length === 1 && focused && (
 					<motion.div
 						initial={{ opacity: 0 }}
 						animate={{ opacity: 1 }}
@@ -149,7 +308,7 @@ export default function TweetCard(tweet: Tables<"tweets">) {
 							className="h-full w-full flex flex-col justify-center items-center"
 						>
 							<Image
-								src={tweet.images?.[0] || ""}
+								src={data.images?.[0] || ""}
 								alt="Tweet image"
 								width={1000}
 								height={1000}
@@ -162,7 +321,7 @@ export default function TweetCard(tweet: Tables<"tweets">) {
 				)}
 
 				<p className="text-card-foreground/70 text-base py-1 my-1">
-					{tweet.created_at}
+					{data.created_at}
 				</p>
 				<div className="border-border border border-b-0 my-1" />
 				<div className="flex items-center gap-6 max-w-md text-foreground mt-3">

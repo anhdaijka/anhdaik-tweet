@@ -134,37 +134,34 @@ const NewTweet = () => {
 									<Button
 										onClick={handleMedia}
 										disabled={isAdmin ? false : true}
-										variant="ghost"
-										size="sm"
-										className="text-primary hover:bg-accent/10 p-1 md:p-2"
+										variant="secondary"
+										size="icon-lg"
+										className="rounded-full"
 									>
 										📷
 									</Button>
 									<Button
-										variant="ghost"
+										variant="secondary"
 										disabled={isAdmin ? false : true}
-										size="sm"
-										className="text-primary hover:bg-accent/10 p-1 md:p-2"
+										size="icon-lg"
+										className="rounded-full"
 									>
 										📊
 									</Button>
 									<Button
-										variant="ghost"
+										variant="secondary"
 										disabled={isAdmin ? false : true}
 										onClick={handleFollowing}
-										size="sm"
-										className={cn(
-											"text-primary hover:bg-accent/10 p-1 md:p-2",
-											isFollowing && "text-accent-foreground bg-accent"
-										)}
+										size="icon-lg"
+										className={cn("rounded-full", isFollowing && "bg-primary")}
 									>
 										😊
 									</Button>
 									<Button
-										variant="ghost"
+										variant="secondary"
 										disabled={isAdmin ? false : true}
-										size="sm"
-										className="text-primary hover:bg-accent/10 p-1 md:p-2"
+										size="icon-lg"
+										className="rounded-full"
 									>
 										📅
 									</Button>
@@ -173,7 +170,7 @@ const NewTweet = () => {
 									size="lg"
 									disabled={isAdmin ? false : true}
 									onClick={handlePostTweet}
-									className="bg-accent hover:bg-primary px-4 md:px-6 py-1 md:py-2 rounded-full font-semibold text-sm md:text-base"
+									className="bg-accent hover:bg-primary text-accent-foreground hover:text-primary-foreground px-4 md:px-6 py-1 md:py-2 rounded-full font-semibold text-sm md:text-base"
 								>
 									{isPosting && <Loader2 className="mr-2 animate-spin" />}
 									Post
