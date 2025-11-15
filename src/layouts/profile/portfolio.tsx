@@ -101,6 +101,7 @@ export default function Portfolio() {
 					images={tweet.images ?? null}
 					updated_at={null}
 					tag={false}
+					author_id={admin.email}
 				/>
 			))}
 		</motion.div>

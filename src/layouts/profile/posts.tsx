@@ -2,6 +2,7 @@ import dayjs from "dayjs";
 import TweetCard from "@/components/twitter-card";
 import { motion } from "motion/react";
 import { parentVariants } from "@/lib/animation";
+import { admin } from "@/lib/data";
 export const tweets = [
 	{
 		id: "1",
@@ -43,6 +44,7 @@ export default function Posts() {
 				images={tweets[0].images ?? null}
 				updated_at={null}
 				tag={false}
+				author_id={admin.email}
 			/>
 		</motion.div>
 	);
