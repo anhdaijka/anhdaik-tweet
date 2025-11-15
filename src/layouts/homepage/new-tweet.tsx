@@ -14,9 +14,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { cn } from "@/lib/utils";
 import { FileUploadComponent } from "@/components/file-upload";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
-import { Badge } from "@/components/ui/badge";
+
 
 const NewTweet = () => {
 	const queryClient = useQueryClient();
@@ -26,7 +24,6 @@ const NewTweet = () => {
 	const [isFollowing, setIsFollowing] = useState(false);
 	const [isMedia, setIsMedia] = useState(false);
 	const { user } = useAuth();
-	const router = useRouter();
 	const isAdmin = user?.email === "tenzovn@gmail.com";
 
 	const handleFollowing = () => {
