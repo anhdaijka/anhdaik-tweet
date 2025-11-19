@@ -33,7 +33,7 @@ const Profile = () => {
 					variants={fallBounce}
 					initial="hidden"
 					whileInView={"visible"}
-					transition={{ timestamp: 0.5, duration: 1, ease: "easeInOut" }}
+					transition={{ delay: 0.5, duration: 1, ease: "easeInOut" }}
 					className="absolute size-32 left-[0.8rem] bottom-[-4rem]"
 				>
 					<Avatar className="w-full h-full ring-2 ring-primary/60 ring-offset-1">
