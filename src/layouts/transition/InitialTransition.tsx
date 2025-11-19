@@ -1,4 +1,4 @@
-import { motion } from "motion/react";
+import { motion, cubicBezier } from "motion/react";
 
 const blackBox = {
 	initial: {
@@ -10,7 +10,7 @@ const blackBox = {
 		transition: {
 			when: "afterChildren",
 			duration: 1.5,
-			ease: [0.87, 0, 0.13, 1],
+			ease: cubicBezier(0.87, 0, 0.13, 1),
 		},
 	},
 };
@@ -36,7 +36,7 @@ const text = {
 		y: 80,
 		transition: {
 			duration: 1.5,
-			ease: [0.87, 0, 0.13, 1],
+			ease: cubicBezier(0.87, 0, 0.13, 1),
 		},
 	},
 };
