@@ -20,3 +20,15 @@ export type User = Tables["users"];
 export type Tweets = Tables["tweets"] & { author: SupabaseUser };
 
 export type TweetsQuery = Database["public"]["Tables"]["tweets"]["Insert"];
+
+//Posts handle
+export type Post = Tables["posts"] & { author: SupabaseUser };
+export type PostQuery = Database["public"]["Tables"]["posts"]["Insert"];
+
+//Comments handle
+export type Comment = Tables["comments"] & { author: SupabaseUser };
+export type CommentQuery = Database["public"]["Tables"]["comments"]["Insert"];
+
+//Categories handle
+export type Category = Tables["categories"];
+export type CategoryQuery = Database["public"]["Tables"]["categories"]["Insert"];

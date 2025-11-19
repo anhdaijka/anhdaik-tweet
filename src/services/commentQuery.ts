@@ -17,12 +17,12 @@ export async function getCommentsByPostId(postId: string) {
 
 export async function addCommentToPost(
 	postId: string,
-	author: string,
-	content: string
+	authorId: string,
+	commentText: string
 ) {
 	const { data, error } = await supabase
 		.from("comments")
-		.insert([{ post_id: postId, author, content }])
+		.insert([{ post_id: postId, author_id: authorId, comment_text: commentText }])
 		.select();
 	if (error) {
 		console.error("Error adding comment to post:", error);

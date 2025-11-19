@@ -7,13 +7,12 @@ import dayjs from "dayjs";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useMemo } from "react";
+import EmptyMuted from "./empty";
 
 const ForYou = () => {
 	const { data, error, fetchNextPage, hasNextPage, isLoading } =
 		useInfiniteQuery({
-			// *** THAY ĐỔI DUY NHẤT LÀ Ở ĐÂY ***
-			queryKey: ["tweets", { tag: false }] as const, // Lọc các tweet có tag: false
-			// **********************************
+			queryKey: ["tweets", { tag: false }] as const,
 			queryFn: getTweets,
 			initialPageParam: 0,
 			getNextPageParam: (lastPage) => lastPage.nextPage,
@@ -45,7 +44,7 @@ const ForYou = () => {
 			exit={{ opacity: 0, x: -20 }}
 			transition={{
 				duration: 0.3,
-				ease: [0.4, 0.2, 1],
+				ease: "easeInOut",
 				stiffness: 100,
 				damping: 20,
 				type: "spring",
@@ -58,9 +57,10 @@ const ForYou = () => {
 				hasMore={hasNextPage}
 				loader={<TweetCardSkeleton />}
 				endMessage={
-					<div className="text-center w-full max-w-screen-sm mx-auto">
-						You have reached the end 😥
-					</div>
+					// <div className="text-center w-full max-w-screen-sm mx-auto py-20">
+					// 	You have reached the end 😥
+					// </div>
+					<EmptyMuted/>
 				}
 			>
 				{/* Xóa .filter() ở đây */}

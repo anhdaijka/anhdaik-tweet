@@ -118,7 +118,7 @@ const NewTweet = () => {
 							placeholder={
 								user ? "What's happening?" : "Sign in as admin to tweet"
 							}
-							disabled={user ? false : true}
+							disabled={isAdmin ? false : true}
 							value={content}
 							onChange={(e) => {
 								setContent(e.target.value);

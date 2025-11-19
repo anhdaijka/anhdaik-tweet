@@ -8,6 +8,7 @@ import dayjs from "dayjs";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useMemo } from "react"; // Dùng để "làm phẳng" (flatten) dữ liệu
+import EmptyMuted from "./empty";
 
 const Following = () => {
 	// 2. Đổi sang dùng useInfiniteQuery
@@ -15,7 +16,7 @@ const Following = () => {
 		data,
 		error,
 		fetchNextPage, // Hàm để tải trang tiếp theo
-		hasNextPage, // Biến boolean báo còn trang hay không
+		hasNextPage, // Biến boolean báo còn trang hay khôn
 		isLoading, // Trạng thái tải lần đầu
 		isFetchingNextPage, // Trạng thái tải các trang sau
 	} = useInfiniteQuery({
@@ -44,7 +45,7 @@ const Following = () => {
 
 	if (tweets.length === 0)
 		return (
-			<div className="text-center w-full max-w-screen-sm mx-auto">
+			<div className="text-center w-full max-w-screen-sm mx-auto py-20">
 				No tweets found 😥
 			</div>
 		);
@@ -57,7 +58,6 @@ const Following = () => {
 			exit={{ opacity: 0, x: -20 }}
 			transition={{
 				duration: 0.3,
-				ease: [0.4, 0.2, 1],
 				stiffness: 100,
 				damping: 20,
 				type: "spring",
@@ -70,12 +70,12 @@ const Following = () => {
 				hasMore={hasNextPage} // Báo cho component biết còn dữ liệu hay không
 				loader={<TweetCardSkeleton />} // Hiển thị khi đang tải thêm
 				endMessage={
-					<div className="text-center w-full max-w-screen-sm mx-auto">
-						You have reached the end 😥
-					</div>
+					// <div className="text-center w-full max-w-screen-sm mx-auto py-20">
+					// 	You have reached the end 😥
+					// </div>
+					<EmptyMuted/>
 				}
 			>
-				{/* 7. Xóa phần .filter() vì Supabase đã lọc giúp chúng ta */}
 				{tweets.map((tweet) => (
 					<TweetCard
 						key={tweet.id}

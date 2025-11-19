@@ -58,12 +58,10 @@ export async function postTweet({
 }
 
 export const getTweets = async ({
-	pageParam = 0, // Sẽ lấy từ initialPageParam (là 0) cho lần gọi đầu
+	pageParam = 0, 
 	queryKey,
 }: TweetsQueryContext) => {
-	// 4. Áp dụng kiểu TweetsQueryContext cho tham số
 
-	// 5. Giờ việc bóc tách này là HOÀN TOÀN an toàn về kiểu
 	const [, { tag }] = queryKey;
 
 	// Tính toán phạm vi (range) để lấy dữ liệu từ Supabase
@@ -71,16 +69,15 @@ export const getTweets = async ({
 	const to = from + POSTS_PER_PAGE - 1;
 
 	if (pageParam > 0) {
-		await sleep(1500); // Delay 1.5 giây (1500ms)
+		await sleep(1000); // Delay 1 giây (1000ms)
 	}
 
-	// Gọi Supabase API
 	const { data, error } = await supabase
-		.from("tweets") // <-- Tên bảng của bạn
+		.from("tweets") 
 		.select("*")
-		.eq("tag", tag) // <-- Lọc theo tag
+		.eq("tag", tag) 
 		.order("created_at", { ascending: false })
-		.range(from, to); // <-- Chỉ lấy 5 bản ghi
+		.range(from, to); 
 
 	if (error) {
 		throw new Error(error.message);

@@ -26,7 +26,7 @@ const tabs = [
 
 const TabsProfile = () => {
 	return (
-		<Tabs defaultValue="projects" className="w-full">
+		<Tabs defaultValue="posts" className="w-full">
 			<TabsList className="w-full bg-transparent border-b border-border rounded-none h-auto p-0">
 				{tabs.map((tab) => {
 					return (
