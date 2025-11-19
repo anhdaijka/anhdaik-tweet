@@ -36,7 +36,7 @@ export async function GET(request: NextRequest) {
 			filter: notionFilter,
 		});
 
-		const posts = response.results.map(mapPostContent);
+		const posts = response.results.map(mapPostContent).filter((p) => p.slug);
 
 		return NextResponse.json({
 			posts,
