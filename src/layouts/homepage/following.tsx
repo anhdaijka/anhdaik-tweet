@@ -73,7 +73,7 @@ const Following = () => {
 					// <div className="text-center w-full max-w-screen-sm mx-auto py-20">
 					// 	You have reached the end 😥
 					// </div>
-					<EmptyMuted/>
+					<EmptyMuted name="tweets" />
 				}
 			>
 				{tweets.map((tweet) => (

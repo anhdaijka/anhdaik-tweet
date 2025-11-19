@@ -21,14 +21,21 @@ export type Tweets = Tables["tweets"] & { author: SupabaseUser };
 
 export type TweetsQuery = Database["public"]["Tables"]["tweets"]["Insert"];
 
-//Posts handle
-export type Post = Tables["posts"] & { author: SupabaseUser };
-export type PostQuery = Database["public"]["Tables"]["posts"]["Insert"];
+//Notion post handle
+export type NotionPost = {
+	title: string;
+	slug: string;
+	image: string | null;
+	date: string;
+	author: NotionUser;
+	content?: string | null;
+	summary: string | null;
+	tags: string[] | null;
+	featured: boolean;
+}
 
-//Comments handle
-export type Comment = Tables["comments"] & { author: SupabaseUser };
-export type CommentQuery = Database["public"]["Tables"]["comments"]["Insert"];
-
-//Categories handle
-export type Category = Tables["categories"];
-export type CategoryQuery = Database["public"]["Tables"]["categories"]["Insert"];
+export type NotionUser = {
+	id: string;
+	name: string;
+	avatar: string | null;
+}

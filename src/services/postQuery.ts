@@ -1,145 +1,96 @@
-import { createClient } from "@/utils/supabase/client";
+import { baseUrl } from "@/configs/site";
+import { NotionPost } from "@/types";
+import notion from "@/utils/notion/client";
+import { QueryFunctionContext } from "@tanstack/react-query";
 
-const supabase = createClient();
+export type PostsCursor = string | null;
+export const POST_PER_PAGE = 3;
 
-export async function getPostsByCategory(category: string) {
-	const { data, error } = await supabase
-		.from("posts")
-		.select("*")
-		.eq("category", category)
-		.order("created_at", { ascending: false });
-	if (error) {
-		console.error("Error fetching posts by category:", error);
-		return [];
-	}
-	return data || [];
+export interface PostPage {
+	posts: NotionPost[];
+	nextCursor: string | null;
+	hasMore: boolean;
 }
 
-export async function getAllPosts() {
-	const { data, error } = await supabase
-		.from("posts")
-		.select("*")
-		.order("created_at", { ascending: false });
-	if (error) {
-		console.error("Error fetching all posts:", error);
-		return [];
+
+export const fetchPosts = async ({
+	pageParam = null,
+	queryKey,
+	signal,
+	meta,
+}: QueryFunctionContext<
+	["infinitePosts"] | ["featuredPosts"],
+	PostsCursor
+>): Promise<PostPage> => {
+	const cursorQuery = pageParam ? `&cursor=${pageParam}` : "";
+	const key = queryKey[0];
+	const featuredFilter = key === "featuredPosts" ? "&featured=true" : "";
+	const res = await fetch(
+		`${baseUrl}/api/posts?${cursorQuery}${featuredFilter}`, 
+		{ signal }
+	);
+
+	if (!res.ok) {
+		throw new Error("Failed to fetch posts");
 	}
-	return data || [];
+	return res.json();
+};
+
+function getToday(datestring: string) {
+	const months = [
+		"January",
+		"February",
+		"March",
+		"April",
+		"May",
+		"June",
+		"July",
+		"August",
+		"September",
+		"October",
+		"November",
+		"December",
+	];
+
+	let date = new Date();
+
+	if (datestring) {
+		date = new Date(datestring);
+	}
+
+	const day = date.getDate();
+	const month = months[date.getMonth()];
+	const year = date.getFullYear();
+	const today = `${month} ${day}, ${year}`;
+
+	return today;
 }
 
-export async function searchPosts(query: string) {
-	const { data, error } = await supabase
-		.from("posts")
-		.select("*")
-		.ilike("title", `%${query}%`)
-		.or(`ilike(content, '%${query}%')`)
-		.order("created_at", { ascending: false });
-	if (error) {
-		console.error("Error searching posts:", error);
-		return [];
+export const getAllPosts = async () => {
+	const posts = await fetch(`${baseUrl}/api/posts`);
+	if (!posts.ok) {
+		throw new Error("Failed to fetch posts");
 	}
-	return data || [];
-}
+	return posts.json() as Promise<NotionPost[]>;
+};
 
-export async function getPostBySlug(slug: string) {
-	const { data, error } = await supabase
-		.from("posts")
-		.select("*")
-		.eq("slug", slug)
-		.single();
-	if (error) {
-		console.error("Error fetching post by ID:", error);
-		return null;
-	}
-	return data || null;
-}
 
-export async function getRecentPosts(limit: number = 5) {
-	const { data, error } = await supabase
-		.from("posts")
-		.select("*")
-		.order("created_at", { ascending: false })
-		.limit(limit);
-	if (error) {
-		console.error("Error fetching recent posts:", error);
-		return [];
-	}
-	return data || [];
-}
-
-export async function getPopularPosts(limit: number = 5) {
-	const { data, error } = await supabase
-		.from("posts")
-		.select("*")
-		.order("views", { ascending: false })
-		.limit(limit);
-	if (error) {
-		console.error("Error fetching popular posts:", error);
-		return [];
-	}
-	return data || [];
-}
-
-export async function getPostsByAuthor(authorId: string) {
-	const { data, error } = await supabase
-		.from("posts")
-		.select("*")
-		.eq("author_id", authorId)
-		.order("created_at", { ascending: false });
-	if (error) {
-		console.error("Error fetching posts by author:", error);
-		return [];
-	}
-	return data || [];
-}
-
-export async function getPostsByTag(tag: string) {
-	const { data, error } = await supabase
-		.from("posts")
-		.select("*")
-		.contains("tags", [tag])
-		.order("created_at", { ascending: false });
-	if (error) {
-		console.error("Error fetching posts by tag:", error);
-		return [];
-	}
-	return data || [];
-}
-
-export async function updatePostBySlug(slug: string, updates: any) {
-	const { data, error } = await supabase
-		.from("posts")
-		.update(updates)
-		.eq("slug", slug)
-		.single();
-	if (error) {
-		console.error("Error updating post by slug:", error);
-		return null;
-	}
-	return data || null;
-}
-
-export async function createPost(postData: any) {
-	const { data, error } = await supabase
-		.from("posts")
-		.insert([postData])
-		.single();
-	if (error) {
-		console.error("Error creating post:", error);
-		return null;
-	}
-	return data || null;
-}
-
-export async function deletePostBySlug(slug: string) {
-	const { data, error } = await supabase
-		.from("posts")
-		.delete()
-		.eq("slug", slug)
-		.single();
-	if (error) {
-		console.error("Error deleting post by slug:", error);
-		return null;
-	}
-	return data || null;
-}
+export const mapPostContent = (post: any): NotionPost => ({
+	title: (post.properties.Title as any)?.title?.[0]?.plain_text ?? "",
+	slug: (post.properties.Slug as any)?.rich_text?.[0]?.plain_text ?? "",
+	image: (post.properties.Image as any)?.files?.[0]?.file?.url ?? null,
+	date: getToday((post.properties.Date as any)?.date?.start) ?? "",
+	author: {
+		id: (post.properties.Author as any)?.people?.[0]?.id ?? "",
+		name:
+			(post.properties.Author as any)?.people?.[0]?.name ?? "Unknown Author",
+		avatar: (post.properties.Author as any)?.people?.[0]?.avatar_url ?? null,
+	},
+	// content: (post.properties.Content as any)?.rich_text?.[0]?.plain_text ?? null,
+	summary: (post.properties.Summary as any)?.rich_text?.[0]?.plain_text ?? "",
+	tags:
+		(post.properties.Tags as any)?.multi_select?.map(
+			(tag: { name: string }) => tag.name
+		) ?? [],
+	featured: (post.properties.Featured as any)?.checkbox ?? false,
+});

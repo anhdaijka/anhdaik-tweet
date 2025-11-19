@@ -134,11 +134,11 @@ export const data = {
 			url: `${baseUrl}/`,
 			icon: User,
 		},
-		// {
-		// 	title: "Blog",
-		// 	url: `${baseUrl}/blog`,
-		// 	icon: Newspaper,
-		// },
+		{
+			title: "Blog",
+			url: `${baseUrl}/blog`,
+			icon: Newspaper,
+		},
 		{
 			title: "Tweets",
 			url: `${baseUrl}/tweets`,
