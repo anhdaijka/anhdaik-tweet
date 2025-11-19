@@ -2864,11 +2864,11 @@ function MediaPlayerTooltip(props: MediaPlayerTooltipProps) {
 			>
 				{children}
 			</TooltipTrigger>
-			<TooltipContent
-				container={context.portalContainer}
-				sideOffset={currentSideOffset}
-				className="flex items-center gap-2 border bg-accent px-2 py-1 font-medium text-foreground data-[side=top]:mb-3.5 dark:bg-zinc-900 [&>span]:hidden"
-			>
+			<MediaPlayerPortal>
+				<TooltipContent
+					sideOffset={currentSideOffset}
+					className="flex items-center gap-2 border bg-accent px-2 py-1 font-medium text-foreground data-[side=top]:mb-3.5 dark:bg-zinc-900 [&>span]:hidden"
+				>
 				<p>{tooltip}</p>
 				{Array.isArray(shortcut) ? (
 					<div className="flex items-center gap-1">
@@ -2895,7 +2895,8 @@ function MediaPlayerTooltip(props: MediaPlayerTooltipProps) {
 						</kbd>
 					)
 				)}
-			</TooltipContent>
+				</TooltipContent>
+			</MediaPlayerPortal>
 		</Tooltip>
 	);
 }

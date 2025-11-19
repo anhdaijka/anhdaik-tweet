@@ -28,7 +28,6 @@ import playlist from "@/lib/playlist";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { motion } from "motion/react";
 import { useTheme } from "next-themes";
-import { set } from "date-fns";
 
 export function MusicPlayer({
 	musicExpanded,
