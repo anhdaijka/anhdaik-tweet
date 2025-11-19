@@ -24,22 +24,13 @@ interface Post {
 	image: string;
 }
 
-interface BlogPageProps {
-	tagline: string;
-	heading: string;
-	description: string;
-	buttonText: string;
-	buttonUrl: string;
-	posts: Post[];
-}
-
-const BlogPage = async ({
-	tagline = "Latest Updates",
-	heading = "Blog Posts",
-	description = "Discover the latest thoughts, tutorials, and insights of mine on stuffs related to web development, philosophy, and technology.",
-	buttonText = "View all articles",
-	buttonUrl = `${baseUrl}/blog/post`,
-	posts = [
+const BlogPage = async () => {
+	const tagline = "Latest Updates";
+	const heading = "Blog Posts";
+	const description = "Discover the latest thoughts, tutorials, and insights of mine on stuffs related to web development, philosophy, and technology.";
+	const buttonText = "View all articles";
+	const buttonUrl = `${baseUrl}/blog/post`;
+	const posts = [
 		{
 			slug: "post-1",
 			title: "Integrating shadcn/ui in Next.js Projects",
@@ -76,8 +67,7 @@ const BlogPage = async ({
 			image:
 				"https://images.unsplash.com/photo-1761839262867-af53d08b0eb5?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
 		},
-	],
-}: BlogPageProps) => {
+	];
 
 
 	return (
