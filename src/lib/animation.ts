@@ -1,16 +1,13 @@
 export const parentVariants = {
-	hidden: {
-		opacity: 0,
-	},
-	visible: {
-		opacity: 1,
-		transition: {
-			delayChildren: 0.2,
-			staggerChildren: 0.2,
-			staggerDirection: 1,
-			type: "spring",
-		},
-	},
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: {
+            delayChildren: 0.3,
+            staggerChildren: 0.2,
+            staggerDirection: 1,
+        },
+    },
 };
 
 export const childVariants = {
