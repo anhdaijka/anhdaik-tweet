@@ -1,7 +1,7 @@
 export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
-	name: "AnhDaiK's blog",
+	name: "AnhDaijKa's Blog",
 	description: "Another Phùng's Characteristics",
 	navItems: [
 		{
@@ -60,15 +60,15 @@ export const siteConfig = {
 		},
 	],
 	links: {
-		github: "https://github.com/anhdaik",
-		instagram: "https://www.instagram.com/anhdaik",
-		facebook: "https://www.facebook.com/anhdaika",
+		github: "https://github.com/anhdaijka",
+		instagram: "https://www.instagram.com/anhdaijka",
+		facebook: "https://www.facebook.com/anhdaijka",
 	},
 };
 
 export const baseUrl =
 	process.env.NODE_ENV === "production"
-		? "https://anhdaik.vercel.app"
+		? "https://anhdaijka.vercel.app"
 		: "http://localhost:3000";
 
 export const APIUrl = "https://better-wonder-c9d27dd40d.strapiapp.com/api";
