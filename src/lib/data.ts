@@ -36,7 +36,7 @@ import { User, Inbox, TwitterIcon, MessageCircle } from "lucide-react";
 import { baseUrl } from "@/configs/site";
 
 export const message = {
-	text : "My blog posts are released now! Check it out!",
+	text : "The new version of Blog is already released now! Check it out!",
 	url: `${baseUrl}/blog`,
 	action: "Try it now"
 
