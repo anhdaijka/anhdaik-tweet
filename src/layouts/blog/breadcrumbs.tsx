@@ -1,7 +1,7 @@
 "use client";
 import { SidebarTrigger, useSidebar } from "@/components/ui/sidebar";
 import { baseUrl } from "@/configs/site";
-import { Home } from "lucide-react";
+import { Home, MessageCircle } from "lucide-react";
 import {
 	Breadcrumb,
 	BreadcrumbItem,
@@ -25,7 +25,11 @@ const Breadcrumbs = ({
 }: BreadcrumbsProps) => {
 	const breadcrumbs = [
 		{ name: "", href: baseUrl, icon: <Home className="size-4" /> },
-		{ name: "Blog", href: `${baseUrl}/blog`, icon: null },
+		{
+			name: "Blog",
+			href: `${baseUrl}/blog/post/`,
+			icon: <MessageCircle className="size-4" />,
+		},
 		{
 			name: postTitle,
 			href: `${baseUrl}/blog/post/${postSlug}`,
@@ -55,7 +59,7 @@ const Breadcrumbs = ({
 									<>
 										<BreadcrumbLink
 											href={item.href}
-											className="font-medium text-md"
+											className="font-medium text-md flex items-center gap-2 hover:text-primary truncate max-w-xs"
 										>
 											{item.icon}
 											{index > 0 && item.name}

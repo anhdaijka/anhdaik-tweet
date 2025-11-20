@@ -248,7 +248,7 @@ const PostCard = (post: Omit<NotionPost, "featured">) => {
 								</svg>
 							</LiquidButton>
 						</Link>
-						<p className="items-center flex text-primary/70 hover:text-primary">
+						<div className="items-center flex text-primary/70 hover:text-primary">
 							<div className="size-8 inline-block mr-2">
 								<Avatar className="ring-2 ring-primary/60 ring-offset-1 object-center">
 									<AvatarImage src={post.author.avatar || admin.avatar} />
@@ -256,7 +256,7 @@ const PostCard = (post: Omit<NotionPost, "featured">) => {
 								</Avatar>
 							</div>
 							{post.author.name}
-						</p>
+						</div>
 					</div>
 				</div>
 			</div>
