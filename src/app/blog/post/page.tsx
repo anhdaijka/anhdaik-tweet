@@ -152,9 +152,7 @@ const PostPage = () => {
 						</Button>
 					)}
 
-					{!hasNextPage && allPosts.length > 0 && (
-						<EmptyMuted name="posts" />
-					)}
+					{!hasNextPage && allPosts.length > 0 && <EmptyMuted name="posts" />}
 
 					<Button variant="link" className="w-full sm:w-auto" asChild>
 						<Link href={baseUrl}>
@@ -238,11 +236,13 @@ const PostCard = (post: Omit<NotionPost, "featured">) => {
 								</svg>
 							</LiquidButton>
 						</Link>
-						<p className="items-center flex">
-							<Avatar className="inline-block h-6 w-6 mr-2">
-								<AvatarImage src={post.author.avatar || admin.avatar} />
-								<AvatarFallback>{post.author.name.charAt(0)}</AvatarFallback>
-							</Avatar>
+						<p className="items-center flex text-primary/70 hover:text-primary">
+							<div className="size-8 inline-block mr-2">
+								<Avatar className="ring-2 ring-primary/60 ring-offset-1 object-center">
+									<AvatarImage src={post.author.avatar || admin.avatar} />
+									<AvatarFallback>{post.author.name.charAt(0)}</AvatarFallback>
+								</Avatar>
+							</div>
 							{post.author.name}
 						</p>
 					</div>

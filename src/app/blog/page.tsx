@@ -33,7 +33,7 @@ const useFeaturedPosts = () => {
 };
 
 const PropsPage = {
-	tagline: "Latest Updates",
+	tagline: "Featured Posts",
 	heading: "Blog Posts",
 	description:
 		"Discover the latest thoughts, tutorials, and insights of mine on stuffs related to web development, philosophy, and technology.",

@@ -50,6 +50,7 @@ const ForYou = () => {
 				type: "spring",
 				mass: 0.5,
 			}}
+			className="max-w-7xl mx-auto border-x border-border"
 		>
 			<InfiniteScroll
 				dataLength={tweets.length}
@@ -57,9 +58,7 @@ const ForYou = () => {
 				hasMore={hasNextPage}
 				loader={<TweetCardSkeleton />}
 				endMessage={
-					// <div className="text-center w-full max-w-screen-sm mx-auto py-20">
-					// 	You have reached the end 😥
-					// </div>
+
 					<EmptyMuted name="tweets" />
 				}
 			>

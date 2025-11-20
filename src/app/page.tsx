@@ -4,12 +4,13 @@ import Header from "@/layouts/profile/header";
 import Profile from "@/layouts/profile/profile";
 import { AnimatePresence } from "motion/react";
 
+
 export default function Page() {
 	return (
 		<AnimatePresence mode="wait">
 			<div className="overflow-hidden">
 				<Header />
-				<div className="max-w-5xl mx-auto border-x border-border">
+				<div className="max-w-7xl mx-auto border-x border-border">
 					<Profile />
 					<div className="flex flex-1 flex-col gap-4">
 						<TabsProfile />

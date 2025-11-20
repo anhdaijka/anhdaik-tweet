@@ -1,5 +1,5 @@
-import Link from "next/link";
-import { ChevronRight } from "lucide-react";
+"use client";
+import { SidebarTrigger, useSidebar } from "@/components/ui/sidebar";
 import { baseUrl } from "@/configs/site";
 import { Home } from "lucide-react";
 import {
@@ -13,9 +13,16 @@ import {
 interface BreadcrumbsProps {
 	postTitle: string;
 	postSlug: string;
+	author?: string;
+	date?: string;
 }
 
-const Breadcrumbs = ({ postTitle, postSlug }: BreadcrumbsProps) => {
+const Breadcrumbs = ({
+	postTitle,
+	postSlug,
+	author,
+	date,
+}: BreadcrumbsProps) => {
 	const breadcrumbs = [
 		{ name: "", href: baseUrl, icon: <Home className="size-4" /> },
 		{ name: "Blog", href: `${baseUrl}/blog`, icon: null },
@@ -26,10 +33,10 @@ const Breadcrumbs = ({ postTitle, postSlug }: BreadcrumbsProps) => {
 			current: true,
 		},
 	];
-
+	const { toggleSidebar } = useSidebar();
 	return (
-		<>
-			<Breadcrumb className="w-full sticky top-0 left-0 right-0 z-10 bg-card border px-3 py-2">
+		<div className="w-full sticky top-0 left-0 right-0 z-10 bg-card border flex items-center justify-between">
+			<Breadcrumb className="flex-1 px-3 py-2">
 				<BreadcrumbList>
 					{breadcrumbs.map((item, index) => {
 						return (
@@ -37,8 +44,6 @@ const Breadcrumbs = ({ postTitle, postSlug }: BreadcrumbsProps) => {
 								key={item.name}
 								className="inline-flex items-center gap-2"
 							>
-								
-
 								{item.current ? (
 									<BreadcrumbLink
 										className="text-primary font-medium truncate max-w-xs text-md"
@@ -52,7 +57,7 @@ const Breadcrumbs = ({ postTitle, postSlug }: BreadcrumbsProps) => {
 											href={item.href}
 											className="font-medium text-md"
 										>
-                                            {item.icon}
+											{item.icon}
 											{index > 0 && item.name}
 										</BreadcrumbLink>
 										<BreadcrumbSeparator />
@@ -63,7 +68,15 @@ const Breadcrumbs = ({ postTitle, postSlug }: BreadcrumbsProps) => {
 					})}
 				</BreadcrumbList>
 			</Breadcrumb>
-		</>
+			<p className="hidden md:block text-muted-foreground px-3 py-2">
+				Published by
+				<span className="text-primary font-medium"> {author} </span>
+				on <span className="text-pretty italic">{date}</span>
+			</p>
+			<div className="md:hidden inline-block">
+				<SidebarTrigger />
+			</div>
+		</div>
 	);
 };
 

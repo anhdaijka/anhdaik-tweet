@@ -31,9 +31,16 @@ import anh7 from "@/assets/images/personal/7.jpg";
 import anh8 from "@/assets/images/personal/8.jpg";
 import anh9 from "@/assets/images/personal/9.jpg";
 
-import { User, Inbox, TwitterIcon, Newspaper } from "lucide-react";
+import { User, Inbox, TwitterIcon, MessageCircle } from "lucide-react";
 
 import { baseUrl } from "@/configs/site";
+
+export const message = {
+	text : "My blog posts are released now! Check it out!",
+	url: `${baseUrl}/blog`,
+	action: "Try it now"
+
+}
 
 export const admin = {
 	name: "Phùng Quang Anh",
@@ -130,14 +137,14 @@ export const techStackDetails = [
 export const data = {
 	navMain: [
 		{
-			title: "Anh's Portfolio",
+			title: "Portfolio",
 			url: `${baseUrl}/`,
 			icon: User,
 		},
 		{
 			title: "Blog",
 			url: `${baseUrl}/blog`,
-			icon: Newspaper,
+			icon: MessageCircle,
 		},
 		{
 			title: "Tweets",

@@ -2,6 +2,7 @@ import { baseUrl } from "@/configs/site";
 import React from "react";
 import NotionClientRenderer from "./render";
 import Breadcrumbs from "@/layouts/blog/breadcrumbs";
+import Footer from "@/layouts/blog/footer";
 interface PostPageProps {
 	params: Promise<{
 		slug: string;
@@ -27,15 +28,9 @@ const PostPage = async ({ params }: PostPageProps) => {
 
 	return (
 		<>
-			<Breadcrumbs postTitle={title} postSlug={slug} />
-			<header className="fixed hidden md:block top-0 right-0 z-10 py-2 px-3">
-				<p className="text-muted-foreground">
-					Published by
-					<span className="text-primary font-medium"> {author} </span>
-					on <span className="text-pretty italic">{date}</span>
-				</p>
-			</header>
+			<Breadcrumbs postTitle={title} postSlug={slug} author={author} date={date} />
 			<NotionClientRenderer recordMap={data.content} image={image} />
+			<Footer/>
 		</>
 	);
 };

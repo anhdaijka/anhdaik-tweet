@@ -63,6 +63,7 @@ const Following = () => {
 				type: "spring",
 				mass: 0.5,
 			}}
+			className="max-w-7xl mx-auto border-x border-border"
 		>
 			<InfiniteScroll
 				dataLength={tweets.length} // Số lượng tweet đang hiển thị

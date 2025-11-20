@@ -32,7 +32,7 @@ const Header = ({
 			<p className="text-muted-foreground mb-8 md:text-base lg:max-w-2xl lg:text-lg">
 				{description}
 			</p>
-			<Button variant="link" className="w-full sm:w-auto" asChild>
+			<Button variant="link" className="w-full sm:w-auto text-lg" asChild>
 				<Link href={buttonUrl}>
 					{arrow && <ArrowLeft className="mr-2 size-4" />}
 					{buttonText}

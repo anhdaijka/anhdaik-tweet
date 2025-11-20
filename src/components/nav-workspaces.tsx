@@ -17,6 +17,7 @@ import {
 	SidebarMenuSubButton,
 	SidebarMenuSubItem,
 } from "@/components/ui/sidebar";
+import Link from "next/link";
 
 export function NavWorkspaces({
 	title,
@@ -41,10 +42,10 @@ export function NavWorkspaces({
 						<Collapsible key={workspace.name}>
 							<SidebarMenuItem>
 								<SidebarMenuButton asChild>
-									<a href="#">
+									<Link href="#">
 										<span>{workspace.emoji}</span>
 										<span>{workspace.name}</span>
-									</a>
+									</Link>
 								</SidebarMenuButton>
 								<CollapsibleTrigger asChild>
 									<SidebarMenuAction
@@ -62,10 +63,10 @@ export function NavWorkspaces({
 										{workspace.pages.map((page) => (
 											<SidebarMenuSubItem key={page.name}>
 												<SidebarMenuSubButton asChild>
-													<a href="#">
+													<Link href="#">
 														<span>{page.emoji}</span>
 														<span>{page.name}</span>
-													</a>
+													</Link>
 												</SidebarMenuSubButton>
 											</SidebarMenuSubItem>
 										))}
@@ -74,13 +75,6 @@ export function NavWorkspaces({
 							</SidebarMenuItem>
 						</Collapsible>
 					))}
-
-					<SidebarMenuItem>
-						<SidebarMenuButton className="text-sidebar-foreground/70">
-							<MoreHorizontal />
-							<span>More</span>
-						</SidebarMenuButton>
-					</SidebarMenuItem>
 				</SidebarMenu>
 			</SidebarGroupContent>
 		</SidebarGroup>

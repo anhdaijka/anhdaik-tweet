@@ -99,12 +99,12 @@ const NewTweet = () => {
 				animate="visible"
 				viewport={{ once: true }}
 				transition={{ duration: 0.5, ease: "easeInOut" }}
-				className="border border-border p-4 rounded-2xl relative mt-4 max-w-[calc(100%-2rem)] mx-auto"
+				className="border border-border rounded-2xl relative mt-4 max-w-7xl mx-auto"
 				style={{
 					backdropFilter: !isAdmin ? "blur(50px)" : "blur(0px)",
 				}}
 			>
-				<div className="flex space-x-4">
+				<div className="flex space-x-4 p-4 max-w-[calc(100%-2rem)]">
 					{isAdmin ? (
 						<Avatar className="w-10 h-10 md:w-12 md:h-12">
 							<AvatarImage src={user?.user_metadata?.avatar_url} />
@@ -123,7 +123,7 @@ const NewTweet = () => {
 							onChange={(e) => {
 								setContent(e.target.value);
 							}}
-							className="min-h-24 w-full rounded-2xl resize-none bg-transparent outline-none focus:ring-0 focus-visible:border-none focus-visible:ring-0 focus-visible:ring-offset-0"
+							className="min-h-28 pt-4 w-full rounded-2xl resize-none bg-transparent outline-none focus:ring-0 focus-visible:border-none focus-visible:ring-0 focus-visible:ring-offset-0"
 						/>
 						<div className="flex-1 w-full mt-4">
 							<div className="flex justify-between items-center">
