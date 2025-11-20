@@ -24,6 +24,7 @@ import {
 	EmptyTitle,
 } from "@/components/ui/empty";
 import { Spinner } from "@/components/ui/spinner";
+import EmptyMuted from "@/layouts/homepage/empty";
 
 const useFeaturedPosts = () => {
 	return useQuery<PostPage>({
@@ -48,7 +49,10 @@ const emptyImg =
 const BlogPage = () => {
 	const { data: dataPosts, isLoading, isError, error } = useFeaturedPosts();
 
-	const posts: NotionPost[] | undefined = dataPosts?.posts.slice(0, POST_PER_PAGE);
+	const posts: NotionPost[] | undefined = dataPosts?.posts.slice(
+		0,
+		POST_PER_PAGE
+	);
 
 	if (isLoading) {
 		return (
@@ -107,26 +111,36 @@ const BlogPage = () => {
 			</section>
 		);
 	}
-	if (posts) {
+
+	if (!posts?.length) {
 		return (
 			<section className="py-12">
 				<div className="container mx-auto flex flex-col items-center gap-16 lg:px-16">
 					<Header {...PropsPage} />
-					<div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
-						{posts?.map((post) => (
-							<BlogCard key={post.slug} {...post} />
-						))}
-					</div>
-					<Button variant="link" className="w-full sm:w-auto" asChild>
-						<Link href={baseUrl}>
-							<ArrowLeft className="ml-2 size-4" />
-							Back to Home
-						</Link>
-					</Button>
+					<EmptyMuted name="posts" />
 				</div>
 			</section>
 		);
 	}
+
+	return (
+		<section className="py-12">
+			<div className="container mx-auto flex flex-col items-center gap-16 lg:px-16">
+				<Header {...PropsPage} />
+				<div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
+					{posts?.map((post) => (
+						<BlogCard key={post.slug} {...post} />
+					))}
+				</div>
+				<Button variant="link" className="w-full sm:w-auto" asChild>
+					<Link href={baseUrl}>
+						<ArrowLeft className="ml-2 size-4" />
+						Back to Home
+					</Link>
+				</Button>
+			</div>
+		</section>
+	);
 };
 
 const BlogCard = (post: Omit<NotionPost, "content" | "featured">) => {

@@ -52,6 +52,7 @@ const PostPage = () => {
 		isFetchingNextPage,
 		isLoading,
 		isError,
+		
 	} = useInfiniteQuery({
 		queryKey: ["infinitePosts"],
 		queryFn: fetchPosts as any,
@@ -116,6 +117,17 @@ const PostPage = () => {
 							Back to Home
 						</Link>
 					</Button>
+				</div>
+			</section>
+		);
+	}
+
+	if (!allPosts.length) {
+		return (
+			<section className="py-12">
+				<div className="container mx-auto flex flex-col items-center gap-16 lg:px-16">
+					<Header {...PostProps} />
+					<EmptyMuted name="posts"/>
 				</div>
 			</section>
 		);
