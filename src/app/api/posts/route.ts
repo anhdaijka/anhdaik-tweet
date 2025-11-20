@@ -16,6 +16,7 @@ export async function GET(request: NextRequest) {
 		},
 	});
 
+
 	if (isFeaturedFilter) {
 		filters.push({
 			property: "Featured",
@@ -24,6 +25,13 @@ export async function GET(request: NextRequest) {
 			},
 		});
 	}
+
+	filters.push({
+        property: "Status",
+        select: {
+            equals: "Published",
+        },
+    });
 
 	const notionFilter = filters.length > 0 ? { and: filters } : undefined;
 	try {
