@@ -37,7 +37,7 @@ const Breadcrumbs = ({
 			current: true,
 		},
 	];
-	const { toggleSidebar } = useSidebar();
+	const { isMobile } = useSidebar();
 	return (
 		<div className="w-full sticky top-0 left-0 right-0 z-10 bg-card border flex items-center justify-between">
 			<Breadcrumb className="flex-1 px-3 py-2">
@@ -77,9 +77,7 @@ const Breadcrumbs = ({
 				<span className="text-primary font-medium"> {author} </span>
 				on <span className="text-pretty italic">{date}</span>
 			</p>
-			<div className="md:hidden inline-block">
-				<SidebarTrigger />
-			</div>
+			{isMobile && <SidebarTrigger />}
 		</div>
 	);
 };
