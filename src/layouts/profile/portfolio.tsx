@@ -26,7 +26,7 @@ const portfolio = [
 		created_at: dayjs("11/04/2023").format("h:mm A ・ MMM D, YYYY"),
 		likes: 1,
 		images: [
-			"https://collegetown-nishinomiya.jp/material/images/group/2/OTEMAE2.jpg",
+			"https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Otemaeuniv.jpg/500px-Otemaeuniv.jpg",
 		],
 	},
 	{
