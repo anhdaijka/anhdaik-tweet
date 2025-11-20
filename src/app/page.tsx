@@ -1,22 +1,15 @@
-"use client";
-import TabsProfile from "@/layouts/profile/tabs";
-import Header from "@/layouts/profile/header";
-import Profile from "@/layouts/profile/profile";
-import { AnimatePresence } from "motion/react";
+import { siteConfig } from "@/configs/site";
+import Portfolio from "@/layouts/homepage/portfolio";
 
+export const metadata = {
+	title: `${siteConfig.name} | ` + "Portfolio",
+	description: "Portfolio",
+}
 
-export default function Page() {
+export default async function Page() {
 	return (
-		<AnimatePresence mode="wait">
-			<div className="overflow-hidden">
-				<Header />
-				<div className="max-w-7xl mx-auto border-x border-border">
-					<Profile />
-					<div className="flex flex-1 flex-col gap-4">
-						<TabsProfile />
-					</div>
-				</div>
-			</div>
-		</AnimatePresence>
+		<>
+			<Portfolio />
+		</>
 	);
 }

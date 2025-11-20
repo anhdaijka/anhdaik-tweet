@@ -1,3 +1,5 @@
+"use client"
+
 import dayjs from "dayjs";
 import TweetCard from "@/components/twitter-card";
 import { motion } from "motion/react";

@@ -1,4 +1,4 @@
-import { baseUrl } from "@/configs/site";
+import { baseUrl, siteConfig } from "@/configs/site";
 import React from "react";
 import NotionClientRenderer from "./render";
 import Breadcrumbs from "@/layouts/blog/breadcrumbs";
@@ -7,6 +7,17 @@ interface PostPageProps {
 	params: Promise<{
 		slug: string;
 	}>;
+}
+
+export async function generateMetadata({ params }: PostPageProps) {
+	const { slug } = await params;
+	const data = await getPageIdBySlug(slug);
+	const title = data?.post ? data.post.title : "Post Not Found";
+	const description = data?.post ? data.post.description : "Post Not Found";
+	return {
+		title: `${siteConfig.name} | `+title,
+		description: description,
+	};
 }
 
 async function getPageIdBySlug(slug: string) {
