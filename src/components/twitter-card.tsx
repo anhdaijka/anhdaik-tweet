@@ -313,7 +313,7 @@ export default function TweetCard(tweet: Tables<"tweets">) {
 
 				{data.images && data.images.length === 1 && (
 					<Image
-						className="mt-2 rounded-2xl border border-border aspect-video object-cover"
+						className="mt-2 rounded-2xl border border-border aspect-video object-cover w-full"
 						src={data.images?.[0] || ""}
 						alt="image"
 						width={1000}
