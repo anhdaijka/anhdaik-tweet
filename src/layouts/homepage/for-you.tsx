@@ -33,7 +33,7 @@ const ForYou = () => {
 	if (tweets.length === 0)
 		return (
 			<div className="text-center w-full max-w-screen-sm mx-auto">
-				No tweets found 😥
+				<EmptyMuted name="tweets" />
 			</div>
 		);
 

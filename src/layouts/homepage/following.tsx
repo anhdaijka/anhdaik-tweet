@@ -46,7 +46,7 @@ const Following = () => {
 	if (tweets.length === 0)
 		return (
 			<div className="text-center w-full max-w-screen-sm mx-auto py-20">
-				No tweets found 😥
+				<EmptyMuted name="tweets" />
 			</div>
 		);
 
