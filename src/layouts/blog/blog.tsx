@@ -144,6 +144,7 @@ const Blog = () => {
 };
 
 const BlogCard = (post: Omit<NotionPost, "content" | "featured">) => {
+	console.log(post.date);
 	return (
 		<Card
 			key={post.slug}

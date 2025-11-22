@@ -12,10 +12,9 @@ export async function GET(request: NextRequest) {
 	filters.push({
 		property: "Slug",
 		rich_text: {
-			is_not_empty: true, 
+			is_not_empty: true,
 		},
 	});
-
 
 	if (isFeaturedFilter) {
 		filters.push({
@@ -27,11 +26,11 @@ export async function GET(request: NextRequest) {
 	}
 
 	filters.push({
-        property: "Status",
-        select: {
-            equals: "Published",
-        },
-    });
+		property: "Status",
+		select: {
+			equals: "Published",
+		},
+	});
 
 	const notionFilter = filters.length > 0 ? { and: filters } : undefined;
 	try {
@@ -47,7 +46,6 @@ export async function GET(request: NextRequest) {
 			start_cursor: startCursor || undefined,
 			filter: notionFilter,
 		});
-
 		const posts = response.results.map(mapPostContent);
 
 		return NextResponse.json({

@@ -3,27 +3,27 @@
 import { NotionRenderer } from "react-notion-x";
 import { ExtendedRecordMap } from "notion-types";
 // core styles shared by all of react-notion-x (required)
-import 'react-notion-x/src/styles.css'
+import "react-notion-x/src/styles.css";
 
 // used for code syntax highlighting (optional)
-import 'prismjs/themes/prism-tomorrow.css'
+import "prismjs/themes/prism-tomorrow.css";
 
 // used for rendering equations (optional)
-import 'katex/dist/katex.min.css'
+import "katex/dist/katex.min.css";
 import Image from "next/image"; // or import Image from 'next/legacy/image' if you use legacy Image
 import Link from "next/link";
 import { useTheme } from "next-themes";
-import { usePathname } from "next/navigation";
 interface NotionClientRendererProps {
 	recordMap: ExtendedRecordMap;
 	image: string;
 }
 const CustomEmptyHeader = () => null;
 
-const NotionClientRenderer = ({ recordMap,image }: NotionClientRendererProps) => {
-	const path = usePathname();
-	console.log(path)
-	const {theme} = useTheme();
+const NotionClientRenderer = ({
+	recordMap,
+	image,
+}: NotionClientRendererProps) => {
+	const { theme } = useTheme();
 	return (
 		<NotionRenderer
 			recordMap={recordMap}
@@ -33,7 +33,7 @@ const NotionClientRenderer = ({ recordMap,image }: NotionClientRendererProps) =>
 				nextImage: Image,
 				nextLink: Link,
 				Header: CustomEmptyHeader,
-				Image: image
+				Image: image,
 			}}
 		/>
 	);

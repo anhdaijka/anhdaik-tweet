@@ -2,6 +2,7 @@ import { baseUrl } from "@/configs/site";
 import { NotionPost } from "@/types";
 import notion from "@/utils/notion/client";
 import { QueryFunctionContext } from "@tanstack/react-query";
+import dayjs from "dayjs";
 
 export type PostsCursor = string | null;
 export const POST_PER_PAGE = 3;
@@ -11,7 +12,6 @@ export interface PostPage {
 	nextCursor: string | null;
 	hasMore: boolean;
 }
-
 
 export const fetchPosts = async ({
 	pageParam = null,
@@ -26,7 +26,7 @@ export const fetchPosts = async ({
 	const key = queryKey[0];
 	const featuredFilter = key === "featuredPosts" ? "&featured=true" : "";
 	const res = await fetch(
-		`${baseUrl}/api/posts?${cursorQuery}${featuredFilter}`, 
+		`${baseUrl}/api/posts?${cursorQuery}${featuredFilter}`,
 		{ signal }
 	);
 
@@ -36,36 +36,6 @@ export const fetchPosts = async ({
 	return res.json();
 };
 
-function getToday(datestring: string) {
-	const months = [
-		"January",
-		"February",
-		"March",
-		"April",
-		"May",
-		"June",
-		"July",
-		"August",
-		"September",
-		"October",
-		"November",
-		"December",
-	];
-
-	let date = new Date();
-
-	if (datestring) {
-		date = new Date(datestring);
-	}
-
-	const day = date.getDate();
-	const month = months[date.getMonth()];
-	const year = date.getFullYear();
-	const today = `${month} ${day}, ${year}`;
-
-	return today;
-}
-
 export const getAllPosts = async () => {
 	const posts = await fetch(`${baseUrl}/api/posts`);
 	if (!posts.ok) {
@@ -74,12 +44,11 @@ export const getAllPosts = async () => {
 	return posts.json() as Promise<NotionPost[]>;
 };
 
-
 export const mapPostContent = (post: any): NotionPost => ({
 	title: (post.properties.Title as any)?.title?.[0]?.plain_text ?? "",
 	slug: (post.properties.Slug as any)?.rich_text?.[0]?.plain_text ?? "",
 	image: (post.properties.Image as any)?.files?.[0]?.file?.url ?? null,
-	date: getToday((post.properties.Date as any)?.date?.start) ?? "",
+	date: dayjs(post.created_time).format("MMMM D, YYYY"),
 	author: {
 		id: (post.properties.Author as any)?.people?.[0]?.id ?? "",
 		name:
