@@ -13,6 +13,7 @@ import "katex/dist/katex.min.css";
 import Image from "next/image"; // or import Image from 'next/legacy/image' if you use legacy Image
 import Link from "next/link";
 import { useTheme } from "next-themes";
+import { useEffect } from "react";
 interface NotionClientRendererProps {
 	recordMap: ExtendedRecordMap;
 	image: string;
@@ -24,6 +25,11 @@ const NotionClientRenderer = ({
 	image,
 }: NotionClientRendererProps) => {
 	const { theme } = useTheme();
+
+	useEffect(() => {
+		const table = document.querySelector(".notion-simple-table");
+		table?.classList.add("w-full");
+	}, []);
 	return (
 		<NotionRenderer
 			recordMap={recordMap}
