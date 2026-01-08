@@ -43,6 +43,9 @@ const PostProps = {
 	arrow: true,
 };
 
+const emptyImg =
+	"https://paper.vn/wp-content/uploads/2023/11/placeholder-1-1-1.png";
+
 const Posts = () => {
 	const {
 		data: pagesData,
@@ -52,7 +55,6 @@ const Posts = () => {
 		isFetchingNextPage,
 		isLoading,
 		isError,
-		
 	} = useInfiniteQuery({
 		queryKey: ["infinitePosts"],
 		queryFn: fetchPosts as any,
@@ -127,7 +129,7 @@ const Posts = () => {
 			<section className="py-12">
 				<div className="container mx-auto flex flex-col items-center gap-16 lg:px-16">
 					<Header {...PostProps} />
-					<EmptyMuted name="posts"/>
+					<EmptyMuted name="posts" />
 				</div>
 			</section>
 		);
@@ -189,7 +191,7 @@ const PostCard = (post: Omit<NotionPost, "featured">) => {
 					<Image
 						width={600}
 						height={600}
-						src={post.image || ""}
+						src={post.image || emptyImg}
 						alt={post.title}
 						className="aspect-16/9 w-full h-full object-cover object-center transition-transform duration-200 hover:scale-105"
 					/>
