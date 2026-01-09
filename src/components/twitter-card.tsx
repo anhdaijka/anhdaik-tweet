@@ -15,7 +15,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { admin } from "@/lib/data";
-import { AnimatePresence, motion } from "motion/react";
+import { motion } from "motion/react";
 import { childVariants } from "@/lib/animation";
 import { Tables } from "../../database.types";
 import { Skeleton } from "./ui/skeleton";
@@ -55,9 +55,11 @@ import { Textarea } from "./ui/textarea";
 import { Checkbox } from "./ui/checkbox";
 import { Label } from "./ui/label";
 import { useAuth } from "@/hooks/use-auth";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 const height = 100; // Chiều cao giới hạn cho 5 dòng nội dung
 
 export default function TweetCard(tweet: Tables<"tweets">) {
+	const queryClient = useQueryClient();
 	const { user } = useAuth();
 	const isAuthor = user?.id === tweet.author_id;
 	const [liked, setLiked] = useState(false);
@@ -90,50 +92,90 @@ export default function TweetCard(tweet: Tables<"tweets">) {
 	const [needsTruncation, setNeedsTruncation] = useState(false); // 2. State để biết nội dung có BỊ tràn hay không
 	const contentRef = useRef<HTMLDivElement>(null); // 3. Ref để tham chiếu đến div nội dung
 
-	const handleDelete = async (id: string) => {
-		// Xử lý xóa tweet ở đây
-		if (!isAuthor) {
-			toast.error("You are not authorized to delete this tweet.", {
-				position: "top-center",
-			});
-			return;
-		}
+	const queryKey = ["tweets", { tag: tweet.tag }];
 
-		const res = await deleteTweet(id);
-		setDeleted(false); // Đóng dialog sau khi xóa
+	// --- OPTIMISTIC DELETE ---
+	const deleteMutation = useMutation({
+		mutationFn: deleteTweet,
+		onMutate: async (tweetId) => {
+			// Hủy các refetch đang chạy để tránh ghi đè dữ liệu cũ lên bản cập nhật tức thì
+			await queryClient.cancelQueries({ queryKey });
 
-		if (res.error) {
-			toast.error("Error deleting tweet: " + res.error, {
-				position: "top-center",
+			// Lưu lại giá trị cũ để rollback nếu lỗi
+			const previousData = queryClient.getQueryData(queryKey);
+
+			// Cập nhật cache ngay lập tức: Lọc bỏ tweet có id tương ứng
+			queryClient.setQueryData(queryKey, (old: any) => {
+				if (!old) return old;
+				return {
+					...old,
+					pages: old.pages.map((page: any) => ({
+						...page,
+						data: page.data.filter((t: any) => t.id !== tweetId),
+					})),
+				};
 			});
-			return;
-		} else {
-			toast.success("Tweet deleted successfully", {
-				position: "top-center",
+
+			return { previousData };
+		},
+		onError: (err, tweetId, context) => {
+			// Rollback dữ liệu nếu có lỗi xảy ra
+			queryClient.setQueryData(queryKey, context?.previousData);
+			toast.error("Xóa thất bại: " + (err as any).message);
+		},
+		onSettled: () => {
+			// Luôn làm mới để đảm bảo đồng bộ với server
+			queryClient.invalidateQueries({ queryKey });
+		},
+	});
+
+	// --- OPTIMISTIC UPDATE ---
+	const updateMutation = useMutation({
+		mutationFn: ({ id, updates }: { id: string; updates: any }) =>
+			updateTweet(id, updates),
+		onMutate: async ({ id, updates }) => {
+			await queryClient.cancelQueries({ queryKey });
+			const previousData = queryClient.getQueryData(queryKey);
+
+			// Cập nhật cache ngay lập tức: Tìm và sửa tweet trong các trang
+			queryClient.setQueryData(queryKey, (old: any) => {
+				if (!old) return old;
+				return {
+					...old,
+					pages: old.pages.map((page: any) => ({
+						...page,
+						data: page.data.map((t: any) =>
+							t.id === id ? { ...t, ...updates } : t
+						),
+					})),
+				};
 			});
-		}
+
+			return { previousData };
+		},
+		onError: (err, variables, context) => {
+			queryClient.setQueryData(queryKey, context?.previousData);
+			toast.error("Cập nhật thất bại.");
+		},
+		onSuccess: () => {
+			setEdit(false);
+			toast.success("Đã cập nhật!");
+		},
+		onSettled: () => {
+			queryClient.invalidateQueries({ queryKey });
+		},
+	});
+
+	const handleDelete = (id: string) => {
+		if (isAuthor) deleteMutation.mutate(id);
+		setDeleted(false);
 	};
 
-	const handleUpdate = async (id: string) => {
-		if (!isAuthor) {
-			toast.error("You are not authorized to update this tweet.", {
-				position: "top-center",
-			});
-			return;
-		}
-		const res = await updateTweet(id, {
-			...data,
-			updated_at: new Date().toISOString(),
-		});
-		setEdit(false); // Đóng dialog sau khi cập nhật
-		if (res.error) {
-			toast.error("Error updating tweet: " + res.error, {
-				position: "top-center",
-			});
-			return;
-		} else {
-			toast.success("Tweet updated successfully", {
-				position: "top-center",
+	const handleUpdate = (id: string) => {
+		if (isAuthor) {
+			updateMutation.mutate({
+				id,
+				updates: { ...data, updated_at: new Date().toISOString() },
 			});
 		}
 	};
@@ -196,10 +238,16 @@ export default function TweetCard(tweet: Tables<"tweets">) {
 								<DropdownMenuContent className="w-40" align="end">
 									<DropdownMenuLabel>Actions</DropdownMenuLabel>
 									<DropdownMenuGroup>
-										<DropdownMenuItem onSelect={() => setEdit(true)} disabled={!isAuthor}>
+										<DropdownMenuItem
+											onSelect={() => setEdit(true)}
+											disabled={!isAuthor}
+										>
 											Edit
 										</DropdownMenuItem>
-										<DropdownMenuItem onSelect={() => setDeleted(true)} disabled={!isAuthor}>
+										<DropdownMenuItem
+											onSelect={() => setDeleted(true)}
+											disabled={!isAuthor}
+										>
 											Delete
 										</DropdownMenuItem>
 										<DropdownMenuItem disabled>Download</DropdownMenuItem>

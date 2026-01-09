@@ -4,7 +4,7 @@ import TweetCard, { TweetCardSkeleton } from "@/components/twitter-card";
 import { deleteTweet, getTweets } from "@/services/tweetQuery";
 import { motion } from "motion/react";
 import dayjs from "dayjs";
-import { useInfiniteQuery, useMutation } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useMemo } from "react";
 import EmptyMuted from "./empty";
@@ -18,24 +18,10 @@ const ForYou = () => {
 			getNextPageParam: (lastPage) => lastPage.nextPage,
 		});
 
-	const { error: deleteError } = useMutation({
-		mutationKey: ["deleteTweet"],
-		mutationFn: deleteTweet,
-	});
-
 	const tweets = useMemo(
 		() => data?.pages.flatMap((page) => page.data) ?? [],
 		[data]
 	);
-
-	const handleDelete = async (id: string) => {
-		const res = await deleteTweet(id);
-		if (!res) return;
-		// Xử lý xóa tweet ở đây nếu cần
-	};
-	const handleUpdate = (id: string) => {
-		// Xử lý update tweet ở đây nếu cần
-	};
 
 	if (isLoading)
 		return Array.from({ length: 5 }, (_, i) => i).map((i) => (
