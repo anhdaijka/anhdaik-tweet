@@ -25,6 +25,8 @@ import {
 } from "@/components/ui/empty";
 import { Spinner } from "@/components/ui/spinner";
 import EmptyMuted from "@/layouts/homepage/empty";
+import { cn } from "@/lib/utils";
+import { tagMap } from "@/lib/data";
 
 const useFeaturedPosts = () => {
 	return useQuery<PostPage>({
@@ -148,7 +150,7 @@ const BlogCard = (post: Omit<NotionPost, "content" | "featured">) => {
 	return (
 		<Card
 			key={post.slug}
-			className="grid grid-rows-[auto_auto_1fr_auto] overflow-hidden pt-0"
+			className="grid grid-rows-[auto_auto_1fr_auto] overflow-hidden pt-0 mx-4 md:mx-0 shadow-none hover:shadow-lg transition-shadow duration-200"
 		>
 			<div className="aspect-16/9 w-full overflow-hidden rounded-t-xl">
 				<Link
@@ -170,7 +172,7 @@ const BlogCard = (post: Omit<NotionPost, "content" | "featured">) => {
 						<Badge
 							key={tag}
 							variant="outline"
-							className="bg-primary text-primary-foreground"
+							className={cn("text-primary-foreground", tagMap[tag])}
 						>
 							{tag}
 						</Badge>

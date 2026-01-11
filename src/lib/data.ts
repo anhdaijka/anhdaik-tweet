@@ -36,11 +36,19 @@ import { User, Inbox, TwitterIcon, MessageCircle } from "lucide-react";
 import { baseUrl } from "@/configs/site";
 
 export const message = {
-	text : "The new version of Blog is already released now! Check it out!",
+	text: "The new version of Blog is already released now! Check it out!",
 	url: `${baseUrl}/blog`,
-	action: "Try it now"
+	action: "Try it now",
+};
 
-}
+export const tagMap: Record<string, string> = {
+	Love: "bg-[#FF6B6B]",
+	Thinking: "bg-[#4ECDC4]",
+	Testing: "bg-[#FFD166]",
+	Uncensored: "bg-[#118AB2]",
+	Learning: "bg-[#073B4C]",
+	Blogging: "bg-[#EF476F]",
+};
 
 export const admin = {
 	name: "Phùng Quang Anh",

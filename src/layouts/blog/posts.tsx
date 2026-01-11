@@ -30,9 +30,10 @@ import {
 } from "@/components/ui/empty";
 import { Spinner } from "@/components/ui/spinner";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { admin } from "@/lib/data";
+import { admin, tagMap } from "@/lib/data";
 import { LiquidButton } from "@/components/animations/liquid-button";
 import EmptyMuted from "@/layouts/homepage/empty";
+import { cn } from "@/lib/utils";
 const PostProps = {
 	tagline: "Latest Updates",
 	heading: "All Posts",
@@ -183,7 +184,7 @@ const Posts = () => {
 const PostCard = (post: Omit<NotionPost, "featured">) => {
 	return (
 		<>
-			<div className="relative min-h-[32rem] md:min-h-[18rem] flex w-full max-w-[26rem] md:max-w-[52rem] flex-col md:flex-row rounded-xl overflow-hidden bg-card bg-clip-border text-card-foreground shadow-md hover:shadow-2xl">
+			<div className="relative min-h-[32rem] md:min-h-[23rem] flex w-full max-w-[30rem] md:max-w-[56rem] flex-col md:flex-row rounded-xl overflow-hidden bg-card bg-clip-border text-card-foreground shadow-none hover:shadow-md transition-shadow duration-200">
 				<Link
 					href={`${baseUrl}/blog/post/${post.slug}`}
 					className="relative m-0 w-full md:w-2/5 shrink-0 overflow-hidden rounded-xl rounded-b-none md:rounded-r-none"
@@ -203,7 +204,10 @@ const PostCard = (post: Omit<NotionPost, "featured">) => {
 								<Badge
 									key={tag}
 									variant="outline"
-									className="bg-primary text-primary-foreground text-sm md:text-md"
+									className={cn(
+										"text-primary-foreground text-sm md:text-md",
+										tagMap[tag]
+									)}
 								>
 									{tag}
 								</Badge>
